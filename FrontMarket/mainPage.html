@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Stitch Design</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+        :root {
+            --primary-color: #0c7ff2;
+            --secondary-color: #e0f2fe;
+            --background-color: #f9f9f9;
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --accent-color: #bfdbfe;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+        }
+        .button_primary {
+            @apply bg-[var(--primary-color)] text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50;
+        }
+        .button_secondary {
+            @apply bg-[var(--secondary-color)] text-[var(--primary-color)] py-2 px-4 rounded-md hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50;
+        }
+        .input {
+            @apply bg-white border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500;
+        }
+        .link {
+            @apply text-[var(--primary-color)] hover:underline;
+        }
+        .badge {
+            @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[var(--secondary-color)] text-[var(--primary-color)];
+        }
+    </style>
+</head>
+<body class="bg-[var(--background-color)] text-[var(--text-primary)]">
+<div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 px-10 py-4 shadow-sm bg-white">
+<div class="flex items-center gap-10">
+<div class="flex items-center gap-3 text-[var(--text-primary)]">
+<div class="size-6 text-[var(--primary-color)]">
+<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5-10-5-10 5z"></path>
+</svg>
+</div>
+<h1 class="text-xl font-bold tracking-tight">Marketplace</h1>
+</div>
+<nav class="flex items-center gap-8">
+<a class="text-base font-medium text-[var(--text-secondary)] hover:text-[var(--primary-color)] transition-colors" href="#">Home</a>
+<a class="text-base font-medium text-[var(--text-secondary)] hover:text-[var(--primary-color)] transition-colors" href="#">Shop</a>
+<a class="text-base font-medium text-[var(--text-secondary)] hover:text-[var(--primary-color)] transition-colors" href="#">Sell</a>
+<a class="text-base font-medium text-[var(--text-secondary)] hover:text-[var(--primary-color)] transition-colors" href="#">Community</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end items-center gap-6">
+<div class="flex items-center gap-2">
+<button class="flex items-center justify-center rounded-full h-10 w-10 bg-gray-100 hover:bg-gray-200 text-[var(--text-secondary)] transition-colors">
+<svg fill="currentColor" height="22" viewBox="0 0 256 256" width="22" xmlns="http://www.w3.org/2000/svg">
+<path d="M178,32c-20.65,0-38.73,8.88-50,23.89C116.73,40.88,98.65,32,78,32A62.07,62.07,0,0,0,16,94c0,70,103.79,126.66,108.21,129a8,8,0,0,0,7.58,0C136.21,220.66,240,164,240,94A62.07,62.07,0,0,0,178,32ZM128,206.8C109.74,196.16,32,147.69,32,94A46.06,46.06,0,0,1,78,48c19.45,0,35.78,10.36,42.6,27a8,8,0,0,0,14.8,0c6.82-16.67,23.15-27,42.6-27a46.06,46.06,0,0,1,46,46C224,147.61,146.24,196.15,128,206.8Z"></path>
+</svg>
+</button>
+<button class="flex items-center justify-center rounded-full h-10 w-10 bg-gray-100 hover:bg-gray-200 text-[var(--text-secondary)] transition-colors">
+<svg fill="currentColor" height="22" viewBox="0 0 256 256" width="22" xmlns="http://www.w3.org/2000/svg"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,160H40V56H216V200ZM176,88a48,48,0,0,1-96,0,8,8,0,0,1,16,0,32,32,0,0,0,64,0,8,8,0,0,1,16,0Z"></path></svg>
+</button>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDKlUM_YaRoEnP438a7IePnGTB9N25ZVrCJ-ji5iHOhiY2h1w9aRnMqDAR63TSHmgpCJfneI4Ze2p1VmMzxjCDumIaVudC9h4RzwnItOF5P9_zOenPNByjOQsz20VKPYgS3JxDN2qEunQebersD51LXBWoLTMLSjdmCCRqE7RlhmpkoItITNbaFuj-CV22Xq_MKNy5HgWcP6ZV_fUDsjlxcua_hWj77jHnDIme0ntkxnhKWYJaUfdKrR7d0_C2vFy-ZVi4pA3xCTyI");'></div>
+</div>
+</header>
+<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<div class="text-center mb-12">
+<h1 class="text-4xl md:text-5xl font-extrabold tracking-tighter mb-4">Discover Unique Items</h1>
+<p class="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto">Your one-stop marketplace for handcrafted goods, vintage treasures, and creative supplies.</p>
+</div>
+<div class="mb-12 max-w-2xl mx-auto">
+<label class="relative block">
+<span class="sr-only">Search</span>
+<span class="absolute inset-y-0 left-0 flex items-center pl-4 text-[var(--text-secondary)]">
+<svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>
+</span>
+<input class="input w-full pl-12 pr-4 py-3 text-base" placeholder="Search for items or shops" type="text"/>
+</label>
+</div>
+<section class="mb-16">
+<h2 class="text-3xl font-bold tracking-tight mb-6">Featured Items</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="bg-white rounded-lg shadow-md overflow-hidden group">
+<div class="w-full h-56 bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDPT1AUKySAab2ZJ99sa9hF3fbi1-FsNeas8cNS1rqX589hQKdVn5Ou4yIZM5srSPsbZ1Y_Sotxzu7uIYBd0E4V0GLBAXODwgxSRemd65ddcC_ATEvbATu8pHd9Ee6o_tNI5wQZ2CelIvws6IgTdzhCLkv7xB5wh8FMxteHAB02phcolxyTO1XL7hIL4FX2IpvtsCgvPEcpDs2wVQ4rUhqZ9aBpFf_teQ12mBd6I9J1fkEUwJHpn8IhnbMw0WiDZnL-cqYxDEUWk6c");'></div>
+<div class="p-5">
+<h3 class="text-lg font-semibold text-[var(--text-primary)]">Modern Living Room Set</h3>
+<p class="text-[var(--text-secondary)] mt-1">$1,200.00</p>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-md overflow-hidden group">
+<div class="w-full h-56 bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBdWYB5IKl2IwP889vifCLRXJm88ocFRUdbAEi5JKJruwnwVOp2c9nRpSLmMBuyE6CpWkxG1vG7XKiaWVila4Tk4ZR2fGNTnRxcnvm2Ysfw0JRRNGaNEyeqocOORYa4Mj247Bh0tJ0_MxldTEnxcW0qnzhvdWMjyoMSuroKmjdkZvMW8G7EFgx17tV7HJT1YqBFKrUVnRSFtlZLWh9mpkNuewXfRbp25EXo8yhsJifNBOjYL81LdsPjhtqhv6o2HJsgYXnL2sOmo_I");'></div>
+<div class="p-5">
+<h3 class="text-lg font-semibold text-[var(--text-primary)]">Minimalist Bedroom Collection</h3>
+<p class="text-[var(--text-secondary)] mt-1">$850.00</p>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-md overflow-hidden group">
+<div class="w-full h-56 bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAhZrSR2crCpwNcekk276g07_-ip0zq_gfGnoSoeCWVRgy_QX_jvQVA9L-B3us5XA7DmW52R8DMLl3w26usbUQ_n0vZ7OYgKz443OlENNAybIerTIK9DA9PPG7TGyQ1scufogVY51R0Fsy5ZVJ55RT7GHnI8U2bFB8k7riOfhEx-xMCQbAPxIogvbnUPKbCShr--WYEa0ckHrgQc9BGsr5_UXtju1_I_rXG6YkHly7pMDrlrANA9sZYnOvYug-TFiyLx7wYe41XKcw");'></div>
+<div class="p-5">
+<h3 class="text-lg font-semibold text-[var(--text-primary)]">Cozy Home Office Setup</h3>
+<p class="text-[var(--text-secondary)] mt-1">$550.00</p>
+</div>
+</div>
+</div>
+</section>
+<section>
+<h2 class="text-3xl font-bold tracking-tight mb-6">Browse by Category</h2>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+<a class="group text-center" href="#">
+<div class="w-full aspect-square bg-cover bg-center rounded-lg mb-3 shadow-md group-hover:scale-105 transition-transform duration-300" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDYjas-kxS2Plb-PhCkD7soeZiL3Pan5tA_eo9zRZPNQIlRHLz3M656M9qYkf2ybpqKf-hqZsa1HsZw7qZxVqY0LDg7KwPkGFlJLosfbrV9-S_ny7v-mt9KgwSxtx2AvyycvKrgxlgOlMZ3Ue1h8aJrHia_mYyiBmU6ndPuzCuEKWXTUuQ9z4DUmWJhIMPkd_rv20qfUmlighQJ3HfqvWp4DcQAxNSk6lpj6f7I-MwlAqXDottTWqhN8YPagQcqrF48JwzdxHsyP_I");'></div>
+<p class="font-semibold text-[var(--text-primary)] group-hover:text-[var(--primary-color)] transition-colors">Furniture</p>
+</a>
+<a class="group text-center" href="#">
+<div class="w-full aspect-square bg-cover bg-center rounded-lg mb-3 shadow-md group-hover:scale-105 transition-transform duration-300" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuATDUKMb7YVSvthiLeZbXOu9pvL866mZINWaunVEvO0hyrL_mh2E_wxdPDDUBTPzzMTS50V7oTe-OB-_-ZTq52S7b1GvsLg2BvZPTNDFOfUYTnuwS6ErN8DSKAkAqAek6W7XBmXqR5ikw_fRwXAcSF4qHMSKBLBGg_FSGglCQU3Eg9_mrDm-_GCDWLBKsrmAqJ1UjBHH2pCzjBKsRASITX4BDb6bje_g1-TiuEJxE2FgWx0vJ6qI9h2oROGBDhvd5KOLd6WcxjNnVw");'></div>
+<p class="font-semibold text-[var(--text-primary)] group-hover:text-[var(--primary-color)] transition-colors">Decor</p>
+</a>
+<a class="group text-center" href="#">
+<div class="w-full aspect-square bg-cover bg-center rounded-lg mb-3 shadow-md group-hover:scale-105 transition-transform duration-300" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAhOkLUl21PUFgHqZvCDPAHG2yOwhvQ9V3wlrPFXxl5nlDR5uWbr4QxFUjrBn1_v8arSFOf6Y--ha1AGDxmeLanVQJrFdMgvkB3ZPPd21S0gQ0H3zPRQcyz3XKC6nLtnoAaB_9zn4inVKAPvSO7oChwrxN_xYQHNN99SQMMEuMxHSbf0XCzCoUe1DUhU3ihecKK-yyjAhWgqrq96kPfXWPI50ICFKcqDwcDQNY-cfy8ra8KyRG1KD77zvQwGGVtB7lApfiLz9ru3iA");'></div>
+<p class="font-semibold text-[var(--text-primary)] group-hover:text-[var(--primary-color)] transition-colors">Lighting</p>
+</a>
+<a class="group text-center" href="#">
+<div class="w-full aspect-square bg-cover bg-center rounded-lg mb-3 shadow-md group-hover:scale-105 transition-transform duration-300" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBvzuZpRKKPm8Xy7-lR9AY8_6uFgmIPdWe7Rjg2RnqejEFYWT9wguWxMFCQHdGPRIWDxpW3cfi9a6MOx7BthyhDn4nCaqwvwZFsdmKjVVJ5xhbmkblY_PQg12cJ5vnd-8Qf67esHhuFMAcPYTpI9Zdl6LfTFQKnAGHBn0OhQT9H9qfZe527WnV3K2RRzOPvHNLISVSTQh1fxS2x5eqnuiLJ2lKz9FGrAZ9R0iCgc7Iv4P6YK591kjOkHrx4VHKgypm9cjAXXyU27pE");'></div>
+<p class="font-semibold text-[var(--text-primary)] group-hover:text-[var(--primary-color)] transition-colors">Textiles</p>
+</a>
+<a class="group text-center" href="#">
+<div class="w-full aspect-square bg-cover bg-center rounded-lg mb-3 shadow-md group-hover:scale-105 transition-transform duration-300" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAq9WWEakBk81szi7xokuRmM63H69XawBx-PIwbVfbnudGsEAUBa6Bz8bKFnxWK2__IZxQ65XJQ5XY01p4qqTg1WwHiV0b9ar4PHrLyzxIZSrS1ESu9L4g036jMrQhf4lXdOuh4pAP3TRRf-4Ae26ei98cKwa35G-OgvJTa06icxWtFvOGXmJ0h4bSV5uTIUjsq3pa-cVG2pdqDhlDettiAmdV-Kxu0Bb3J5HrBmS-e_f6au6j4lVafVKAVhSvapYOxLGJmXsywQVo");'></div>
+<p class="font-semibold text-[var(--text-primary)] group-hover:text-[var(--primary-color)] transition-colors">Kitchen &amp; Dining</p>
+</a>
+<a class="group text-center" href="#">
+<div class="w-full aspect-square bg-cover bg-center rounded-lg mb-3 shadow-md group-hover:scale-105 transition-transform duration-300" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCPasuVTgIIdy035I6ZqRI1m30UMsuHCZKASj2pRPMxbjPBTlWcCSx3FKvM-FK1Rsw1X3it_4k4Tt72vkBxm1w7xP1XUqvjqD4c8KX4NSrXnEF2TvJ3a4uv_1UKeVjEo9c9DBCE2x-cyoIThuAsUZBWmMlFyBWrlqrjLcEMW9BuBY68_wBU6WPaZuKy6DSVRXBX_WbhRT2pZXdNnG3ep8pfW3bEUfu588uDVVuC9yroV_6B75yAQtt7O_IrH8QIOuykm0R9PIm-OMY");'></div>
+<p class="font-semibold text-[var(--text-primary)] group-hover:text-[var(--primary-color)] transition-colors">Outdoor</p>
+</a>
+</div>
+</section>
+</main>
+<footer class="bg-white border-t border-gray-200">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+<div class="mb-4 md:mb-0">
+<p class="text-[var(--text-secondary)]">© 2024 Marketplace. All rights reserved.</p>
+</div>
+<div class="flex gap-6">
+<a class="text-[var(--text-secondary)] hover:text-[var(--primary-color)] transition-colors" href="#">About</a>
+<a class="text-[var(--text-secondary)] hover:text-[var(--primary-color)] transition-colors" href="#">Contact</a>
+<a class="text-[var(--text-secondary)] hover:text-[var(--primary-color)] transition-colors" href="#">FAQ</a>
+<a class="text-[var(--text-secondary)] hover:text-[var(--primary-color)] transition-colors" href="#">Terms of Service</a>
+<a class="text-[var(--text-secondary)] hover:text-[var(--primary-color)] transition-colors" href="#">Privacy Policy</a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+</div>
+
+</body></html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Stitch Design</title>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Plus+Jakarta+Sans%3Awght%40400%3B500%3B700%3B800" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+      :root {
+        --primary-color: #0c7ff2;
+        --secondary-color: #e0f2fe;
+        --background-color: #f9f9f9;
+        --text-primary: #111827;
+        --text-secondary: #6b7280;
+        --accent-color: #bfdbfe;
+      }
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background-color: var(--background-color);
+        color: var(--text-primary);
+      }
+      .button_primary {
+        @apply bg-[var(--primary-color)] text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50;
+      }
+      .button_secondary {
+        @apply bg-[var(--secondary-color)] text-[var(--primary-color)] py-2 px-4 rounded-md hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50;
+      }
+      .input {
+        @apply bg-white border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500;
+      }
+      .typography_h1 {
+        @apply text-3xl font-bold text-[var(--text-primary)] mb-4;
+      }
+      .typography_h2 {
+        @apply text-2xl font-semibold text-[var(--text-primary)] mb-2;
+      }
+      .typography_body {
+        @apply text-base text-[var(--text-secondary)];
+      }
+      .link {
+        @apply text-[var(--primary-color)] hover:underline;
+      }
+      .icon {
+        @apply w-6 h-6 text-[var(--text-secondary)];
+      }
+      .badge {
+        @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[var(--secondary-color)] text-[var(--primary-color)];
+      }
+      .card {
+        @apply bg-white shadow-sm p-6 rounded-lg;
+      }
+    </style>
+</head>
+<body class="bg-[var(--background-color)]">
+<div class="container mx-auto px-4 py-8">
+<div class="flex flex-col md:flex-row gap-8">
+<aside class="w-full md:w-1/4">
+<div class="card p-0">
+<nav class="flex flex-col gap-1 p-4">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-[var(--secondary-color)]" href="#">
+<svg class="icon text-[var(--primary-color)]" fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M230.93,220a8,8,0,0,1-6.93,4H32a8,8,0,0,1-6.92-12c15.23-26.33,38.7-45.21,66.09-54.16a72,72,0,1,1,73.66,0c27.39,8.95,50.86,27.83,66.09,54.16A8,8,0,0,1,230.93,220Z"></path>
+</svg>
+<span class="text-sm font-medium text-[var(--primary-color)]">Account</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[var(--accent-color)]/50" href="#">
+<svg class="icon" fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.34,44-29.77,16.3-80.35-44ZM128,120,47.66,76l33.9-18.56,80.34,44ZM40,90l80,43.78v85.79L40,175.82Zm176,85.78h0l-80,43.79V133.82l32-17.51V152a8,8,0,0,0,16,0V107.55L216,90v85.77Z"></path>
+</svg>
+<span class="text-sm font-medium text-[var(--text-primary)]">Orders</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[var(--accent-color)]/50" href="#">
+<svg class="icon" fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M224,48H32A16,16,0,0,0,16,64V192a16,16,0,0,0,16,16H224a16,16,0,0,0,16-16V64A16,16,0,0,0,224,48Zm0,16V88H32V64Zm0,128H32V104H224v88Zm-16-24a8,8,0,0,1-8,8H168a8,8,0,0,1,0-16h32A8,8,0,0,1,208,168Zm-64,0a8,8,0,0,1-8,8H120a8,8,0,0,1,0-16h16A8,8,0,0,1,144,168Z"></path>
+</svg>
+<span class="text-sm font-medium text-[var(--text-primary)]">Payments</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[var(--accent-color)]/50" href="#">
+<svg class="icon" fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"></path>
+</svg>
+<span class="text-sm font-medium text-[var(--text-primary)]">Notifications</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-[var(--accent-color)]/50" href="#">
+<svg class="icon" fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm88-29.84q.06-2.16,0-4.32l14.92-18.64a8,8,0,0,0,1.48-7.06,107.21,107.21,0,0,0-10.88-26.25,8,8,0,0,0-6-3.93l-23.72-2.64q-1.48-1.56-3-3L186,40.54a8,8,0,0,0-3.94-6,107.71,107.71,0,0,0-26.25-10.87,8,8,0,0,0-7.06,1.49L130.16,40Q128,40,125.84,40L107.2,25.11a8,8,0,0,0-7.06-1.48A107.6,107.6,0,0,0,73.89,34.51a8,8,0,0,0-3.93,6L67.32,64.27q-1.56,1.49-3,3L40.54,70a8,8,0,0,0-6,3.94,107.71,107.71,0,0,0-10.87,26.25,8,8,0,0,0,1.49,7.06L40,125.84Q40,128,40,130.16L25.11,148.8a8,8,0,0,0-1.48,7.06,107.21,107.21,0,0,0,10.88,26.25,8,8,0,0,0,6,3.93l23.72,2.64q1.49,1.56,3,3L70,215.46a8,8,0,0,0,3.94,6,107.71,107.71,0,0,0,26.25,10.87,8,8,0,0,0,7.06-1.49L125.84,216q2.16.06,4.32,0l18.64,14.92a8,8,0,0,0,7.06,1.48,107.21,107.21,0,0,0,26.25-10.88,8,8,0,0,0,3.93-6l2.64-23.72q1.56-1.48,3-3L215.46,186a8,8,0,0,0,6-3.94,107.71,107.71,0,0,0,10.87-26.25,8,8,0,0,0-1.49-7.06Zm-16.1-6.5a73.93,73.93,0,0,1,0,8.68,8,8,0,0,0,1.74,5.48l14.19,17.73a91.57,91.57,0,0,1-6.23,15L187,173.11a8,8,0,0,0-5.1,2.64,74.11,74.11,0,0,1-6.14,6.14,8,8,0,0,0-2.64,5.1l-2.51,22.58a91.32,91.32,0,0,1-15,6.23l-17.74-14.19a8,8,0,0,0-5-1.75h-.48a73.93,73.93,0,0,1-8.68,0,8,8,0,0,0-5.48,1.74L100.45,215.8a91.57,91.57,0,0,1-15-6.23L82.89,187a8,8,0,0,0-2.64-5.1,74.11,74.11,0,0,1-6.14-6.14,8,8,0,0,0-5.1-2.64L46.43,170.6a91.32,91.32,0,0,1-6.23-15l14.19-17.74a8,8,0,0,0,1.74-5.48,73.93,73.93,0,0,1,0-8.68,8,8,0,0,0-1.74-5.48L40.2,100.45a91.57,91.57,0,0,1,6.23-15L69,82.89a8,8,0,0,0,5.1-2.64,74.11,74.11,0,0,1,6.14-6.14A8,8,0,0,0,82.89,69L85.4,46.43a91.32,91.32,0,0,1,15-6.23l17.74,14.19a8,8,0,0,0,5.48,1.74,73.93,73.93,0,0,1,8.68,0,8,8,0,0,0,5.48-1.74L155.55,40.2a91.57,91.57,0,0,1,15,6.23L173.11,69a8,8,0,0,0,2.64,5.1,74.11,74.11,0,0,1,6.14,6.14,8,8,0,0,0,5.1,2.64l22.58,2.51a91.32,91.32,0,0,1,6.23,15l-14.19,17.74A8,8,0,0,0,199.87,123.66Z"></path>
+</svg>
+<span class="text-sm font-medium text-[var(--text-primary)]">Settings</span>
+</a>
+</nav>
+</div>
+</aside>
+<main class="w-full md:w-3/4">
+<div class="card space-y-8">
+<div>
+<h1 class="typography_h1">Account</h1>
+<div class="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-32 w-32 shrink-0" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAH_OzJemjvWibjq-vfe3Iv5RxuB0QVmw2TeLKNrgstn0lj53TGmsYS8vH9no8N68I0CnFtCaGV2g0FEoGZDs9H2ttkeEy5Q3epOgL-MiUCePxuR-cNiZ74_1kz-RDHDnlD071f03gwVBFn8yNmK9f22SGEVtsHqYx_-quzXQlEE1bSHcmMUU8a6i16IQnHPt-LSJ5nL2nBwmzAE1Cn395SsQgIIOuX6VESgdrrWPQIdVK0F5HZpAFH9HyVlXCdB6vok3k42deVLeU");'></div>
+<div class="flex-grow">
+<h2 class="text-2xl font-bold text-[var(--text-primary)]">Sophia Carter</h2>
+<p class="typography_body">Joined in 2021</p>
+</div>
+<div class="flex gap-2">
+<button class="button_secondary">Change Picture</button>
+</div>
+</div>
+</div>
+<hr class="border-gray-200"/>
+<div>
+<h2 class="typography_h2">Personal Information</h2>
+<form class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+<div class="flex flex-col">
+<label class="text-sm font-medium text-[var(--text-primary)] mb-2" for="name">Name</label>
+<input class="input" id="name" type="text" value="Sophia Carter"/>
+</div>
+<div class="flex flex-col">
+<label class="text-sm font-medium text-[var(--text-primary)] mb-2" for="email">Email</label>
+<input class="input" id="email" type="email" value="sophia.carter@example.com"/>
+</div>
+<div class="flex flex-col">
+<label class="text-sm font-medium text-[var(--text-primary)] mb-2" for="phone">Phone Number</label>
+<input class="input" id="phone" type="tel" value="+1 (555) 123-4567"/>
+</div>
+<div class="flex flex-col">
+<label class="text-sm font-medium text-[var(--text-primary)] mb-2" for="address">Address</label>
+<input class="input" id="address" type="text" value="123 Main St, Anytown, USA"/>
+</div>
+</form>
+</div>
+<hr class="border-gray-200"/>
+<div class="flex justify-end">
+<button class="button_primary">Save Changes</button>
+</div>
+</div>
+</main>
+</div>
+</div>
+
+</body></html>
