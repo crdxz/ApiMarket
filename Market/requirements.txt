@@ -4,4 +4,7 @@ psycopg2-binary
 Flask-Migrate
 Flask-JWT-Extended
 Werkzeug
-Flask-CORS 
+Flask-CORS
+pytest
+pytest-flask
+pytest-cov 
