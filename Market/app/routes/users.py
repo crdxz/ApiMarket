@@ -101,6 +101,19 @@ def get_users():
 @users_bp.route('/test', methods=['GET'])
 def test():
     """Test endpoint to verify the API is working"""
-    return jsonify({'message': 'Users API is working!'}), 200 
+    return jsonify({'message': 'Users API is working!'}), 200
+
+@users_bp.route('/health', methods=['GET'])
+def health_check():
+    """Health check endpoint"""
+    return jsonify({
+        'status': 'healthy',
+        'message': 'API is running correctly',
+        'endpoints': {
+            'login': '/users/login',
+            'register': '/users/register',
+            'test': '/users/test'
+        }
+    }), 200 
 
 
