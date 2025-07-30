@@ -42,5 +42,8 @@ def create_app():
     
     from .routes.transactions import transactions_bp
     app.register_blueprint(transactions_bp, url_prefix='/api/transactions')
+    
+    from .routes.product_images import product_images_bp
+    app.register_blueprint(product_images_bp, url_prefix='/api/product-images')
 
     return app 
