@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Marketplace Product Details</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<style type="text/tailwindcss">
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Marketplace Product Details</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <style type="text/tailwindcss">
       :root {
         --primary-color: #dce8f3;
         --secondary-color: #f2f5f7;
@@ -58,77 +59,243 @@
     </style>
 </head>
 <body class="bg-[var(--background-color)]">
-<div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
-<div class="layout-container flex h-full grow flex-col">
-<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[var(--secondary-color)] px-10 py-3">
-<div class="flex items-center gap-4 text-[var(--text-primary)]">
-<div class="size-6 text-[var(--primary-color)]">
-<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path d="M12 2L2 7V17L12 22L22 17V7L12 2ZM4 8.236L12 12.511L20 8.236V15.764L12 20.039L4 15.764V8.236Z"></path>
-</svg>
-</div>
-<h2 class="text-xl font-bold leading-tight tracking-tight">Marketplace</h2>
-</div>
-<div class="flex flex-1 justify-center px-8">
-<div class="w-full max-w-lg">
-<label class="relative text-gray-400 focus-within:text-gray-600 block">
-<svg class="pointer-events-none w-5 h-5 absolute top-1/2 transform -translate-y-1/2 left-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-<path clip-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" fill-rule="evenodd"></path>
-</svg>
-<input class="form-input w-full rounded-full pl-10 pr-4 py-2 border-2 border-[var(--secondary-color)] focus:border-[var(--primary-color)] focus:ring-0" placeholder="Search for items..." type="text"/>
-</label>
-</div>
-</div>
-<div class="flex items-center gap-4">
-<button class="button_secondary p-2.5 rounded-full">
-<svg class="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-<path d="M9.653 16.915l-.005-.003-.019-.01a20.759 20.759 0 01-1.162-.682 22.045 22.045 0 01-2.582-1.9-22.23 22.23 0 01-2.949-2.585 22.319 22.319 0 01-2.64-2.949A22.045 22.045 0 011 8.815a20.759 20.759 0 01-.682-1.162l-.01-.019-.003-.005a.75.75 0 01.712-1.042h16.5a.75.75 0 01.712 1.042l-.003.005-.01.019a20.759 20.759 0 01-.682 1.162 22.045 22.045 0 01-1.9 2.582 22.23 22.23 0 01-2.585 2.949 22.319 22.319 0 01-2.949 2.64 22.045 22.045 0 01-1.157.677l-.019.01-.005.003a.75.75 0 01-.712-.042zM4.625 7.5c0 .762.247 1.48.69 2.086l.003.004.004.003.004.003a11.18 11.18 0 00.569.569l.003.004.003.004.004.003c.51.378 1.058.68 1.636.885l.004.001.004.001h4.25c.578-.205 1.126-.507 1.636-.885l.004-.001.004-.001a11.18 11.18 0 00.569-.569l.003-.004.004-.003.004-.003c.443-.606.69-1.324.69-2.086h-8.5z"></path>
-</svg>
-</button>
-<button class="button_secondary p-2.5 rounded-full">
-<svg class="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-<path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path>
-</svg>
-</button>
-<img alt="User profile picture" class="avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjfUeYIbAh0ORqfmX8ssPOygbeiuWxBbzsHI8YLDTFi06FeQ3EjC6KcUHFGyMuFVNrMXfR6bwSp0sWYv-Ajtw0NtEbCK3k13DrneprDvX0XDL7VT6P2j1HRV6Y9gV6H58j4Oo0R5wR3Z31eyfX_Ljx9GPOxcAc6JNzjxRAgR1-nmDfBOBMvPnmvUM8maCHEHOJlT9JYNzZmdQItoxjNrfpIjtFwBULDPM0MK3QaEpjWdtGxxHpwGB6m93Xce6azhsBxbCbz6Cp5PPw"/>
-</div>
-</header>
-<main class="main_container">
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-<div class="lg:col-span-2">
-<div class="grid grid-cols-2 grid-rows-2 gap-4 h-[500px]">
-<div class="col-span-2 row-span-2 bg-cover bg-center rounded-lg" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCwNdd0ezchipxPZ37pWZ94M6kXm6MnFdZEJaLSimcqXsl-caE-55GGQnRW7PubN9WPYGCi9a4fiAuhBDu1IQ3HzI76U2LnwQ-wprO0cP6TpkVC1b_oZ2sZ3WCKYZPmurGccZaWghc9zfmd9aKB6-CGw5O5fnGilhLGsS84tu2lJjhxzq1BE55dfWQOFdiRRcUnXs6Z0lNO8K7U10SxY-m_DrmzL449ymuVa1FBGh2pNGEXRyrQWJTRI4YrBePPA-__6jHLQwiJOddB");'></div>
-<div class="bg-cover bg-center rounded-lg hidden" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBUe53fTtUh_CycKbQRr1XsusUwF3Hp9xvoUBg7Z2L2B-REvwlmJG6j_5Pa4xWpdUohR9BHlajPmJ4nLcj1r4Qo8YMNHScGYnbLcNmlTONXecx57REqmd7t__wPbtxtczpOhK0ABv9TjjptqgSqa_8bixaiGRzIY57i-e5DuSWIpOooi8zHxahUT77Aj6Reu-fSO6ct6gDxcsyERJKqbVAtZpjcfnHog_m_5dAXY4Mw6N-uYAMAH8BC_LDDdISwZW9GYUUw67pY6_ef");'></div>
-<div class="bg-cover bg-center rounded-lg hidden" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBeXY7ccCJac_h_XFHXR8i_bPoHGv2sZQxe1T3VJoRpkrdF_Yl4xxArw_gdipCM0HDPb9v-36xZ6WomFvWgdjt6Xv7pQqiZkCwtTmu8o15yit8ovX-Zm76lgYF52tO5SZn5fGPJW-fTPdONxYmk5xz2f_k9pPjlGC2EaSsGE4V4XSo8AjUi6fvqNbIYyL3yibLMqI9Gqs0AEy2WDuAudqH64L9Fu5OqyCZk0gV5jlHs-tYqjWaUhve0oTiHvEHlxSQQLlRRQ-_beh67");'></div>
-</div>
-</div>
-<div class="card">
-<div class="flex items-center justify-between mb-4">
-<span class="badge">Used</span>
-<span class="text-3xl font-bold text-[var(--text-primary)]">$450</span>
-</div>
-<h1 class="typography_h1">Used Laptop - Excellent Condition</h1>
-<p class="typography_body mb-6">
-                This laptop is in excellent condition and has been well-maintained. It's perfect for students or professionals looking for a reliable and affordable device. The
-                battery life is still strong, and it comes with the original charger. No scratches or dents. Ready for immediate use.
-              </p>
-<div class="border-t border-[var(--secondary-color)] pt-6">
-<h2 class="typography_h2">Seller Information</h2>
-<div class="flex items-center gap-4 mt-4">
-<img alt="Seller's profile picture" class="avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA11A3OWxxdGqJQIvo3zM93KRT99BTfNcg7Pt5Vd47C563TcaxTRdR5Ut-F1uity5QeWY9YKN7_PHDB_-C22MnMW-64VyWKS-vPquHR0kVZHpS443aOMJVUSum9StQya-W3YreqaXBdeVtLaC2P6TD7wJSduTeXzb1hy5Tj-FygJi8MjNbeOHF4LUQz0MWFIQMh4eosOpMMgP2kKRWBZjFBnbF43qbcjTzSoFIpOiIZIWqxy1tT6EWqmQ4BDYskjJooe6Cy3y2y7wsS"/>
-<div>
-<p class="font-semibold text-[var(--text-primary)]">Sophia Clark</p>
-<p class="text-sm text-[var(--text-secondary)]">Joined 2021</p>
-</div>
-</div>
-<button class="button_primary w-full mt-6">
-                  Message Seller
-                </button>
-</div>
-</div>
-</div>
-</main>
-</div>
-</div>
+    <div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
+        <div class="layout-container flex h-full grow flex-col">
+            <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[var(--secondary-color)] px-10 py-3">
+                <div class="flex items-center gap-4 text-[var(--text-primary)]">
+                    <div class="size-6 text-[var(--primary-color)]">
+                        <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7V17L12 22L22 17V7L12 2ZM4 8.236L12 12.511L20 8.236V15.764L12 20.039L4 15.764V8.236Z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-bold leading-tight tracking-tight">Marketplace</h2>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button onclick="window.location.href='mainPage.html'" class="button_secondary">
+                        <svg class="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"></path>
+                        </svg>
+                        Volver
+                    </button>
+                </div>
+            </header>
+            
+            <main class="main_container">
+                <!-- Loading state -->
+                <div id="loadingState" class="text-center py-8">
+                    <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--primary-color)]"></div>
+                    <p class="mt-2 text-[var(--text-secondary)]">Cargando producto...</p>
+                </div>
 
-</body></html>
+                <!-- Error state -->
+                <div id="errorState" class="text-center py-8 hidden">
+                    <p class="text-red-600">Error al cargar el producto</p>
+                    <button onclick="loadProduct()" class="button_primary mt-4">Reintentar</button>
+                </div>
+
+                <!-- Product content -->
+                <div id="productContent" class="grid grid-cols-1 lg:grid-cols-3 gap-8 hidden">
+                    <div class="lg:col-span-2">
+                        <div class="grid grid-cols-2 grid-rows-2 gap-4 h-[500px]">
+                            <div id="mainImage" class="col-span-2 row-span-2 bg-cover bg-center rounded-lg" style='background-image: url("https://via.placeholder.com/600x400/CCCCCC/666666?text=Producto")'></div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="flex items-center justify-between mb-4">
+                            <span id="productCategory" class="badge">Categoría</span>
+                            <span id="productPrice" class="text-3xl font-bold text-[var(--text-primary)]">$0</span>
+                        </div>
+                        <h1 id="productTitle" class="typography_h1">Título del Producto</h1>
+                        <p id="productDescription" class="typography_body mb-6">
+                            Descripción del producto...
+                        </p>
+                        <div class="mb-4">
+                            <p class="text-sm text-[var(--text-secondary)]">Stock disponible: <span id="productStock" class="font-semibold">0</span></p>
+                        </div>
+                        <div class="border-t border-[var(--secondary-color)] pt-6">
+                            <h2 class="typography_h2">Información del Vendedor</h2>
+                            <div class="flex items-center gap-4 mt-4">
+                                <div id="sellerAvatar" class="avatar" style='background-image: url("https://via.placeholder.com/48x48/CCCCCC/666666?text=U")'></div>
+                                <div>
+                                    <p id="sellerName" class="font-semibold text-[var(--text-primary)]">Nombre del Vendedor</p>
+                                    <p id="sellerEmail" class="text-sm text-[var(--text-secondary)]">email@example.com</p>
+                                    <p id="sellerJoinDate" class="text-sm text-[var(--text-secondary)]">Miembro desde 2021</p>
+                                </div>
+                            </div>
+                            <div id="sellerContact" class="mt-4 space-y-2">
+                                <p id="sellerPhone" class="text-sm text-[var(--text-secondary)] hidden">
+                                    <svg class="inline w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+                                    </svg>
+                                    <span id="sellerPhoneText"></span>
+                                </p>
+                                <p id="sellerAddress" class="text-sm text-[var(--text-secondary)] hidden">
+                                    <svg class="inline w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span id="sellerAddressText"></span>
+                                </p>
+                            </div>
+                            <button id="contactSellerBtn" class="button_primary w-full mt-6">
+                                Contactar Vendedor
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // Configuración de la API
+        const API_BASE_URL = 'http://localhost:5000/api';
+        
+        // Elementos del DOM
+        const loadingState = document.getElementById('loadingState');
+        const errorState = document.getElementById('errorState');
+        const productContent = document.getElementById('productContent');
+        const productTitle = document.getElementById('productTitle');
+        const productDescription = document.getElementById('productDescription');
+        const productPrice = document.getElementById('productPrice');
+        const productStock = document.getElementById('productStock');
+        const productCategory = document.getElementById('productCategory');
+        const sellerName = document.getElementById('sellerName');
+        const sellerEmail = document.getElementById('sellerEmail');
+        const sellerJoinDate = document.getElementById('sellerJoinDate');
+        const sellerPhone = document.getElementById('sellerPhone');
+        const sellerPhoneText = document.getElementById('sellerPhoneText');
+        const sellerAddress = document.getElementById('sellerAddress');
+        const sellerAddressText = document.getElementById('sellerAddressText');
+        const contactSellerBtn = document.getElementById('contactSellerBtn');
+
+        // Variables globales
+        let productData = null;
+        let sellerData = null;
+
+        // Cargar producto al iniciar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+            
+            if (!productId) {
+                showError('No se especificó un ID de producto');
+                return;
+            }
+            
+            loadProduct(productId);
+        });
+
+        // Función para cargar el producto
+        async function loadProduct(productId) {
+            try {
+                showLoading(true);
+                
+                const response = await fetch(`${API_BASE_URL}/products/${productId}`);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    productData = data;
+                    sellerData = data.seller;
+                    renderProduct();
+                } else {
+                    showError(data.error || 'Error al cargar el producto');
+                }
+            } catch (error) {
+                console.error('Error al conectar con la API:', error);
+                showError('Error de conexión');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        // Renderizar el producto
+        function renderProduct() {
+            if (!productData) return;
+
+            // Actualizar título de la página
+            document.title = `${productData.title} - Marketplace`;
+
+            // Información del producto
+            productTitle.textContent = productData.title;
+            productDescription.textContent = productData.description || 'Sin descripción disponible';
+            productPrice.textContent = `$${parseFloat(productData.price).toFixed(2)}`;
+            productStock.textContent = productData.stock;
+
+            // Categoría
+            if (productData.category) {
+                productCategory.textContent = productData.category.name;
+            } else {
+                productCategory.textContent = 'Sin categoría';
+            }
+
+            // Información del vendedor
+            if (sellerData) {
+                sellerName.textContent = sellerData.name;
+                sellerEmail.textContent = sellerData.email;
+                
+                // Fecha de registro
+                if (sellerData.created_at) {
+                    const joinDate = new Date(sellerData.created_at);
+                    sellerJoinDate.textContent = `Miembro desde ${joinDate.getFullYear()}`;
+                } else {
+                    sellerJoinDate.textContent = 'Miembro reciente';
+                }
+
+                // Teléfono (si está disponible)
+                if (sellerData.phone && sellerData.phone.trim() !== '') {
+                    sellerPhoneText.textContent = sellerData.phone;
+                    sellerPhone.classList.remove('hidden');
+                } else {
+                    sellerPhone.classList.add('hidden');
+                }
+
+                // Dirección (si está disponible)
+                if (sellerData.address && sellerData.address.trim() !== '') {
+                    sellerAddressText.textContent = sellerData.address;
+                    sellerAddress.classList.remove('hidden');
+                } else {
+                    sellerAddress.classList.add('hidden');
+                }
+            } else {
+                sellerName.textContent = 'Vendedor no disponible';
+                sellerEmail.textContent = 'Información no disponible';
+                sellerJoinDate.textContent = '';
+                sellerPhone.classList.add('hidden');
+                sellerAddress.classList.add('hidden');
+            }
+
+            // Mostrar contenido
+            productContent.classList.remove('hidden');
+        }
+
+        // Mostrar estado de carga
+        function showLoading(show) {
+            if (show) {
+                loadingState.classList.remove('hidden');
+                errorState.classList.add('hidden');
+                productContent.classList.add('hidden');
+            } else {
+                loadingState.classList.add('hidden');
+            }
+        }
+
+        // Mostrar error
+        function showError(message) {
+            errorState.querySelector('p').textContent = message;
+            errorState.classList.remove('hidden');
+            loadingState.classList.add('hidden');
+            productContent.classList.add('hidden');
+        }
+
+        // Event listener para el botón de contactar vendedor
+        contactSellerBtn.addEventListener('click', function() {
+            if (sellerData && sellerData.email) {
+                // Abrir cliente de correo predeterminado
+                window.open(`mailto:${sellerData.email}?subject=Consulta sobre ${productData.title}`, '_blank');
+            } else {
+                alert('No se puede contactar al vendedor en este momento.');
+            }
+        });
+    </script>
+</body>
+</html>

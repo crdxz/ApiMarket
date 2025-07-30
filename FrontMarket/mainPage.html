@@ -304,8 +304,8 @@ function createProductCard(product) {
     
     // Agregar evento de clic para ver detalles del producto
     card.addEventListener('click', function() {
-        // Aquí puedes redirigir a la página de detalles del producto
-        console.log('Producto seleccionado:', product);
+        // Redirigir a la página de detalles del producto con el ID
+        window.location.href = `productPage.html?id=${product.id}`;
     });
     
     return card;

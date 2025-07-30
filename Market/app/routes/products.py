@@ -77,9 +77,34 @@ def create_product():
 
 @products_bp.route('/<int:product_id>', methods=['GET'])
 def get_product(product_id):
-    """Get a specific product by ID"""
+    """Get a specific product by ID with seller and category information"""
     try:
         product = Product.query.get_or_404(product_id)
+        
+        # Get seller information
+        from ..models import User
+        seller = User.query.get(product.seller_id)
+        seller_info = None
+        if seller:
+            seller_info = {
+                'id': seller.id,
+                'name': seller.name,
+                'email': seller.email,
+                'phone': seller.phone,
+                'address': seller.address,
+                'user_type': seller.user_type,
+                'created_at': seller.created_at.isoformat() if seller.created_at else None
+            }
+        
+        # Get category information
+        category = Category.query.get(product.category_id)
+        category_info = None
+        if category:
+            category_info = {
+                'id': category.id,
+                'name': category.name,
+                'description': category.description
+            }
         
         return jsonify({
             'id': product.id,
@@ -88,7 +113,9 @@ def get_product(product_id):
             'price': float(product.price),
             'stock': product.stock,
             'category_id': product.category_id,
+            'category': category_info,
             'seller_id': product.seller_id,
+            'seller': seller_info,
             'is_active': product.is_active,
             'created_at': product.created_at.isoformat() if product.created_at else None
         }), 200

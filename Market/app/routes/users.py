@@ -98,6 +98,25 @@ def get_users():
     except Exception as e:
         return jsonify({'error': 'Failed to get users', 'details': str(e)}), 500
 
+@users_bp.route('/<int:user_id>', methods=['GET'])
+def get_user(user_id):
+    """Get a specific user by ID"""
+    try:
+        user = User.query.get_or_404(user_id)
+        
+        return jsonify({
+            'id': user.id,
+            'name': user.name,
+            'email': user.email,
+            'phone': user.phone,
+            'address': user.address,
+            'user_type': user.user_type,
+            'created_at': user.created_at.isoformat() if user.created_at else None
+        }), 200
+        
+    except Exception as e:
+        return jsonify({'error': 'Failed to get user', 'details': str(e)}), 500
+
 @users_bp.route('/test', methods=['GET'])
 def test():
     """Test endpoint to verify the API is working"""
