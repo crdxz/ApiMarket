@@ -173,6 +173,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Cargar información del usuario
     try {
         const user = JSON.parse(userData);
+        
+        // Verificar si el usuario es vendedor y redirigir al dashboard
+        if (user.user_type === 'seller') {
+            window.location.href = 'dashboardSellerPahe.html';
+            return;
+        }
+        
         userName.textContent = user.name || 'Usuario';
         userEmail.textContent = user.email || 'usuario@example.com';
     } catch (error) {

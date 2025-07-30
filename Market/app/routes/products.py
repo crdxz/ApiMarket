@@ -36,6 +36,31 @@ def get_products():
     except Exception as e:
         return jsonify({'error': 'Failed to get products', 'details': str(e)}), 500
 
+@products_bp.route('/seller/<int:seller_id>', methods=['GET'])
+def get_products_by_seller(seller_id):
+    """Get all products by a specific seller"""
+    try:
+        products = Product.query.filter_by(seller_id=seller_id).all()
+        
+        product_list = []
+        for product in products:
+            product_list.append({
+                'id': product.id,
+                'title': product.title,
+                'description': product.description,
+                'price': float(product.price),
+                'stock': product.stock,
+                'category_id': product.category_id,
+                'seller_id': product.seller_id,
+                'is_active': product.is_active,
+                'created_at': product.created_at.isoformat() if product.created_at else None
+            })
+        
+        return jsonify({'products': product_list}), 200
+        
+    except Exception as e:
+        return jsonify({'error': 'Failed to get products by seller', 'details': str(e)}), 500
+
 @products_bp.route('/', methods=['POST'])
 def create_product():
     """Create a new product"""
@@ -162,10 +187,10 @@ def update_product(product_id):
 
 @products_bp.route('/<int:product_id>', methods=['DELETE'])
 def delete_product(product_id):
-    """Delete a product (soft delete by setting is_active to False)"""
+    """Delete a product permanently"""
     try:
         product = Product.query.get_or_404(product_id)
-        product.is_active = False
+        db.session.delete(product)
         db.session.commit()
         
         return jsonify({'message': 'Product deleted successfully'}), 200

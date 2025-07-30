@@ -1,97 +1,130 @@
-# Frontend Marketplace - Sistema de Login
+# FrontMarket - Frontend del Marketplace
 
-## 📋 Descripción
+Este es el frontend de la aplicación Marketplace, construido con HTML, CSS (Tailwind) y JavaScript vanilla.
 
-Este frontend incluye un sistema completo de login conectado a la API de Marketplace con las siguientes características:
+## 🚀 Funcionalidades Implementadas
 
-- ✅ Formulario de login funcional
-- ✅ Conexión con API REST
-- ✅ Modal de errores
-- ✅ Spinner de carga
-- ✅ Redirección automática
-- ✅ Persistencia de sesión
+### ✅ Autenticación y Redirección por Tipo de Usuario
+- **Login inteligente**: El sistema redirige automáticamente según el tipo de usuario
+  - **Vendedores** → `dashboardSellerPahe.html` (Dashboard de vendedor)
+  - **Compradores** → `mainPage.html` (Página principal de compras)
 
-## 🚀 Cómo usar
+### ✅ Dashboard de Vendedor
+- **Productos dinámicos**: Muestra todos los productos publicados por el vendedor logueado
+- **Gestión de productos**: Funcionalidad para editar y eliminar productos
+- **Estados de productos**: Visualización del estado activo/inactivo
+- **Información detallada**: Precios, fechas de publicación, stock
 
-### 1. Iniciar la API
+### ✅ Página Principal (Compradores)
+- **Filtrado por categorías**: Navegación por categorías de productos
+- **Búsqueda en tiempo real**: Filtrado de productos por nombre
+- **Interfaz responsiva**: Diseño adaptativo para diferentes dispositivos
 
+## 📁 Estructura de Archivos
+
+```
+FrontMarket/
+├── loginPage.html              # Página de login con redirección inteligente
+├── mainPage.html               # Página principal para compradores
+├── dashboardSellerPahe.html    # Dashboard para vendedores
+├── productPage.html            # Página de detalle de producto
+├── accountPage.html            # Página de cuenta de usuario
+├── test-redirect.html          # Página de prueba para verificar redirecciones
+└── README.md                   # Este archivo
+```
+
+## 🛠️ Configuración y Uso
+
+### 1. Preparar la Base de Datos
 ```bash
 # Navegar al directorio de la API
 cd Market
 
 # Activar el entorno virtual (si existe)
-# En Windows:
+# Windows:
 venv\Scripts\activate
-# En Linux/Mac:
+# Linux/Mac:
 source venv/bin/activate
 
 # Instalar dependencias
 pip install -r requirements.txt
 
-# Iniciar la API
+# Insertar datos de prueba
+python insert_test_data.py
+```
+
+### 2. Iniciar la API
+```bash
+# En el directorio Market/
 python start_api.py
 ```
 
-### 2. Probar la conexión
+### 3. Probar las Funcionalidades
 
-1. Abrir `test-api.html` en tu navegador
-2. Hacer clic en "Probar Conexión" para verificar que la API esté funcionando
-3. Usar el formulario de test para probar el login
+#### Opción A: Usar la página de prueba
+1. Abrir `test-redirect.html` en el navegador
+2. Usar las credenciales de prueba:
+   - **Vendedor**: `vendedor@test.com` / `password123`
+   - **Comprador**: `comprador@test.com` / `password123`
 
-### 3. Usar el sistema de login
+#### Opción B: Usar el flujo normal
+1. Abrir `loginPage.html`
+2. Iniciar sesión con las credenciales de prueba
+3. Ser redirigido automáticamente según el tipo de usuario
 
-1. Abrir `loginPage.html` en tu navegador
-2. Ingresar credenciales válidas
-3. En caso de éxito, serás redirigido a `mainPage.html`
-4. En caso de error, aparecerá un modal con el mensaje de error
+## 🔧 API Endpoints Utilizados
 
-## 📁 Archivos principales
+### Autenticación
+- `POST /api/users/login` - Login de usuario
 
-- `loginPage.html` - Página de login principal
-- `mainPage.html` - Página principal después del login
-- `test-api.html` - Página de prueba de la API
-- `accountPage.html` - Página de cuenta de usuario
-- `productPage.html` - Página de productos
+### Productos
+- `GET /api/products/` - Obtener todos los productos
+- `GET /api/products/seller/{seller_id}` - Obtener productos por vendedor
+- `DELETE /api/products/{product_id}` - Eliminar producto
 
-## 🔧 Configuración
+### Categorías
+- `GET /api/categories/` - Obtener todas las categorías
 
-### URL de la API
-La URL de la API está configurada en `loginPage.html`:
-```javascript
-const API_BASE_URL = 'http://localhost:5000/api';
-```
+## 🎯 Flujo de Usuario
 
-### Endpoints utilizados
-- `POST /api/users/login` - Inicio de sesión
-- `GET /api/users/health` - Verificación de estado de la API
+### Para Vendedores:
+1. Login con credenciales de vendedor
+2. Redirección automática al dashboard
+3. Visualización de productos publicados
+4. Gestión de productos (editar/eliminar)
 
-## 🎨 Características del UI
+### Para Compradores:
+1. Login con credenciales de comprador
+2. Redirección automática a la página principal
+3. Navegación por categorías
+4. Búsqueda de productos
 
-- **Diseño responsive** con Tailwind CSS
-- **Modal de errores** con animaciones
-- **Spinner de carga** durante las peticiones
-- **Validación de formularios** en tiempo real
-- **Persistencia de sesión** con localStorage
+## 🐛 Solución de Problemas
 
-## 🐛 Solución de problemas
+### Error de Conexión a la API
+- Verificar que la API esté ejecutándose en `http://localhost:5000`
+- Revisar la consola del navegador para errores de CORS
 
-### Error de conexión
-1. Verificar que la API esté ejecutándose en `http://localhost:5000`
-2. Verificar que CORS esté habilitado en la API
-3. Usar `test-api.html` para diagnosticar problemas
+### Problemas de Redirección
+- Limpiar el localStorage del navegador
+- Verificar que los datos de usuario incluyan `user_type`
 
-### Error de login
-1. Verificar que las credenciales sean correctas
-2. Verificar que el usuario exista en la base de datos
-3. Revisar la consola del navegador para errores detallados
+### Productos No Aparecen
+- Verificar que existan productos en la base de datos
+- Comprobar que el usuario tenga el tipo correcto (`seller` o `buyer`)
 
-### Problemas de redirección
-1. Verificar que `mainPage.html` exista en el mismo directorio
-2. Verificar que no haya errores de JavaScript en la consola
+## 📝 Notas de Desarrollo
 
-## 📝 Notas de desarrollo
+- **CORS**: La API tiene CORS habilitado para desarrollo
+- **LocalStorage**: Se usa para persistir la sesión del usuario
+- **Responsive**: Todas las páginas son responsivas usando Tailwind CSS
+- **Error Handling**: Manejo de errores en todas las operaciones de red
 
-- El sistema usa `localStorage` para persistir la sesión
-- Los errores se muestran en un modal modal
-- El formulario incluye validación básica
-- La API debe estar ejecutándose para que funcione el login 
+## 🔮 Próximas Mejoras
+
+- [ ] Implementar registro de usuarios
+- [ ] Añadir funcionalidad de crear productos
+- [ ] Implementar sistema de mensajes
+- [ ] Añadir filtros avanzados
+- [ ] Implementar paginación
+- [ ] Añadir sistema de valoraciones 

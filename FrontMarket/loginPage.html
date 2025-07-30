@@ -173,8 +173,12 @@ async function loginUser(email, password) {
             localStorage.setItem('user', JSON.stringify(data.user));
             localStorage.setItem('isLoggedIn', 'true');
             
-            // Redirigir a mainPage.html
-            window.location.href = 'mainPage.html';
+            // Redirigir según el tipo de usuario
+            if (data.user.user_type === 'seller') {
+                window.location.href = 'dashboardSellerPahe.html';
+            } else {
+                window.location.href = 'mainPage.html';
+            }
         } else {
             // Error en el login
             throw new Error(data.error || 'Error al iniciar sesión');
