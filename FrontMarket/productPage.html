@@ -2,37 +2,37 @@
 <html lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Stitch Design</title>
-<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<title>Marketplace Product Details</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <style type="text/tailwindcss">
       :root {
-        --primary-color: #0c7ff2;
-        --secondary-color: #e0f2fe;
-        --background-color: #f9f9f9;
-        --text-primary: #111827;
-        --text-secondary: #6b7280;
-        --accent-color: #bfdbfe;
+        --primary-color: #dce8f3;
+        --secondary-color: #f2f5f7;
+        --background-color: #ffffff;
+        --text-primary: #333333;
+        --text-secondary: #666666;
+        --accent-color: #cce0f7;
       }
       body {
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        background-color: var(--background-color);
-        color: var(--text-primary);
+        @apply font-sans bg-[var(--background-color)] text-[var(--text-primary)] rounded-lg;
+      }
+      .main_container {
+        @apply container mx-auto px-4 py-8;
       }
       .card {
         @apply bg-white rounded-lg shadow-md p-6;
       }
       .button_primary {
-        @apply bg-[var(--primary-color)] text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50;
+        @apply bg-[var(--primary-color)] hover:bg-[var(--accent-color)] text-[var(--text-primary)] font-bold py-2 px-4 rounded-lg focus:outline-none ;
       }
       .button_secondary {
-        @apply bg-[var(--secondary-color)] text-[var(--primary-color)] py-2 px-4 rounded-md hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50;
+        @apply bg-[var(--secondary-color)] hover:bg-gray-200 text-[var(--text-primary)] font-bold py-2 px-4 rounded-lg focus:outline-none ;
       }
       .input {
-        @apply bg-white border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500;
+        @apply shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none  focus:border-[var(--primary-color)];
       }
       .typography_h1 {
         @apply text-3xl font-bold text-[var(--text-primary)] mb-4;
@@ -44,209 +44,86 @@
         @apply text-base text-[var(--text-secondary)];
       }
       .link {
-        @apply text-[var(--primary-color)] hover:underline;
+        @apply text-[var(--primary-color)] hover:text-[var(--accent-color)];
+      }
+      .badge {
+        @apply inline-block bg-[var(--secondary-color)] text-[var(--text-secondary)] text-xs font-bold rounded-full px-2 py-1;
+      }
+      .avatar {
+        @apply rounded-full w-12 h-12 object-cover;
       }
       .icon {
         @apply w-6 h-6 text-[var(--text-secondary)];
       }
-      .badge {
-        @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[var(--secondary-color)] text-[var(--primary-color)];
-      }
     </style>
 </head>
-<body>
-<div class="relative flex size-full min-h-screen flex-col overflow-x-hidden">
-<div class="flex h-full grow flex-col">
-<header class="bg-white shadow-sm sticky top-0 z-20">
-<div class="container mx-auto flex items-center justify-between whitespace-nowrap px-10 py-4">
-<div class="flex items-center gap-8">
-<div class="flex items-center gap-3 text-text-primary">
-<div class="size-8 text-primary-color">
-<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-<path d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z" fill="currentColor"></path>
+<body class="bg-[var(--background-color)]">
+<div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[var(--secondary-color)] px-10 py-3">
+<div class="flex items-center gap-4 text-[var(--text-primary)]">
+<div class="size-6 text-[var(--primary-color)]">
+<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2L2 7V17L12 22L22 17V7L12 2ZM4 8.236L12 12.511L20 8.236V15.764L12 20.039L4 15.764V8.236Z"></path>
 </svg>
 </div>
-<h2 class="text-2xl font-bold tracking-tight">StyleHub</h2>
+<h2 class="text-xl font-bold leading-tight tracking-tight">Marketplace</h2>
 </div>
-<nav class="hidden md:flex items-center gap-8">
-<a class="text-text-primary text-sm font-medium hover:text-primary-color transition-colors" href="#">New</a>
-<a class="text-text-primary text-sm font-medium hover:text-primary-color transition-colors" href="#">Women</a>
-<a class="text-text-primary text-sm font-medium hover:text-primary-color transition-colors" href="#">Men</a>
-<a class="text-text-primary text-sm font-medium hover:text-primary-color transition-colors" href="#">Kids</a>
-<a class="text-text-primary text-sm font-medium hover:text-primary-color transition-colors" href="#">Accessories</a>
-<a class="text-text-primary text-sm font-medium hover:text-primary-color transition-colors" href="#">Sale</a>
-</nav>
-</div>
-<div class="flex flex-1 justify-end items-center gap-4">
-<div class="relative w-full max-w-xs">
-<div class="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary">
-<svg fill="currentColor" height="20px" viewBox="0 0 256 256" width="20px" xmlns="http://www.w3.org/2000/svg">
-<path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
+<div class="flex flex-1 justify-center px-8">
+<div class="w-full max-w-lg">
+<label class="relative text-gray-400 focus-within:text-gray-600 block">
+<svg class="pointer-events-none w-5 h-5 absolute top-1/2 transform -translate-y-1/2 left-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" fill-rule="evenodd"></path>
 </svg>
+<input class="form-input w-full rounded-full pl-10 pr-4 py-2 border-2 border-[var(--secondary-color)] focus:border-[var(--primary-color)] focus:ring-0" placeholder="Search for items..." type="text"/>
+</label>
 </div>
-<input class="input w-full pl-10 pr-4 py-2" placeholder="Search" value=""/>
 </div>
-<div class="flex gap-2">
-<button class="button_secondary p-2.5">
-<div class="icon">
-<svg fill="currentColor" height="20px" viewBox="0 0 256 256" width="20px" xmlns="http://www.w3.org/2000/svg">
-<path d="M178,32c-20.65,0-38.73,8.88-50,23.89C116.73,40.88,98.65,32,78,32A62.07,62.07,0,0,0,16,94c0,70,103.79,126.66,108.21,129a8,8,0,0,0,7.58,0C136.21,220.66,240,164,240,94A62.07,62.07,0,0,0,178,32ZM128,206.8C109.74,196.16,32,147.69,32,94A46.06,46.06,0,0,1,78,48c19.45,0,35.78,10.36,42.6,27a8,8,0,0,0,14.8,0c6.82-16.67,23.15-27,42.6-27a46.06,46.06,0,0,1,46,46C224,147.61,146.24,196.15,128,206.8Z"></path>
+<div class="flex items-center gap-4">
+<button class="button_secondary p-2.5 rounded-full">
+<svg class="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+<path d="M9.653 16.915l-.005-.003-.019-.01a20.759 20.759 0 01-1.162-.682 22.045 22.045 0 01-2.582-1.9-22.23 22.23 0 01-2.949-2.585 22.319 22.319 0 01-2.64-2.949A22.045 22.045 0 011 8.815a20.759 20.759 0 01-.682-1.162l-.01-.019-.003-.005a.75.75 0 01.712-1.042h16.5a.75.75 0 01.712 1.042l-.003.005-.01.019a20.759 20.759 0 01-.682 1.162 22.045 22.045 0 01-1.9 2.582 22.23 22.23 0 01-2.585 2.949 22.319 22.319 0 01-2.949 2.64 22.045 22.045 0 01-1.157.677l-.019.01-.005.003a.75.75 0 01-.712-.042zM4.625 7.5c0 .762.247 1.48.69 2.086l.003.004.004.003.004.003a11.18 11.18 0 00.569.569l.003.004.003.004.004.003c.51.378 1.058.68 1.636.885l.004.001.004.001h4.25c.578-.205 1.126-.507 1.636-.885l.004-.001.004-.001a11.18 11.18 0 00.569-.569l.003-.004.004-.003.004-.003c.443-.606.69-1.324.69-2.086h-8.5z"></path>
 </svg>
-</div>
 </button>
-<button class="button_secondary p-2.5">
-<div class="icon">
-<svg fill="currentColor" height="20px" viewBox="0 0 256 256" width="20px" xmlns="http://www.w3.org/2000/svg">
-<path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,160H40V56H216V200ZM176,88a48,48,0,0,1-96,0,8,8,0,0,1,16,0,32,32,0,0,0,64,0,8,8,0,0,1,16,0Z"></path>
+<button class="button_secondary p-2.5 rounded-full">
+<svg class="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+<path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"></path>
 </svg>
-</div>
 </button>
-</div>
-</div>
+<img alt="User profile picture" class="avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBjfUeYIbAh0ORqfmX8ssPOygbeiuWxBbzsHI8YLDTFi06FeQ3EjC6KcUHFGyMuFVNrMXfR6bwSp0sWYv-Ajtw0NtEbCK3k13DrneprDvX0XDL7VT6P2j1HRV6Y9gV6H58j4Oo0R5wR3Z31eyfX_Ljx9GPOxcAc6JNzjxRAgR1-nmDfBOBMvPnmvUM8maCHEHOJlT9JYNzZmdQItoxjNrfpIjtFwBULDPM0MK3QaEpjWdtGxxHpwGB6m93Xce6azhsBxbCbz6Cp5PPw"/>
 </div>
 </header>
-<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-<div class="flex flex-col gap-4">
-<nav aria-label="Breadcrumb" class="flex items-center text-sm">
-<ol class="flex items-center space-x-2 text-text-secondary">
-<li><a class="link" href="#">Women</a></li>
-<li><span class="mx-2">/</span></li>
-<li><span class="text-text-primary font-medium">Dresses</span></li>
-</ol>
-</nav>
-<div class="grid grid-cols-2 gap-4">
-<div class="col-span-2 rounded-lg overflow-hidden">
-<div class="w-full h-full bg-center bg-no-repeat bg-cover aspect-[4/3]" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAPPOVhQR581QS44GSZAqEwWLxfJh1BogECPkOYlFrvrb6WbW6be2G8-YDhHwLu0k4ql9UbcWqIDSpnwDRAVusougt1-JqvcR1EtA5vrRj5cthx2WY6DbsTG9p52v3CVdEFPi2bGqj5UdGMh_Ot3a3Tj_pC83Y4d97nUmOpd4q6fcc5phKH2ONiqI1sx_3KwGHq9-IHaenZRaY_PdN5RH2wVvVK5vtBiRqi0P0TvIITao6jeGXLrZhGzh9pYhT4v7tf4q5UOXRQJig");'></div>
+<main class="main_container">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="lg:col-span-2">
+<div class="grid grid-cols-2 grid-rows-2 gap-4 h-[500px]">
+<div class="col-span-2 row-span-2 bg-cover bg-center rounded-lg" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCwNdd0ezchipxPZ37pWZ94M6kXm6MnFdZEJaLSimcqXsl-caE-55GGQnRW7PubN9WPYGCi9a4fiAuhBDu1IQ3HzI76U2LnwQ-wprO0cP6TpkVC1b_oZ2sZ3WCKYZPmurGccZaWghc9zfmd9aKB6-CGw5O5fnGilhLGsS84tu2lJjhxzq1BE55dfWQOFdiRRcUnXs6Z0lNO8K7U10SxY-m_DrmzL449ymuVa1FBGh2pNGEXRyrQWJTRI4YrBePPA-__6jHLQwiJOddB");'></div>
+<div class="bg-cover bg-center rounded-lg hidden" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBUe53fTtUh_CycKbQRr1XsusUwF3Hp9xvoUBg7Z2L2B-REvwlmJG6j_5Pa4xWpdUohR9BHlajPmJ4nLcj1r4Qo8YMNHScGYnbLcNmlTONXecx57REqmd7t__wPbtxtczpOhK0ABv9TjjptqgSqa_8bixaiGRzIY57i-e5DuSWIpOooi8zHxahUT77Aj6Reu-fSO6ct6gDxcsyERJKqbVAtZpjcfnHog_m_5dAXY4Mw6N-uYAMAH8BC_LDDdISwZW9GYUUw67pY6_ef");'></div>
+<div class="bg-cover bg-center rounded-lg hidden" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBeXY7ccCJac_h_XFHXR8i_bPoHGv2sZQxe1T3VJoRpkrdF_Yl4xxArw_gdipCM0HDPb9v-36xZ6WomFvWgdjt6Xv7pQqiZkCwtTmu8o15yit8ovX-Zm76lgYF52tO5SZn5fGPJW-fTPdONxYmk5xz2f_k9pPjlGC2EaSsGE4V4XSo8AjUi6fvqNbIYyL3yibLMqI9Gqs0AEy2WDuAudqH64L9Fu5OqyCZk0gV5jlHs-tYqjWaUhve0oTiHvEHlxSQQLlRRQ-_beh67");'></div>
 </div>
-<div class="rounded-lg overflow-hidden">
-<div class="w-full h-full bg-center bg-no-repeat bg-cover aspect-square" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCtrCAcYD-VvqnmZVBwfzd-_wJ7qCatbD5AN_FdZaQQOJvbvLqSbmTIixDvKc4Hy3Qlsu3nciArGp43Yydu-RsJzYNcEKS-9PjmuBKGBREQCO_mrTLGB4_tVb9xRpMym-lp8vXN_AJW1zXxIDgwWcYaYbuG1Udrr79w5EGEOCA12f-G0LGCsHOBPHVkO0P2ahT5T35rre_fA7dytVgbXqm6LD9QqhEvuVTJWeDtpu2-2wMdv5s0V0BERDT7ewbOyBHRLQxL1udf8uY");'></div>
-</div>
-<div class="rounded-lg overflow-hidden">
-<div class="w-full h-full bg-center bg-no-repeat bg-cover aspect-square" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCnK9lAiZNJ-KX5jJJBFdUyBO29MIN7MF42WiWkuNXtJliM0cH2KHtlebG7CkKf1l4diSNwCy_s0Ufo0CJva5-WozGfZvv_JV5Id4vbSQscpcq6Ca4-GI5m4Pcs5mGiHTAGdjM-DwVmctjQYu-fYP37TqJczx77afvsZ8IUpst1C7GKlSoLtZYo9QQ_Ry_rI-lvrt-RpSivB0xaqMp4Y8fiTkl8F03BjWtVCd2kCq_3iyDAiKlW3LDs9hppPivmyvCjen5V_eaiNYg");'></div>
-</div>
-</div>
-</div>
-<div class="flex flex-col gap-6 pt-10">
-<div class="flex flex-col gap-2">
-<h1 class="typography_h1 !mb-2">Floral Print Maxi Dress</h1>
-<p class="typography_body">Brand: <span class="font-medium text-text-primary">Chic Threads</span></p>
-<div class="flex items-center gap-2">
-<div class="flex items-center text-yellow-500">
-<svg fill="currentColor" height="20px" viewBox="0 0 256 256" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path></svg>
-<svg fill="currentColor" height="20px" viewBox="0 0 256 256" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path></svg>
-<svg fill="currentColor" height="20px" viewBox="0 0 256 256" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path></svg>
-<svg fill="currentColor" height="20px" viewBox="0 0 256 256" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path></svg>
-<svg class="text-gray-300" fill="currentColor" height="20px" viewBox="0 0 256 256" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M239.2,97.29a16,16,0,0,0-13.81-11L166,81.17,142.72,25.81h0a15.95,15.95,0,0,0-29.44,0L90.07,81.17,30.61,86.32a16,16,0,0,0-9.11,28.06L66.61,153.8,53.09,212.34a16,16,0,0,0,23.84,17.34l51-31,51.11,31a16,16,0,0,0,23.84-17.34l-13.51-58.6,45.1-39.36A16,16,0,0,0,239.2,97.29Zm-15.22,5-45.1,39.36a16,16,0,0,0-5.08,15.71L187.35,216v0l-51.07-31a15.9,15.9,0,0,0-16.54,0l-51,31h0L82.2,157.4a16,16,0,0,0-5.08-15.71L32,102.35a.37.37,0,0,1,0-.09l59.44-5.14a16,16,0,0,0,13.35-9.75L128,32.08l23.2,55.29a16,16,0,0,0,13.35,9.75L224,102.26S224,102.32,224,102.33Z"></path></svg>
-</div>
-<span class="typography_body">4.5 (120 reviews)</span>
-</div>
-<p class="typography_body pt-2">This elegant maxi dress features a vibrant floral print, perfect for any occasion. Made from lightweight fabric, it offers both style and comfort. Available in sizes XS-XL.</p>
-</div>
-<div class="border-t border-gray-200 pt-6">
-<p class="text-3xl font-bold text-text-primary">$79.99</p>
-</div>
-<div class="border-t border-gray-200 pt-6">
-<h3 class="text-lg font-semibold text-text-primary mb-4">Size</h3>
-<div class="flex flex-wrap gap-3">
-<label class="flex items-center justify-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-text-primary has-[:checked]:border-primary-color has-[:checked]:ring-2 has-[:checked]:ring-primary-color has-[:checked]:text-primary-color relative cursor-pointer transition-all">
-                                XS
-                                <input class="absolute invisible" name="size" type="radio"/>
-</label>
-<label class="flex items-center justify-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-text-primary has-[:checked]:border-primary-color has-[:checked]:ring-2 has-[:checked]:ring-primary-color has-[:checked]:text-primary-color relative cursor-pointer transition-all">
-                                S
-                                <input checked="" class="absolute invisible" name="size" type="radio"/>
-</label>
-<label class="flex items-center justify-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-text-primary has-[:checked]:border-primary-color has-[:checked]:ring-2 has-[:checked]:ring-primary-color has-[:checked]:text-primary-color relative cursor-pointer transition-all">
-                                M
-                                <input class="absolute invisible" name="size" type="radio"/>
-</label>
-<label class="flex items-center justify-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-text-primary has-[:checked]:border-primary-color has-[:checked]:ring-2 has-[:checked]:ring-primary-color has-[:checked]:text-primary-color relative cursor-pointer transition-all">
-                                L
-                                <input class="absolute invisible" name="size" type="radio"/>
-</label>
-<label class="flex items-center justify-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-text-primary has-[:checked]:border-primary-color has-[:checked]:ring-2 has-[:checked]:ring-primary-color has-[:checked]:text-primary-color relative cursor-pointer transition-all">
-                                XL
-                                <input class="absolute invisible" name="size" type="radio"/>
-</label>
-</div>
-</div>
-<div class="border-t border-gray-200 pt-6">
-<button class="button_primary w-full sm:w-auto">Add to Bag</button>
-</div>
-</div>
-</div>
-<div class="mt-16 border-t border-gray-200 pt-12">
-<h2 class="typography_h2">Reviews</h2>
-<div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-12">
-<div class="flex flex-col gap-4">
-<div class="flex items-baseline gap-2">
-<p class="text-5xl font-bold text-text-primary">4.5</p>
-<p class="typography_body">out of 5</p>
-</div>
-<div class="flex flex-col gap-2">
-<div class="grid grid-cols-[20px_1fr_40px] items-center gap-x-3">
-<p class="text-sm text-text-secondary">5</p>
-<div class="h-2 rounded-full bg-gray-200"><div class="h-full rounded-full bg-yellow-400" style="width: 40%;"></div></div>
-<p class="text-sm text-text-secondary text-right">40%</p>
-</div>
-<div class="grid grid-cols-[20px_1fr_40px] items-center gap-x-3">
-<p class="text-sm text-text-secondary">4</p>
-<div class="h-2 rounded-full bg-gray-200"><div class="h-full rounded-full bg-yellow-400" style="width: 30%;"></div></div>
-<p class="text-sm text-text-secondary text-right">30%</p>
-</div>
-<div class="grid grid-cols-[20px_1fr_40px] items-center gap-x-3">
-<p class="text-sm text-text-secondary">3</p>
-<div class="h-2 rounded-full bg-gray-200"><div class="h-full rounded-full bg-yellow-400" style="width: 15%;"></div></div>
-<p class="text-sm text-text-secondary text-right">15%</p>
-</div>
-<div class="grid grid-cols-[20px_1fr_40px] items-center gap-x-3">
-<p class="text-sm text-text-secondary">2</p>
-<div class="h-2 rounded-full bg-gray-200"><div class="h-full rounded-full bg-yellow-400" style="width: 10%;"></div></div>
-<p class="text-sm text-text-secondary text-right">10%</p>
-</div>
-<div class="grid grid-cols-[20px_1fr_40px] items-center gap-x-3">
-<p class="text-sm text-text-secondary">1</p>
-<div class="h-2 rounded-full bg-gray-200"><div class="h-full rounded-full bg-yellow-400" style="width: 5%;"></div></div>
-<p class="text-sm text-text-secondary text-right">5%</p>
-</div>
-</div>
-</div>
-<div class="flex flex-col gap-8">
-<div class="card">
-<div class="flex items-center gap-4 mb-4">
-<img alt="Sophia Bennett" class="size-12 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMK7vyGDZNuGJyF5nV0UuXNhSqNHe-aruydwevWCQYOGQaKVtwgyGFXmQP39FhKStTltrr801tgrKdc4jKvXK6LBhHzZ7Fxds_96zxhfaYtlHjHksO8mEYUurWwDF7Ih-oj0YaYN22lseWwmWJ4e3MWnub8Vvhw5KWtXYc0pFTuEcUvGHgAMpmNk7IFXDTpMd-L02sXNHV01e0-iy7KZrVMYzGV0ARShfccWJAWcT4FTk8ovldvMDouaulX4A2c-v5qhW84yoXfpo"/>
-<div>
-<p class="font-semibold text-text-primary">Sophia Bennett</p>
-<p class="text-sm text-text-secondary">June 15, 2023</p>
-</div>
-</div>
-<div class="flex items-center gap-1 mb-3 text-yellow-500">
-<svg fill="currentColor" height="16px" viewBox="0 0 256 256" width="16px" xmlns="http://www.w3.org/2000/svg"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path></svg>
-<svg fill="currentColor" height="16px" viewBox="0 0 256 256" width="16px" xmlns="http://www.w3.org/2000/svg"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path></svg>
-<svg fill="currentColor" height="16px" viewBox="0 0 256 256" width="16px" xmlns="http://www.w3.org/2000/svg"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path></svg>
-<svg fill="currentColor" height="16px" viewBox="0 0 256 256" width="16px" xmlns="http://www.w3.org/2000/svg"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path></svg>
-<svg fill="currentColor" height="16px" viewBox="0 0 256 256" width="16px" xmlns="http://www.w3.org/2000/svg"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path></svg>
-</div>
-<p class="typography_body">Absolutely love this dress! The floral print is beautiful, and the fabric is so comfortable. It fits perfectly and is true to size. I received so many compliments when I wore it to a summer party.</p>
 </div>
 <div class="card">
-<div class="flex items-center gap-4 mb-4">
-<img alt="Olivia Carter" class="size-12 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPP8HYG9tM5GUeblvG0Tux-pik-xi5m0yNjIPXFjVgWVF-WR0Lu0NVsUaZAokLqfMplZ3LROJEMQyjfmiFSPaM-nMbgMhC35bwUETp3K4CKQvTYpEGx2okjjTPXIXWvLDjgsY2tsSI8Ykjs_j5meOHtVnRs5qywAmdSE3rZl4kT9ZpUIXcii3_obPJf16IIbUi6Zb2BH7ULRNxNWIEG31SAhMa33XWPTOaIyPw-VEy5MLTsPu-lg7cPq3z2qrXgstHpGETEXdLWDw"/>
+<div class="flex items-center justify-between mb-4">
+<span class="badge">Used</span>
+<span class="text-3xl font-bold text-[var(--text-primary)]">$450</span>
+</div>
+<h1 class="typography_h1">Used Laptop - Excellent Condition</h1>
+<p class="typography_body mb-6">
+                This laptop is in excellent condition and has been well-maintained. It's perfect for students or professionals looking for a reliable and affordable device. The
+                battery life is still strong, and it comes with the original charger. No scratches or dents. Ready for immediate use.
+              </p>
+<div class="border-t border-[var(--secondary-color)] pt-6">
+<h2 class="typography_h2">Seller Information</h2>
+<div class="flex items-center gap-4 mt-4">
+<img alt="Seller's profile picture" class="avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA11A3OWxxdGqJQIvo3zM93KRT99BTfNcg7Pt5Vd47C563TcaxTRdR5Ut-F1uity5QeWY9YKN7_PHDB_-C22MnMW-64VyWKS-vPquHR0kVZHpS443aOMJVUSum9StQya-W3YreqaXBdeVtLaC2P6TD7wJSduTeXzb1hy5Tj-FygJi8MjNbeOHF4LUQz0MWFIQMh4eosOpMMgP2kKRWBZjFBnbF43qbcjTzSoFIpOiIZIWqxy1tT6EWqmQ4BDYskjJooe6Cy3y2y7wsS"/>
 <div>
-<p class="font-semibold text-text-primary">Olivia Carter</p>
-<p class="text-sm text-text-secondary">May 22, 2023</p>
+<p class="font-semibold text-[var(--text-primary)]">Sophia Clark</p>
+<p class="text-sm text-[var(--text-secondary)]">Joined 2021</p>
 </div>
 </div>
-<div class="flex items-center gap-1 mb-3 text-yellow-500">
-<svg fill="currentColor" height="16px" viewBox="0 0 256 256" width="16px" xmlns="http://www.w3.org/2000/svg"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path></svg>
-<svg fill="currentColor" height="16px" viewBox="0 0 256 256" width="16px" xmlns="http://www.w3.org/2000/svg"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path></svg>
-<svg fill="currentColor" height="16px" viewBox="0 0 256 256" width="16px" xmlns="http://www.w3.org/2000/svg"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path></svg>
-<svg fill="currentColor" height="16px" viewBox="0 0 256 256" width="16px" xmlns="http://www.w3.org/2000/svg"><path d="M234.5,114.38l-45.1,39.36,13.51,58.6a16,16,0,0,1-23.84,17.34l-51.11-31-51,31a16,16,0,0,1-23.84-17.34L66.61,153.8,21.5,114.38a16,16,0,0,1,9.11-28.06l59.46-5.15,23.21-55.36a15.95,15.95,0,0,1,29.44,0h0L166,81.17l59.44,5.15a16,16,0,0,1,9.11,28.06Z"></path></svg>
-<svg class="text-gray-300" fill="currentColor" height="16px" viewBox="0 0 256 256" width="16px" xmlns="http://www.w3.org/2000/svg"><path d="M239.2,97.29a16,16,0,0,0-13.81-11L166,81.17,142.72,25.81h0a15.95,15.95,0,0,0-29.44,0L90.07,81.17,30.61,86.32a16,16,0,0,0-9.11,28.06L66.61,153.8,53.09,212.34a16,16,0,0,0,23.84,17.34l51-31,51.11,31a16,16,0,0,0,23.84-17.34l-13.51-58.6,45.1-39.36A16,16,0,0,0,239.2,97.29Zm-15.22,5-45.1,39.36a16,16,0,0,0-5.08,15.71L187.35,216v0l-51.07-31a15.9,15.9,0,0,0-16.54,0l-51,31h0L82.2,157.4a16,16,0,0,0-5.08-15.71L32,102.35a.37.37,0,0,1,0-.09l59.44-5.14a16,16,0,0,0,13.35-9.75L128,32.08l23.2,55.29a16,16,0,0,0,13.35,9.75L224,102.26S224,102.32,224,102.33Z"></path></svg>
-</div>
-<p class="typography_body">The dress is lovely and the print is as vibrant as shown in the pictures. The material is a bit thinner than I expected, but it's still great for warm weather. I'm very happy with my purchase.</p>
-</div>
+<button class="button_primary w-full mt-6">
+                  Message Seller
+                </button>
 </div>
 </div>
 </div>

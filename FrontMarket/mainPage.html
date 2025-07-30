@@ -1,165 +1,440 @@
 <!DOCTYPE html>
 <html lang="en"><head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter:wght@400;500;700;900" onload="this.rel='stylesheet'" rel="stylesheet"/>
 <title>Stitch Design</title>
 <link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <style type="text/tailwindcss">
-        :root {
-            --primary-color: #0c7ff2;
-            --secondary-color: #e0f2fe;
-            --background-color: #f9f9f9;
-            --text-primary: #111827;
-            --text-secondary: #6b7280;
-            --accent-color: #bfdbfe;
-        }
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-primary);
-        }
-        .button_primary {
-            @apply bg-[var(--primary-color)] text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50;
-        }
-        .button_secondary {
-            @apply bg-[var(--secondary-color)] text-[var(--primary-color)] py-2 px-4 rounded-md hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50;
-        }
-        .input {
-            @apply bg-white border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500;
-        }
-        .link {
-            @apply text-[var(--primary-color)] hover:underline;
-        }
-        .badge {
-            @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[var(--secondary-color)] text-[var(--primary-color)];
-        }
+      :root {
+        --primary-color: #dce8f3;
+        --secondary-color: #f2f5f7;
+        --background-color: #ffffff;
+        --text-primary: #333333;
+        --text-secondary: #666666;
+        --accent-color: #cce0f7;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--background-color);
+        color: var(--text-primary);
+        border-radius: 0.5rem;
+      }
+      .main_container {
+        @apply container mx-auto px-4 py-8;
+      }
+      .card {
+        @apply bg-white rounded-lg shadow-md p-6;
+      }
+      .button_primary {
+        @apply bg-[var(--primary-color)] hover:bg-[var(--accent-color)] text-[var(--text-primary)] font-bold py-2 px-4 rounded-lg focus:outline-none ;
+      }
+      .button_secondary {
+        @apply bg-[var(--secondary-color)] hover:bg-gray-200 text-[var(--text-primary)] font-bold py-2 px-4 rounded-lg focus:outline-none ;
+      }
+      .input {
+        @apply shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none  focus:border-[var(--primary-color)];
+      }
+      .typography_h1 {
+        @apply text-3xl font-bold text-[var(--text-primary)] mb-4;
+      }
+      .typography_h2 {
+        @apply text-2xl font-semibold text-[var(--text-primary)] mb-2;
+      }
+      .typography_body {
+        @apply text-base text-[var(--text-secondary)];
+      }
+      .link {
+        @apply text-[var(--primary-color)] hover:text-[var(--accent-color)];
+      }
+      .badge {
+        @apply inline-block bg-[var(--secondary-color)] text-[var(--text-secondary)] text-xs font-bold rounded-full px-2 py-1;
+      }
+      .avatar {
+        @apply rounded-full w-12 h-12 object-cover;
+      }
+      .icon {
+        @apply w-6 h-6 text-[var(--text-secondary)];
+      }
     </style>
 </head>
-<body class="bg-[var(--background-color)] text-[var(--text-primary)]">
-<div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
-<div class="layout-container flex h-full grow flex-col">
-<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 px-10 py-4 shadow-sm bg-white">
-<div class="flex items-center gap-10">
-<div class="flex items-center gap-3 text-[var(--text-primary)]">
+<body>
+<div class="relative flex size-full min-h-screen flex-col bg-[var(--background-color)] group/design-root overflow-x-hidden">
+<div class="main_container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[var(--secondary-color)] px-6 py-4">
+<div class="flex items-center gap-4 text-[var(--text-primary)]">
 <div class="size-6 text-[var(--primary-color)]">
 <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5-10-5-10 5z"></path>
+<path d="M12 2L2 7V17L12 22L22 17V7L12 2ZM4 8.236L12 12.5L20 8.236V15.764L12 20.028L4 15.764V8.236ZM19.236 6L12 9.764L4.764 6L12 2.236L19.236 6Z"></path>
 </svg>
 </div>
-<h1 class="text-xl font-bold tracking-tight">Marketplace</h1>
+<h1 class="typography_h1 text-2xl !mb-0">Marketplace</h1>
 </div>
-<nav class="flex items-center gap-8">
-<a class="text-base font-medium text-[var(--text-secondary)] hover:text-[var(--primary-color)] transition-colors" href="#">Home</a>
-<a class="text-base font-medium text-[var(--text-secondary)] hover:text-[var(--primary-color)] transition-colors" href="#">Shop</a>
-<a class="text-base font-medium text-[var(--text-secondary)] hover:text-[var(--primary-color)] transition-colors" href="#">Sell</a>
-<a class="text-base font-medium text-[var(--text-secondary)] hover:text-[var(--primary-color)] transition-colors" href="#">Community</a>
-</nav>
+<div class="flex flex-1 justify-end items-center gap-4">
+<div class="relative w-full max-w-sm">
+<input id="searchInput" class="input pl-10" placeholder="Buscar productos..." value=""/>
+<div class="absolute inset-y-0 left-0 flex items-center pl-3">
+<svg class="icon" fill="currentColor" height="20px" viewBox="0 0 256 256" width="20px" xmlns="http://www.w3.org/2000/svg">
+<path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
+</svg>
 </div>
-<div class="flex flex-1 justify-end items-center gap-6">
-<div class="flex items-center gap-2">
-<button class="flex items-center justify-center rounded-full h-10 w-10 bg-gray-100 hover:bg-gray-200 text-[var(--text-secondary)] transition-colors">
-<svg fill="currentColor" height="22" viewBox="0 0 256 256" width="22" xmlns="http://www.w3.org/2000/svg">
-<path d="M178,32c-20.65,0-38.73,8.88-50,23.89C116.73,40.88,98.65,32,78,32A62.07,62.07,0,0,0,16,94c0,70,103.79,126.66,108.21,129a8,8,0,0,0,7.58,0C136.21,220.66,240,164,240,94A62.07,62.07,0,0,0,178,32ZM128,206.8C109.74,196.16,32,147.69,32,94A46.06,46.06,0,0,1,78,48c19.45,0,35.78,10.36,42.6,27a8,8,0,0,0,14.8,0c6.82-16.67,23.15-27,42.6-27a46.06,46.06,0,0,1,46,46C224,147.61,146.24,196.15,128,206.8Z"></path>
+</div>
+<button class="button_secondary !p-2">
+<svg class="icon !text-text-primary" fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+<path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"></path>
 </svg>
 </button>
-<button class="flex items-center justify-center rounded-full h-10 w-10 bg-gray-100 hover:bg-gray-200 text-[var(--text-secondary)] transition-colors">
-<svg fill="currentColor" height="22" viewBox="0 0 256 256" width="22" xmlns="http://www.w3.org/2000/svg"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,160H40V56H216V200ZM176,88a48,48,0,0,1-96,0,8,8,0,0,1,16,0,32,32,0,0,0,64,0,8,8,0,0,1,16,0Z"></path></svg>
+<!-- Menú de usuario -->
+<div class="relative">
+<button id="userMenuBtn" class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100 transition-colors">
+<div class="avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB8CMfoB5MKMKKi1vI-2xXt-NUd-C-92b9iwrTQAlJnAcTVe6skGei5eiqpUaUMCn4t2npAdesnP_PbvgFWlQCMFHLu_RV2eLz9W0Eyf-ov-QlHIAZQ3-Ey05J1IzdHkq53p3OKO9eHIqqiB4MgSMnRACTT_CtReFJfjji2WQuHKjiojCFkjzdwlj2T1CeVzzL09qqwULJkUmie-xqVR73pzSzVQG14jzflDc3A7gVuepk1e9RO7PaLZmP4OIRLzEp10pqMRq7vqJZJ");'></div>
+<span id="userName" class="text-sm font-medium text-[var(--text-primary)]">Usuario</span>
+<svg class="w-4 h-4 text-[var(--text-secondary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+</svg>
+</button>
+<!-- Menú desplegable -->
+<div id="userMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 hidden z-50">
+<div class="py-1">
+<div class="px-4 py-2 text-sm text-[var(--text-secondary)] border-b border-gray-100">
+<span id="userEmail">usuario@example.com</span>
+</div>
+<button id="logoutBtn" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+</svg>
+Cerrar Sesión
 </button>
 </div>
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDKlUM_YaRoEnP438a7IePnGTB9N25ZVrCJ-ji5iHOhiY2h1w9aRnMqDAR63TSHmgpCJfneI4Ze2p1VmMzxjCDumIaVudC9h4RzwnItOF5P9_zOenPNByjOQsz20VKPYgS3JxDN2qEunQebersD51LXBWoLTMLSjdmCCRqE7RlhmpkoItITNbaFuj-CV22Xq_MKNy5HgWcP6ZV_fUDsjlxcua_hWj77jHnDIme0ntkxnhKWYJaUfdKrR7d0_C2vFy-ZVi4pA3xCTyI");'></div>
+</div>
+</div>
 </div>
 </header>
-<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-<div class="text-center mb-12">
-<h1 class="text-4xl md:text-5xl font-extrabold tracking-tighter mb-4">Discover Unique Items</h1>
-<p class="text-lg text-[var(--text-secondary)] max-w-2xl mx-auto">Your one-stop marketplace for handcrafted goods, vintage treasures, and creative supplies.</p>
+<main class="flex-1">
+<div class="px-6 py-8">
+<div class="mb-6 flex flex-wrap gap-4">
+<button id="allCategoriesBtn" class="button_primary">Todos</button>
+<div id="categoryButtons"></div>
 </div>
-<div class="mb-12 max-w-2xl mx-auto">
-<label class="relative block">
-<span class="sr-only">Search</span>
-<span class="absolute inset-y-0 left-0 flex items-center pl-4 text-[var(--text-secondary)]">
-<svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>
-</span>
-<input class="input w-full pl-12 pr-4 py-3 text-base" placeholder="Search for items or shops" type="text"/>
-</label>
+<h2 class="typography_h2">Productos Disponibles</h2>
+<div id="loadingProducts" class="text-center py-8">
+<div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--primary-color)]"></div>
+<p class="mt-2 text-[var(--text-secondary)]">Cargando productos...</p>
 </div>
-<section class="mb-16">
-<h2 class="text-3xl font-bold tracking-tight mb-6">Featured Items</h2>
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-<div class="bg-white rounded-lg shadow-md overflow-hidden group">
-<div class="w-full h-56 bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDPT1AUKySAab2ZJ99sa9hF3fbi1-FsNeas8cNS1rqX589hQKdVn5Ou4yIZM5srSPsbZ1Y_Sotxzu7uIYBd0E4V0GLBAXODwgxSRemd65ddcC_ATEvbATu8pHd9Ee6o_tNI5wQZ2CelIvws6IgTdzhCLkv7xB5wh8FMxteHAB02phcolxyTO1XL7hIL4FX2IpvtsCgvPEcpDs2wVQ4rUhqZ9aBpFf_teQ12mBd6I9J1fkEUwJHpn8IhnbMw0WiDZnL-cqYxDEUWk6c");'></div>
-<div class="p-5">
-<h3 class="text-lg font-semibold text-[var(--text-primary)]">Modern Living Room Set</h3>
-<p class="text-[var(--text-secondary)] mt-1">$1,200.00</p>
+<div id="noProducts" class="text-center py-8 hidden">
+<p class="text-[var(--text-secondary)]">No hay productos disponibles en esta categoría.</p>
+</div>
+<div id="noSearchResults" class="text-center py-8 hidden">
+<p class="text-[var(--text-secondary)]">No se encontraron productos que coincidan con tu búsqueda.</p>
+</div>
+<div id="productsGrid" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 </div>
 </div>
-<div class="bg-white rounded-lg shadow-md overflow-hidden group">
-<div class="w-full h-56 bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBdWYB5IKl2IwP889vifCLRXJm88ocFRUdbAEi5JKJruwnwVOp2c9nRpSLmMBuyE6CpWkxG1vG7XKiaWVila4Tk4ZR2fGNTnRxcnvm2Ysfw0JRRNGaNEyeqocOORYa4Mj247Bh0tJ0_MxldTEnxcW0qnzhvdWMjyoMSuroKmjdkZvMW8G7EFgx17tV7HJT1YqBFKrUVnRSFtlZLWh9mpkNuewXfRbp25EXo8yhsJifNBOjYL81LdsPjhtqhv6o2HJsgYXnL2sOmo_I");'></div>
-<div class="p-5">
-<h3 class="text-lg font-semibold text-[var(--text-primary)]">Minimalist Bedroom Collection</h3>
-<p class="text-[var(--text-secondary)] mt-1">$850.00</p>
-</div>
-</div>
-<div class="bg-white rounded-lg shadow-md overflow-hidden group">
-<div class="w-full h-56 bg-center bg-cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAhZrSR2crCpwNcekk276g07_-ip0zq_gfGnoSoeCWVRgy_QX_jvQVA9L-B3us5XA7DmW52R8DMLl3w26usbUQ_n0vZ7OYgKz443OlENNAybIerTIK9DA9PPG7TGyQ1scufogVY51R0Fsy5ZVJ55RT7GHnI8U2bFB8k7riOfhEx-xMCQbAPxIogvbnUPKbCShr--WYEa0ckHrgQc9BGsr5_UXtju1_I_rXG6YkHly7pMDrlrANA9sZYnOvYug-TFiyLx7wYe41XKcw");'></div>
-<div class="p-5">
-<h3 class="text-lg font-semibold text-[var(--text-primary)]">Cozy Home Office Setup</h3>
-<p class="text-[var(--text-secondary)] mt-1">$550.00</p>
-</div>
-</div>
-</div>
-</section>
-<section>
-<h2 class="text-3xl font-bold tracking-tight mb-6">Browse by Category</h2>
-<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-<a class="group text-center" href="#">
-<div class="w-full aspect-square bg-cover bg-center rounded-lg mb-3 shadow-md group-hover:scale-105 transition-transform duration-300" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDYjas-kxS2Plb-PhCkD7soeZiL3Pan5tA_eo9zRZPNQIlRHLz3M656M9qYkf2ybpqKf-hqZsa1HsZw7qZxVqY0LDg7KwPkGFlJLosfbrV9-S_ny7v-mt9KgwSxtx2AvyycvKrgxlgOlMZ3Ue1h8aJrHia_mYyiBmU6ndPuzCuEKWXTUuQ9z4DUmWJhIMPkd_rv20qfUmlighQJ3HfqvWp4DcQAxNSk6lpj6f7I-MwlAqXDottTWqhN8YPagQcqrF48JwzdxHsyP_I");'></div>
-<p class="font-semibold text-[var(--text-primary)] group-hover:text-[var(--primary-color)] transition-colors">Furniture</p>
-</a>
-<a class="group text-center" href="#">
-<div class="w-full aspect-square bg-cover bg-center rounded-lg mb-3 shadow-md group-hover:scale-105 transition-transform duration-300" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuATDUKMb7YVSvthiLeZbXOu9pvL866mZINWaunVEvO0hyrL_mh2E_wxdPDDUBTPzzMTS50V7oTe-OB-_-ZTq52S7b1GvsLg2BvZPTNDFOfUYTnuwS6ErN8DSKAkAqAek6W7XBmXqR5ikw_fRwXAcSF4qHMSKBLBGg_FSGglCQU3Eg9_mrDm-_GCDWLBKsrmAqJ1UjBHH2pCzjBKsRASITX4BDb6bje_g1-TiuEJxE2FgWx0vJ6qI9h2oROGBDhvd5KOLd6WcxjNnVw");'></div>
-<p class="font-semibold text-[var(--text-primary)] group-hover:text-[var(--primary-color)] transition-colors">Decor</p>
-</a>
-<a class="group text-center" href="#">
-<div class="w-full aspect-square bg-cover bg-center rounded-lg mb-3 shadow-md group-hover:scale-105 transition-transform duration-300" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAhOkLUl21PUFgHqZvCDPAHG2yOwhvQ9V3wlrPFXxl5nlDR5uWbr4QxFUjrBn1_v8arSFOf6Y--ha1AGDxmeLanVQJrFdMgvkB3ZPPd21S0gQ0H3zPRQcyz3XKC6nLtnoAaB_9zn4inVKAPvSO7oChwrxN_xYQHNN99SQMMEuMxHSbf0XCzCoUe1DUhU3ihecKK-yyjAhWgqrq96kPfXWPI50ICFKcqDwcDQNY-cfy8ra8KyRG1KD77zvQwGGVtB7lApfiLz9ru3iA");'></div>
-<p class="font-semibold text-[var(--text-primary)] group-hover:text-[var(--primary-color)] transition-colors">Lighting</p>
-</a>
-<a class="group text-center" href="#">
-<div class="w-full aspect-square bg-cover bg-center rounded-lg mb-3 shadow-md group-hover:scale-105 transition-transform duration-300" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBvzuZpRKKPm8Xy7-lR9AY8_6uFgmIPdWe7Rjg2RnqejEFYWT9wguWxMFCQHdGPRIWDxpW3cfi9a6MOx7BthyhDn4nCaqwvwZFsdmKjVVJ5xhbmkblY_PQg12cJ5vnd-8Qf67esHhuFMAcPYTpI9Zdl6LfTFQKnAGHBn0OhQT9H9qfZe527WnV3K2RRzOPvHNLISVSTQh1fxS2x5eqnuiLJ2lKz9FGrAZ9R0iCgc7Iv4P6YK591kjOkHrx4VHKgypm9cjAXXyU27pE");'></div>
-<p class="font-semibold text-[var(--text-primary)] group-hover:text-[var(--primary-color)] transition-colors">Textiles</p>
-</a>
-<a class="group text-center" href="#">
-<div class="w-full aspect-square bg-cover bg-center rounded-lg mb-3 shadow-md group-hover:scale-105 transition-transform duration-300" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAq9WWEakBk81szi7xokuRmM63H69XawBx-PIwbVfbnudGsEAUBa6Bz8bKFnxWK2__IZxQ65XJQ5XY01p4qqTg1WwHiV0b9ar4PHrLyzxIZSrS1ESu9L4g036jMrQhf4lXdOuh4pAP3TRRf-4Ae26ei98cKwa35G-OgvJTa06icxWtFvOGXmJ0h4bSV5uTIUjsq3pa-cVG2pdqDhlDettiAmdV-Kxu0Bb3J5HrBmS-e_f6au6j4lVafVKAVhSvapYOxLGJmXsywQVo");'></div>
-<p class="font-semibold text-[var(--text-primary)] group-hover:text-[var(--primary-color)] transition-colors">Kitchen &amp; Dining</p>
-</a>
-<a class="group text-center" href="#">
-<div class="w-full aspect-square bg-cover bg-center rounded-lg mb-3 shadow-md group-hover:scale-105 transition-transform duration-300" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCPasuVTgIIdy035I6ZqRI1m30UMsuHCZKASj2pRPMxbjPBTlWcCSx3FKvM-FK1Rsw1X3it_4k4Tt72vkBxm1w7xP1XUqvjqD4c8KX4NSrXnEF2TvJ3a4uv_1UKeVjEo9c9DBCE2x-cyoIThuAsUZBWmMlFyBWrlqrjLcEMW9BuBY68_wBU6WPaZuKy6DSVRXBX_WbhRT2pZXdNnG3ep8pfW3bEUfu588uDVVuC9yroV_6B75yAQtt7O_IrH8QIOuykm0R9PIm-OMY");'></div>
-<p class="font-semibold text-[var(--text-primary)] group-hover:text-[var(--primary-color)] transition-colors">Outdoor</p>
-</a>
-</div>
-</section>
 </main>
-<footer class="bg-white border-t border-gray-200">
-<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-<div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
-<div class="mb-4 md:mb-0">
-<p class="text-[var(--text-secondary)]">© 2024 Marketplace. All rights reserved.</p>
-</div>
-<div class="flex gap-6">
-<a class="text-[var(--text-secondary)] hover:text-[var(--primary-color)] transition-colors" href="#">About</a>
-<a class="text-[var(--text-secondary)] hover:text-[var(--primary-color)] transition-colors" href="#">Contact</a>
-<a class="text-[var(--text-secondary)] hover:text-[var(--primary-color)] transition-colors" href="#">FAQ</a>
-<a class="text-[var(--text-secondary)] hover:text-[var(--primary-color)] transition-colors" href="#">Terms of Service</a>
-<a class="text-[var(--text-secondary)] hover:text-[var(--primary-color)] transition-colors" href="#">Privacy Policy</a>
 </div>
 </div>
-</div>
-</footer>
-</div>
-</div>
+
+<script>
+// Configuración de la API
+const API_BASE_URL = 'http://localhost:5000/api';
+
+// Elementos del DOM
+const userMenuBtn = document.getElementById('userMenuBtn');
+const userMenu = document.getElementById('userMenu');
+const logoutBtn = document.getElementById('logoutBtn');
+const userName = document.getElementById('userName');
+const userEmail = document.getElementById('userEmail');
+const allCategoriesBtn = document.getElementById('allCategoriesBtn');
+const categoryButtons = document.getElementById('categoryButtons');
+const productsGrid = document.getElementById('productsGrid');
+const loadingProducts = document.getElementById('loadingProducts');
+const noProducts = document.getElementById('noProducts');
+const noSearchResults = document.getElementById('noSearchResults');
+const searchInput = document.getElementById('searchInput');
+
+// Variables globales
+let categories = [];
+let currentCategoryId = null;
+let allProducts = []; // Almacenar todos los productos cargados
+let filteredProducts = []; // Productos filtrados por búsqueda
+
+// Verificar si el usuario está logueado al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    const userData = localStorage.getItem('user');
+    
+    if (isLoggedIn !== 'true' || !userData) {
+        // Si no está logueado, redirigir al login
+        window.location.href = 'loginPage.html';
+        return;
+    }
+    
+    // Cargar información del usuario
+    try {
+        const user = JSON.parse(userData);
+        userName.textContent = user.name || 'Usuario';
+        userEmail.textContent = user.email || 'usuario@example.com';
+    } catch (error) {
+        console.error('Error al cargar datos del usuario:', error);
+        // Si hay error en los datos, limpiar y redirigir al login
+        localStorage.removeItem('user');
+        localStorage.removeItem('isLoggedIn');
+        window.location.href = 'loginPage.html';
+    }
+    
+    // Cargar categorías y productos
+    loadCategories();
+    loadProducts();
+});
+
+// Cargar categorías desde la API
+async function loadCategories() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/categories/`);
+        const data = await response.json();
+        
+        if (response.ok) {
+            categories = data.categories;
+            renderCategoryButtons();
+        } else {
+            console.error('Error al cargar categorías:', data.error);
+        }
+    } catch (error) {
+        console.error('Error al conectar con la API:', error);
+    }
+}
+
+// Renderizar botones de categorías
+function renderCategoryButtons() {
+    categoryButtons.innerHTML = '';
+    
+    categories.forEach(category => {
+        const button = document.createElement('button');
+        button.className = 'button_secondary';
+        button.textContent = category.name;
+        button.dataset.categoryId = category.id;
+        
+        button.addEventListener('click', function() {
+            filterByCategory(category.id);
+        });
+        
+        categoryButtons.appendChild(button);
+    });
+}
+
+// Cargar productos desde la API
+async function loadProducts(categoryId = null) {
+    try {
+        showLoading(true);
+        
+        let url = `${API_BASE_URL}/products/`;
+        if (categoryId) {
+            url += `?category_id=${categoryId}`;
+        }
+        
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        if (response.ok) {
+            // Almacenar productos según la categoría
+            if (categoryId) {
+                // Si es una categoría específica, solo almacenar esos productos
+                allProducts = data.products;
+            } else {
+                // Si es "Todos", almacenar todos los productos
+                allProducts = data.products;
+            }
+            
+            // Aplicar filtro de búsqueda si existe
+            applySearchFilter();
+        } else {
+            console.error('Error al cargar productos:', data.error);
+            showNoProducts();
+        }
+    } catch (error) {
+        console.error('Error al conectar con la API:', error);
+        showNoProducts();
+    } finally {
+        showLoading(false);
+    }
+}
+
+// Renderizar productos
+function renderProducts(products) {
+    productsGrid.innerHTML = '';
+    
+    if (products.length === 0) {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        if (searchTerm !== '') {
+            // Si hay término de búsqueda pero no hay resultados
+            showNoSearchResults(searchTerm);
+        } else {
+            // Si no hay término de búsqueda, mostrar mensaje de no productos
+            showNoProducts();
+        }
+        return;
+    }
+    
+    products.forEach(product => {
+        const productCard = createProductCard(product);
+        productsGrid.appendChild(productCard);
+    });
+    
+    noProducts.classList.add('hidden');
+    noSearchResults.classList.add('hidden');
+}
+
+// Crear tarjeta de producto
+function createProductCard(product) {
+    const card = document.createElement('div');
+    card.className = 'card';
+    
+    // Imagen por defecto (puedes cambiar esto por una imagen real del producto)
+    const defaultImage = 'https://via.placeholder.com/300x200/CCCCCC/666666?text=Producto';
+    
+    card.innerHTML = `
+        <div class="mb-4 h-48 w-full rounded-lg bg-cover bg-center bg-no-repeat" style="background-image: url('${defaultImage}')"></div>
+        <div>
+            <h3 class="font-semibold text-[var(--text-primary)]">${product.title}</h3>
+            <p class="typography_body">$${product.price.toFixed(2)}</p>
+            <p class="text-sm text-[var(--text-secondary)] mt-1">Stock: ${product.stock}</p>
+        </div>
+    `;
+    
+    // Agregar evento de clic para ver detalles del producto
+    card.addEventListener('click', function() {
+        // Aquí puedes redirigir a la página de detalles del producto
+        console.log('Producto seleccionado:', product);
+    });
+    
+    return card;
+}
+
+// Filtrar por categoría
+function filterByCategory(categoryId) {
+    currentCategoryId = categoryId;
+    
+    // Actualizar estilos de botones
+    updateCategoryButtonStyles(categoryId);
+    
+    // Cargar productos filtrados
+    loadProducts(categoryId);
+}
+
+// Actualizar estilos de botones de categoría
+function updateCategoryButtonStyles(selectedCategoryId) {
+    // Resetear todos los botones
+    allCategoriesBtn.className = 'button_secondary';
+    
+    const categoryBtns = categoryButtons.querySelectorAll('button');
+    categoryBtns.forEach(btn => {
+        btn.className = 'button_secondary';
+    });
+    
+    // Resaltar botón seleccionado
+    if (selectedCategoryId) {
+        const selectedBtn = categoryButtons.querySelector(`[data-category-id="${selectedCategoryId}"]`);
+        if (selectedBtn) {
+            selectedBtn.className = 'button_primary';
+        }
+    } else {
+        allCategoriesBtn.className = 'button_primary';
+    }
+}
+
+// Mostrar/ocultar loading
+function showLoading(show) {
+    if (show) {
+        loadingProducts.classList.remove('hidden');
+        noProducts.classList.add('hidden');
+        noSearchResults.classList.add('hidden');
+    } else {
+        loadingProducts.classList.add('hidden');
+    }
+}
+
+// Aplicar filtro de búsqueda
+function applySearchFilter() {
+    const searchTerm = searchInput.value.toLowerCase().trim();
+    
+    if (searchTerm === '') {
+        // Si no hay término de búsqueda, mostrar todos los productos de la categoría
+        filteredProducts = allProducts;
+    } else {
+        // Filtrar productos por título
+        filteredProducts = allProducts.filter(product => 
+            product.title.toLowerCase().includes(searchTerm)
+        );
+    }
+    
+    // Renderizar productos filtrados
+    renderProducts(filteredProducts);
+}
+
+// Función de búsqueda con debounce
+let searchTimeout;
+function handleSearch() {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+        applySearchFilter();
+    }, 300); // Esperar 300ms después de que el usuario deje de escribir
+}
+
+// Mostrar mensaje de no productos
+function showNoProducts() {
+    noProducts.classList.remove('hidden');
+    noSearchResults.classList.add('hidden');
+    productsGrid.innerHTML = '';
+}
+
+// Mostrar mensaje de no resultados de búsqueda
+function showNoSearchResults(searchTerm) {
+    noSearchResults.classList.remove('hidden');
+    noProducts.classList.add('hidden');
+    productsGrid.innerHTML = '';
+}
+
+// Event listeners para categorías
+allCategoriesBtn.addEventListener('click', function() {
+    currentCategoryId = null;
+    updateCategoryButtonStyles(null);
+    loadProducts();
+});
+
+// Event listener para búsqueda
+searchInput.addEventListener('input', handleSearch);
+
+// Toggle del menú de usuario
+userMenuBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    userMenu.classList.toggle('hidden');
+});
+
+// Cerrar menú al hacer clic fuera
+document.addEventListener('click', function(e) {
+    if (!userMenuBtn.contains(e.target) && !userMenu.contains(e.target)) {
+        userMenu.classList.add('hidden');
+    }
+});
+
+// Función de logout
+logoutBtn.addEventListener('click', function() {
+    // Mostrar confirmación
+    if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+        // Limpiar datos de sesión
+        localStorage.removeItem('user');
+        localStorage.removeItem('isLoggedIn');
+        
+        // Redirigir al login
+        window.location.href = 'loginPage.html';
+    }
+});
+
+// Prevenir que el menú se cierre al hacer clic dentro
+userMenu.addEventListener('click', function(e) {
+    e.stopPropagation();
+});
+</script>
 
 </body></html>

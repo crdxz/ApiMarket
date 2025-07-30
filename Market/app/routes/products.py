@@ -6,9 +6,18 @@ products_bp = Blueprint('products', __name__)
 
 @products_bp.route('/', methods=['GET'])
 def get_products():
-    """Get all active products"""
+    """Get all active products with optional category filter"""
     try:
-        products = Product.query.filter_by(is_active=True).all()
+        category_id = request.args.get('category_id', type=int)
+        
+        # Base query for active products
+        query = Product.query.filter_by(is_active=True)
+        
+        # Apply category filter if provided
+        if category_id:
+            query = query.filter_by(category_id=category_id)
+        
+        products = query.all()
         
         product_list = []
         for product in products:
