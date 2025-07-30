@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Seller Dashboard - Marketplace</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+        :root {
+            --primary-color: #3b82f6;
+            --secondary-color: #f3f4f6;
+            --background-color: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --accent-color: #1d4ed8;
+            --success-color: #22c55e;
+            --danger-color: #ef4444;
+        }
+        body {
+            @apply bg-[var(--background-color)] text-[var(--text-primary)] font-sans;
+        }
+        .button_primary {
+            @apply bg-[var(--primary-color)] text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-[var(--accent-color)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary-color)];
+        }
+        .button_secondary {
+            @apply bg-[var(--secondary-color)] text-[var(--text-primary)] font-semibold py-2 px-4 rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--secondary-color)];
+        }
+        .input {
+            @apply shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-2 px-3 text-[var(--text-secondary)] leading-tight focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] focus:border-transparent;
+        }
+        .typography_h1 {
+            @apply text-3xl font-bold text-[var(--text-primary)] mb-4;
+        }
+        .typography_h2 {
+            @apply text-2xl font-semibold text-[var(--text-primary)] mb-2;
+        }
+        .typography_body {
+            @apply text-base text-[var(--text-secondary)];
+        }
+        .link {
+            @apply text-[var(--primary-color)] hover:text-[var(--accent-color)] font-medium;
+        }
+        .badge {
+            @apply inline-block bg-[var(--secondary-color)] text-[var(--text-secondary)] text-xs font-bold rounded-full px-3 py-1;
+        }
+        .avatar {
+            @apply rounded-full w-12 h-12 object-cover;
+        }
+        .icon {
+            @apply w-6 h-6 text-[var(--text-secondary)];
+        }
+    </style>
+</head>
+<body class="font-sans">
+<div class="min-h-screen bg-[var(--background-color)]">
+<header class="bg-white shadow-sm">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16">
+<div class="flex items-center space-x-8">
+<div class="flex items-center space-x-2">
+<svg class="h-8 w-8 text-[var(--primary-color)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="text-xl font-bold text-[var(--text-primary)]">Marketplace</span>
+</div>
+<nav class="hidden md:flex space-x-8">
+<a class="link" href="#">Browse</a>
+<a class="font-semibold text-[var(--primary-color)] border-b-2 border-[var(--primary-color)] pb-1" href="#">Selling</a>
+<a class="link" href="#">Buying</a>
+</nav>
+</div>
+<div class="flex items-center space-x-4">
+<div class="relative">
+<span class="absolute inset-y-0 left-0 flex items-center pl-3">
+<svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</span>
+<input class="input pl-10" placeholder="Search" type="search"/>
+</div>
+<button class="p-2 rounded-full hover:bg-[var(--secondary-color)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary-color)]">
+<svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341A6.002 6.002 0 006 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+<img alt="User Avatar" class="avatar w-10 h-10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX66ARaiTh0Tx5MjxMr2p3FRT8QUu1IPwAYFOF8VWFRulBqjn26I6gOYcdDBmBG4ogQpx6QMTDbNbfPhjG8QxVyYSWIOj-rj0fnrWXuiQhBVnFF7nS7PV_fW4Xg6jBDtW7X7QIEd3Db4LnDsdNBia_T2lv-FwKWwjdaBZqOtOuN5meQJUy0AZKqdHijn4gaBqMf3oPIWiuHuD8cOJ5NnI5Yyl3Uyjk3_jzeNqql_BdjD25JxqjyNTVcTCCtc5clnOhYacjl7ny0QHl"/>
+</div>
+</div>
+</div>
+</header>
+<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="flex items-center justify-between mb-6">
+<h1 class="typography_h1">Your Listings</h1>
+<button class="button_primary">
+<svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" fill-rule="evenodd"></path>
+</svg>
+                    Create New Listing
+                </button>
+</div>
+<div class="border-b border-gray-200">
+<nav aria-label="Tabs" class="-mb-px flex space-x-8">
+<a class="border-[var(--primary-color)] text-[var(--primary-color)] whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" href="#">All Listings</a>
+<a class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" href="#">Drafts</a>
+<a class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" href="#">Sold</a>
+</nav>
+</div>
+<div class="mt-8 flex flex-col">
+<div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+<div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+<div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+<table class="min-w-full divide-y divide-gray-200">
+<thead class="bg-gray-50">
+<tr>
+<th class="px-6 py-3 text-left text-xs font-medium text-[var(--text-secondary)] uppercase tracking-wider" scope="col">Item</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-[var(--text-secondary)] uppercase tracking-wider" scope="col">Price</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-[var(--text-secondary)] uppercase tracking-wider" scope="col">Status</th>
+<th class="relative px-6 py-3" scope="col">
+<span class="sr-only">Actions</span>
+</th>
+</tr>
+</thead>
+<tbody class="bg-white divide-y divide-gray-200">
+<tr>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center">
+<div class="flex-shrink-0 h-10 w-10">
+<img alt="Vintage Camera" class="h-10 w-10 rounded-md object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUSD8v4Mz_YjV5J8kvXEeYu5E6-aWXuP8izZ0iOk1cR3JtWjfWxcV7eZFGuwDXyF_w6rURKprTbvY7oTpANsIKCfS1DcZ6rxi459zWdNKkycZ5E1oa8nJVEMX66JFy0--sFA6odLBxiiRcnSV9bzpTNud-9tAb56ujdzuMghvIqxkmkYk56efeWpISwZ0YzG6p99i_RHNtAyeTQYUsuNNg7Sl4G8Qo5g70dLmt9dozRrZD-nwKTQlXJz3tGBON3sjcTHer6ZH8rZ18"/>
+</div>
+<div class="ml-4">
+<div class="text-sm font-medium text-[var(--text-primary)]">Vintage Camera</div>
+<div class="text-sm text-[var(--text-secondary)]">Listed 2 days ago</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="text-sm text-[var(--text-primary)]">$75.00</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-4">
+<a class="link" href="#">Edit</a>
+<a class="text-red-600 hover:text-red-900" href="#">Remove</a>
+</td>
+</tr>
+<tr>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center">
+<div class="flex-shrink-0 h-10 w-10">
+<img alt="Mountain Bike" class="h-10 w-10 rounded-md object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXUucJ-UMepdqvUjZBkw_5p31nRkH-oNa6EqzfSjez7KCbuZTO9unhNhbnrBJodL3cZ6fUYwZASiIO6jGRAofa7BuzJ2ZoCBt1GmREdDZctRJ3deqr93YVa07gLsJ2QPXrfKaE3VP5Mmlxwi9ksCBn1Ya34Q_MhzrxI-Hcs1z48J9GtAvSrbTqni8W_bp9loQBEYS32gM9vm5gceFZrHX00oI06tlGhsTsLRlfSHUHYZdpaf58vJ46dS1Goz72Seqlna1bznsCmdj1"/>
+</div>
+<div class="ml-4">
+<div class="text-sm font-medium text-[var(--text-primary)]">Mountain Bike</div>
+<div class="text-sm text-[var(--text-secondary)]">Listed 1 week ago</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="text-sm text-[var(--text-primary)]">$350.00</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-4">
+<a class="link" href="#">Edit</a>
+<a class="text-red-600 hover:text-red-900" href="#">Remove</a>
+</td>
+</tr>
+<tr>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center">
+<div class="flex-shrink-0 h-10 w-10">
+<img alt="Leather Sofa" class="h-10 w-10 rounded-md object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOZ2MXd-YYiwx3227YaySfVfVuEozlWYMD88BrdEhpNKFrj-RLeqpax6bdkcUJ5e9P21N9eqEOkfxaV5IK4u9XiYrBn65SUsubRe8f4_xYabChWxZsRx8qqVVR7BKiT4Nyqw6_eidPjmcUGuVBaFGw_ZmrMxYrnmYKZBYOpGHfc5bCakJP5UHIl1J9fWpHi2pPNPffya0ZiOB7ypr52IFlZbeM7rZrMaiGScXE9ex2ZcpbSdzx8hKmPrwCR-i2mDqNhvdl7ar5rftn"/>
+</div>
+<div class="ml-4">
+<div class="text-sm font-medium text-[var(--text-primary)]">Leather Sofa</div>
+<div class="text-sm text-[var(--text-secondary)]">Listed 3 weeks ago</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="text-sm text-[var(--text-primary)]">$500.00</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Sold</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-4">
+<a class="link" href="#">Edit</a>
+<a class="text-red-600 hover:text-red-900" href="#">Remove</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+</body></html>
