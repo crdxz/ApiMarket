@@ -32,10 +32,9 @@ class Product(db.Model):
 
 class ProductImage(db.Model):
     __tablename__ = 'product_images'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    product_id = db.Column(db.Integer, db.ForeignKey('products.id', ondelete='CASCADE'), nullable=False)
-    image_url = db.Column(db.String(1024), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
+    image_url = db.Column(db.String(1024))
 
 class PurchaseRequest(db.Model):
     __tablename__ = 'purchase_requests'

@@ -626,6 +626,17 @@ La API estará disponible en: `http://127.0.0.1:5000`
     "confirmation_date": "2024-01-15T10:30:00"
   }
 }
+
+✅ Endpoints creados para ProductImage:
+📋 Funcionalidades:
+\\\
+✅ GET /api/product-images/product/{product_id} - Ver todas las imágenes de un producto
+✅ POST /api/product-images/ - Añadir imagen a un producto
+✅ GET /api/product-images/{image_id} - Ver imagen específica
+✅ PUT /api/product-images/{image_id} - Actualizar URL de imagen
+✅ DELETE /api/product-images/{image_id} - Eliminar imagen
+
+
 ```
 
 ---
