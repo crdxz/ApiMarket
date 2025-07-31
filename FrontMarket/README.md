@@ -6,7 +6,7 @@ Este es el frontend de la aplicación Marketplace, construido con HTML, CSS (Tai
 
 ### ✅ Autenticación y Redirección por Tipo de Usuario
 - **Login inteligente**: El sistema redirige automáticamente según el tipo de usuario
-  - **Vendedores** → `dashboardSellerPahe.html` (Dashboard de vendedor)
+  - **Vendedores** → `dashboardSellerPage.html` (Dashboard de vendedor)
   - **Compradores** → `mainPage.html` (Página principal de compras)
 
 ### ✅ Dashboard de Vendedor
@@ -26,7 +26,7 @@ Este es el frontend de la aplicación Marketplace, construido con HTML, CSS (Tai
 FrontMarket/
 ├── loginPage.html              # Página de login con redirección inteligente
 ├── mainPage.html               # Página principal para compradores
-├── dashboardSellerPahe.html    # Dashboard para vendedores
+├── dashboardSellerPage.html    # Dashboard para vendedores
 ├── productPage.html            # Página de detalle de producto
 ├── accountPage.html            # Página de cuenta de usuario
 ├── test-redirect.html          # Página de prueba para verificar redirecciones

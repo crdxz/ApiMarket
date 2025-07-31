@@ -43,7 +43,7 @@ async function loginUser(email, password) {
       localStorage.setItem('isLoggedIn', 'true');
 
       if (data.user.user_type === 'seller') {
-        window.location.href = 'dashboardSellerPahe.html';
+        window.location.href = 'dashboardSellerPage.html';
       } else {
         window.location.href = 'mainPage.html';
       }

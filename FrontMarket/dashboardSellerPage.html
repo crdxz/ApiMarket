@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Seller Dashboard - Marketplace</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="stylesheet" href="css/dashboardSellerPage.css">
+</head>
+<body class="font-sans">
+<div class="min-h-screen bg-[var(--background-color)]">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[var(--secondary-color)] px-6 py-4">
+<div class="flex items-center gap-4 text-[var(--text-primary)]">
+<div class="size-6 text-[var(--primary-color)]">
+<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 2L2 7V17L12 22L22 17V7L12 2ZM4 8.236L12 12.5L20 8.236V15.764L12 20.028L4 15.764V8.236ZM19.236 6L12 9.764L4.764 6L12 2.236L19.236 6Z"></path>
+</svg>
+</div>
+<h1 class="typography_h1 text-2xl !mb-0">Marketplace</h1>
+</div>
+<div class="flex flex-1 justify-end items-center gap-4">
+<div class="relative w-full max-w-sm">
+<input id="searchInput" class="input pl-10" placeholder="Buscar productos..." value=""/>
+<div class="absolute inset-y-0 left-0 flex items-center pl-3">
+<svg class="icon" fill="currentColor" height="20px" viewBox="0 0 256 256" width="20px" xmlns="http://www.w3.org/2000/svg">
+<path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
+</svg>
+</div>
+</div>
+<button class="button_secondary !p-2">
+<svg class="icon !text-text-primary" fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
+<path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"></path>
+</svg>
+</button>
+<!-- Menú de usuario -->
+<div class="relative">
+<button id="userMenuBtn" class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100 transition-colors">
+<div class="avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB8CMfoB5MKMKKi1vI-2xXt-NUd-C-92b9iwrTQAlJnAcTVe6skGei5eiqpUaUMCn4t2npAdesnP_PbvgFWlQCMFHLu_RV2eLz9W0Eyf-ov-QlHIAZQ3-Ey05J1IzdHkq53p3OKO9eHIqqiB4MgSMnRACTT_CtReFJfjji2WQuHKjiojCFkjzdwlj2T1CeVzzL09qqwULJkUmie-xqVR73pzSzVQG14jzflDc3A7gVuepk1e9RO7PaLZmP4OIRLzEp10pqMRq7vqJZJ");'></div>
+<span id="userName" class="text-sm font-medium text-[var(--text-primary)]">Usuario</span>
+<svg class="w-4 h-4 text-[var(--text-secondary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+</svg>
+</button>
+<!-- Menú desplegable -->
+<div id="userMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 hidden z-50">
+<div class="py-1">
+<div class="px-4 py-2 text-sm text-[var(--text-secondary)] border-b border-gray-100">
+<span id="userEmail">usuario@example.com</span>
+</div>
+<button id="logoutBtn" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+</svg>
+Cerrar Sesión
+</button>
+</div>
+</div>
+</div>
+</div>
+</header>
+<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="flex items-center justify-between mb-6">
+<h1 class="typography_h1">Your Listings</h1>
+<button class="button_primary">
+<svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" fill-rule="evenodd"></path>
+</svg>
+                    Create New Listing
+                </button>
+</div>
+<div class="border-b border-gray-200">
+<nav aria-label="Tabs" class="-mb-px flex space-x-8">
+<a class="border-[var(--primary-color)] text-[var(--primary-color)] whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" href="#">All Listings</a>
+<a class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" href="#">Drafts</a>
+<a class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" href="#">Sold</a>
+</nav>
+</div>
+<div class="mt-8 flex flex-col">
+<div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+<div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+<div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+<table class="min-w-full divide-y divide-gray-200">
+<thead class="bg-gray-50">
+<tr>
+<th class="px-6 py-3 text-left text-xs font-medium text-[var(--text-secondary)] uppercase tracking-wider" scope="col">Item</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-[var(--text-secondary)] uppercase tracking-wider" scope="col">Price</th>
+<th class="px-6 py-3 text-left text-xs font-medium text-[var(--text-secondary)] uppercase tracking-wider" scope="col">Status</th>
+<th class="relative px-6 py-3" scope="col">
+<span class="sr-only">Actions</span>
+</th>
+</tr>
+</thead>
+<tbody class="bg-white divide-y divide-gray-200">
+<tr>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center">
+<div class="flex-shrink-0 h-10 w-10">
+<img alt="Vintage Camera" class="h-10 w-10 rounded-md object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUSD8v4Mz_YjV5J8kvXEeYu5E6-aWXuP8izZ0iOk1cR3JtWjfWxcV7eZFGuwDXyF_w6rURKprTbvY7oTpANsIKCfS1DcZ6rxi459zWdNKkycZ5E1oa8nJVEMX66JFy0--sFA6odLBxiiRcnSV9bzpTNud-9tAb56ujdzuMghvIqxkmkYk56efeWpISwZ0YzG6p99i_RHNtAyeTQYUsuNNg7Sl4G8Qo5g70dLmt9dozRrZD-nwKTQlXJz3tGBON3sjcTHer6ZH8rZ18"/>
+</div>
+<div class="ml-4">
+<div class="text-sm font-medium text-[var(--text-primary)]">Vintage Camera</div>
+<div class="text-sm text-[var(--text-secondary)]">Listed 2 days ago</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="text-sm text-[var(--text-primary)]">$75.00</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-4">
+<a class="link" href="#">Edit</a>
+<a class="text-red-600 hover:text-red-900" href="#">Remove</a>
+</td>
+</tr>
+<tr>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center">
+<div class="flex-shrink-0 h-10 w-10">
+<img alt="Mountain Bike" class="h-10 w-10 rounded-md object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXUucJ-UMepdqvUjZBkw_5p31nRkH-oNa6EqzfSjez7KCbuZTO9unhNhbnrBJodL3cZ6fUYwZASiIO6jGRAofa7BuzJ2ZoCBt1GmREdDZctRJ3deqr93YVa07gLsJ2QPXrfKaE3VP5Mmlxwi9ksCBn1Ya34Q_MhzrxI-Hcs1z48J9GtAvSrbTqni8W_bp9loQBEYS32gM9vm5gceFZrHX00oI06tlGhsTsLRlfSHUHYZdpaf58vJ46dS1Goz72Seqlna1bznsCmdj1"/>
+</div>
+<div class="ml-4">
+<div class="text-sm font-medium text-[var(--text-primary)]">Mountain Bike</div>
+<div class="text-sm text-[var(--text-secondary)]">Listed 1 week ago</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="text-sm text-[var(--text-primary)]">$350.00</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-4">
+<a class="link" href="#">Edit</a>
+<a class="text-red-600 hover:text-red-900" href="#">Remove</a>
+</td>
+</tr>
+<tr>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="flex items-center">
+<div class="flex-shrink-0 h-10 w-10">
+<img alt="Leather Sofa" class="h-10 w-10 rounded-md object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOZ2MXd-YYiwx3227YaySfVfVuEozlWYMD88BrdEhpNKFrj-RLeqpax6bdkcUJ5e9P21N9eqEOkfxaV5IK4u9XiYrBn65SUsubRe8f4_xYabChWxZsRx8qqVVR7BKiT4Nyqw6_eidPjmcUGuVBaFGw_ZmrMxYrnmYKZBYOpGHfc5bCakJP5UHIl1J9fWpHi2pPNPffya0ZiOB7ypr52IFlZbeM7rZrMaiGScXE9ex2ZcpbSdzx8hKmPrwCR-i2mDqNhvdl7ar5rftn"/>
+</div>
+<div class="ml-4">
+<div class="text-sm font-medium text-[var(--text-primary)]">Leather Sofa</div>
+<div class="text-sm text-[var(--text-secondary)]">Listed 3 weeks ago</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<div class="text-sm text-[var(--text-primary)]">$500.00</div>
+</td>
+<td class="px-6 py-4 whitespace-nowrap">
+<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Sold</span>
+</td>
+<td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-4">
+<a class="link" href="#">Edit</a>
+<a class="text-red-600 hover:text-red-900" href="#">Remove</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+
+<!-- Modal de edición de producto -->
+<div id="editModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+        <div class="mt-3">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-medium text-[var(--text-primary)]">Editar Producto</h3>
+                <button id="closeEditModal" class="text-gray-400 hover:text-gray-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <form id="editProductForm" class="space-y-4">
+                <input type="hidden" id="editProductId" />
+                
+                <div>
+                    <label for="editTitle" class="block text-sm font-medium text-[var(--text-primary)] mb-1">Título</label>
+                    <input type="text" id="editTitle" class="input" required />
+                </div>
+                
+                <div>
+                    <label for="editDescription" class="block text-sm font-medium text-[var(--text-primary)] mb-1">Descripción</label>
+                    <textarea id="editDescription" class="input h-20 resize-none" required></textarea>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="editPrice" class="block text-sm font-medium text-[var(--text-primary)] mb-1">Precio</label>
+                        <input type="number" id="editPrice" class="input" step="0.01" min="0" required />
+                    </div>
+                    
+                    <div>
+                        <label for="editStock" class="block text-sm font-medium text-[var(--text-primary)] mb-1">Stock</label>
+                        <input type="number" id="editStock" class="input" min="0" required />
+                    </div>
+                </div>
+                
+                <div>
+                    <label for="editCategory" class="block text-sm font-medium text-[var(--text-primary)] mb-1">Categoría</label>
+                    <select id="editCategory" class="input" required>
+                        <option value="">Seleccionar categoría</option>
+                    </select>
+                </div>
+                
+                <div class="flex items-center">
+                    <input type="checkbox" id="editIsActive" class="rounded border-gray-300 text-[var(--primary-color)] focus:ring-[var(--primary-color)]" />
+                    <label for="editIsActive" class="ml-2 text-sm text-[var(--text-primary)]">Producto activo</label>
+                </div>
+                
+                <div class="flex justify-end space-x-3 pt-4">
+                    <button type="button" id="cancelEdit" class="button_secondary">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="button_primary">
+                        Guardar Cambios
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+    <script src="js/dashboardSellerPage.js"></script>
+</body>
+</html>

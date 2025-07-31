@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const user = JSON.parse(userData);
 
     if (user.user_type === 'seller') {
-      window.location.href = 'dashboardSellerPahe.html';
+      window.location.href = 'dashboardSellerPage.html';
       return;
     }
 
