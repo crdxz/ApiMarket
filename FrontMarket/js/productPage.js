@@ -18,9 +18,19 @@ const sellerPhoneText = document.getElementById('sellerPhoneText');
 const sellerAddress = document.getElementById('sellerAddress');
 const sellerAddressText = document.getElementById('sellerAddressText');
 const contactSellerBtn = document.getElementById('contactSellerBtn');
+const sendMessageBtn = document.getElementById('sendMessageBtn');
+
+// Modal elements
+const messageModal = document.getElementById('messageModal');
+const closeMessageModal = document.getElementById('closeMessageModal');
+const cancelMessage = document.getElementById('cancelMessage');
+const messageForm = document.getElementById('messageForm');
+const messageText = document.getElementById('messageText');
+const buyerContact = document.getElementById('buyerContact');
 
 let productData = null;
 let sellerData = null;
+let currentBuyerId = null; // Esto debería obtenerse del sistema de autenticación
 
 document.addEventListener('DOMContentLoaded', function () {
   const urlParams = new URLSearchParams(window.location.search);
@@ -31,7 +41,11 @@ document.addEventListener('DOMContentLoaded', function () {
     return;
   }
 
+  // Simular un buyer_id (en un sistema real esto vendría del sistema de autenticación)
+  currentBuyerId = 1; // ID temporal del comprador
+
   loadProduct(productId);
+  setupModalEvents();
 });
 
 async function loadProduct(productId) {
@@ -125,3 +139,116 @@ contactSellerBtn.addEventListener('click', function () {
     alert('No se puede contactar al vendedor en este momento.');
   }
 });
+
+function setupModalEvents() {
+  // Abrir modal
+  sendMessageBtn.addEventListener('click', function() {
+    openMessageModal();
+  });
+
+  // Cerrar modal
+  closeMessageModal.addEventListener('click', function() {
+    closeMessageModalFunc();
+  });
+
+  cancelMessage.addEventListener('click', function() {
+    closeMessageModalFunc();
+  });
+
+  // Cerrar modal al hacer clic fuera
+  messageModal.addEventListener('click', function(e) {
+    if (e.target === messageModal) {
+      closeMessageModalFunc();
+    }
+  });
+
+  // Enviar mensaje
+  messageForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    sendMessage();
+  });
+}
+
+function openMessageModal() {
+  // Mensaje predeterminado
+  const defaultMessage = `Hola, estoy interesado en comprar "${productData?.title}". ¿Podrías proporcionarme más información sobre el producto, como su estado actual, si está disponible para envío, y si hay posibilidad de negociar el precio? También me gustaría saber si tienes más fotos del producto.`;
+  
+  messageText.value = defaultMessage;
+  buyerContact.value = '';
+  
+  messageModal.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMessageModalFunc() {
+  messageModal.classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+async function sendMessage() {
+  try {
+    const message = messageText.value.trim();
+    const contact = buyerContact.value.trim();
+
+    if (!message || !contact) {
+      alert('Por favor completa todos los campos');
+      return;
+    }
+
+    // Crear solicitud de compra primero
+    const purchaseRequestData = {
+      product_id: productData.id,
+      buyer_id: currentBuyerId,
+      quantity: 1,
+      note: `${message}\n\nInformación de contacto: ${contact}`
+    };
+
+    const purchaseResponse = await fetch(`${API_BASE_URL}/purchase-requests/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(purchaseRequestData)
+    });
+
+    if (!purchaseResponse.ok) {
+      const errorData = await purchaseResponse.json();
+      throw new Error(errorData.error || 'Error al crear la solicitud de compra');
+    }
+
+    const purchaseData = await purchaseResponse.json();
+    const purchaseRequestId = purchaseData.purchase_request.id;
+
+    // Enviar mensaje
+    const messageData = {
+      purchase_request_id: purchaseRequestId,
+      sender_id: currentBuyerId,
+      receiver_id: productData.seller.id,
+      message: `${message}\n\nInformación de contacto: ${contact}`
+    };
+
+    const messageResponse = await fetch(`${API_BASE_URL}/messages/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(messageData)
+    });
+
+    if (!messageResponse.ok) {
+      const errorData = await messageResponse.json();
+      throw new Error(errorData.error || 'Error al enviar el mensaje');
+    }
+
+    // Éxito
+    alert('Mensaje enviado exitosamente. El vendedor se pondrá en contacto contigo pronto.');
+    closeMessageModalFunc();
+    
+    // Limpiar formulario
+    messageForm.reset();
+
+  } catch (error) {
+    console.error('Error al enviar mensaje:', error);
+    alert(`Error al enviar el mensaje: ${error.message}`);
+  }
+}

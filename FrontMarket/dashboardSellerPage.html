@@ -50,6 +50,12 @@
 <div class="user-info">
 <div class="user-email" id="userEmail">usuario@example.com</div>
 </div>
+<button id="mainPageBtn" class="main-page-btn hidden">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+</svg>
+Ir al Marketplace
+</button>
 <button id="logoutBtn" class="logout-btn">
 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
@@ -79,78 +85,104 @@ Crear Nuevo Producto
 
 <div class="tabs-container">
 <nav class="tabs-nav">
-<a class="tab-link active" href="#">Todos los Productos</a>
-<a class="tab-link" href="#">Borradores</a>
-<a class="tab-link" href="#">Vendidos</a>
+<a class="tab-link active" href="#" data-tab="products">Todos los Productos</a>
+<a class="tab-link" href="#" data-tab="drafts">Borradores</a>
+<a class="tab-link" href="#" data-tab="sold">Vendidos</a>
+<a class="tab-link" href="#" data-tab="messages">Mensajes</a>
 </nav>
 </div>
 
-<div class="table-container">
-<table class="table">
-<thead class="table-header">
-<tr>
-<th scope="col">Producto</th>
-<th scope="col">Precio</th>
-<th scope="col">Estado</th>
-<th scope="col">Acciones</th>
-</tr>
-</thead>
-<tbody class="table-body">
-<tr>
-<td>
-<div class="product-cell">
-<div class="product-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAUSD8v4Mz_YjV5J8kvXEeYu5E6-aWXuP8izZ0iOk1cR3JtWjfWxcV7eZFGuwDXyF_w6rURKprTbvY7oTpANsIKCfS1DcZ6rxi459zWdNKkycZ5E1oa8nJVEMX66JFy0--sFA6odLBxiiRcnSV9bzpTNud-9tAb56ujdzuMghvIqxkmkYk56efeWpISwZ0YzG6p99i_RHNtAyeTQYUsuNNg7Sl4G8Qo5g70dLmt9dozRrZD-nwKTQlXJz3tGBON3sjcTHer6ZH8rZ18')"></div>
-<div class="product-info">
-<div class="product-title">Vintage Camera</div>
-<div class="product-date">Listado hace 2 días</div>
-</div>
-</div>
-</td>
-<td class="price-cell">$75.00</td>
-<td><span class="status-badge status-active">Activo</span></td>
-<td class="actions-cell">
-<a class="action-link edit-link" href="#">Editar</a>
-<a class="action-link delete-link" href="#">Eliminar</a>
-</td>
-</tr>
-<tr>
-<td>
-<div class="product-cell">
-<div class="product-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDXUucJ-UMepdqvUjZBkw_5p31nRkH-oNa6EqzfSjez7KCbuZTO9unhNhbnrBJodL3cZ6fUYwZASiIO6jGRAofa7BuzJ2ZoCBt1GmREdDZctRJ3deqr93YVa07gLsJ2QPXrfKaE3VP5Mmlxwi9ksCBn1Ya34Q_MhzrxI-Hcs1z48J9GtAvSrbTqni8W_bp9loQBEYS32gM9vm5gceFZrHX00oI06tlGhsTsLRlfSHUHYZdpaf58vJ46dS1Goz72Seqlna1bznsCmdj1')"></div>
-<div class="product-info">
-<div class="product-title">Mountain Bike</div>
-<div class="product-date">Listado hace 1 semana</div>
-</div>
-</div>
-</td>
-<td class="price-cell">$350.00</td>
-<td><span class="status-badge status-active">Activo</span></td>
-<td class="actions-cell">
-<a class="action-link edit-link" href="#">Editar</a>
-<a class="action-link delete-link" href="#">Eliminar</a>
-</td>
-</tr>
-<tr>
-<td>
-<div class="product-cell">
-<div class="product-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCOZ2MXd-YYiwx3227YaySfVfVuEozlWYMD88BrdEhpNKFrj-RLeqpax6bdkcUJ5e9P21N9eqEOkfxaV5IK4u9XiYrBn65SUsubRe8f4_xYabChWxZsRx8qqVVR7BKiT4Nyqw6_eidPjmcUGuVBaFGw_ZmrMxYrnmYKZBYOpGHfc5bCakJP5UHIl1J9fWpHi2pPNPffya0ZiOB7ypr52IFlZbeM7rZrMaiGScXE9ex2ZcpbSdzx8hKmPrwCR-i2mDqNhvdl7ar5rftn')"></div>
-<div class="product-info">
-<div class="product-title">Leather Sofa</div>
-<div class="product-date">Listado hace 3 semanas</div>
-</div>
-</div>
-</td>
-<td class="price-cell">$500.00</td>
-<td><span class="status-badge status-sold">Vendido</span></td>
-<td class="actions-cell">
-<a class="action-link edit-link" href="#">Editar</a>
-<a class="action-link delete-link" href="#">Eliminar</a>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</main>
+<div class="tab-content">
+  <!-- Tab de Productos -->
+  <div id="products-tab" class="tab-pane active">
+    <div class="table-container">
+      <table class="table">
+        <thead class="table-header">
+          <tr>
+            <th scope="col">Producto</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="table-body">
+          <tr>
+            <td>
+              <div class="product-cell">
+                <div class="product-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAUSD8v4Mz_YjV5J8kvXEeYu5E6-aWXuP8izZ0iOk1cR3JtWjfWxcV7eZFGuwDXyF_w6rURKprTbvY7oTpANsIKCfS1DcZ6rxi459zWdNKkycZ5E1oa8nJVEMX66JFy0--sFA6odLBxiiRcnSV9bzpTNud-9tAb56ujdzuMghvIqxkmkYk56efeWpISwZ0YzG6p99i_RHNtAyeTQYUsuNNg7Sl4G8Qo5g70dLmt9dozRrZD-nwKTQlXJz3tGBON3sjcTHer6ZH8rZ18')"></div>
+                <div class="product-info">
+                  <div class="product-title">Vintage Camera</div>
+                  <div class="product-date">Listado hace 2 días</div>
+                </div>
+              </div>
+            </td>
+            <td class="price-cell">$75.00</td>
+            <td><span class="status-badge status-active">Activo</span></td>
+            <td class="actions-cell">
+              <a class="action-link edit-link" href="#">Editar</a>
+              <a class="action-link delete-link" href="#">Eliminar</a>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="product-cell">
+                <div class="product-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDXUucJ-UMepdqvUjZBkw_5p31nRkH-oNa6EqzfSjez7KCbuZTO9unhNhbnrBJodL3cZ6fUYwZASiIO6jGRAofa7BuzJ2ZoCBt1GmREdDZctRJ3deqr93YVa07gLsJ2QPXrfKaE3VP5Mmlxwi9ksCBn1Ya34Q_MhzrxI-Hcs1z48J9GtAvSrbTqni8W_bp9loQBEYS32gM9vm5gceFZrHX00oI06tlGhsTsLRlfSHUHYZdpaf58vJ46dS1Goz72Seqlna1bznsCmdj1')"></div>
+                <div class="product-info">
+                  <div class="product-title">Mountain Bike</div>
+                  <div class="product-date">Listado hace 1 semana</div>
+                </div>
+              </div>
+            </td>
+            <td class="price-cell">$350.00</td>
+            <td><span class="status-badge status-active">Activo</span></td>
+            <td class="actions-cell">
+              <a class="action-link edit-link" href="#">Editar</a>
+              <a class="action-link delete-link" href="#">Eliminar</a>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="product-cell">
+                <div class="product-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCOZ2MXd-YYiwx3227YaySfVfVuEozlWYMD88BrdEhpNKFrj-RLeqpax6bdkcUJ5e9P21N9eqEOkfxaV5IK4u9XiYrBn65SUsubRe8f4_xYabChWxZsRx8qqVVR7BKiT4Nyqw6_eidPjmcUGuVBaFGw_ZmrMxYrnmYKZBYOpGHfc5bCakJP5UHIl1J9fWpHi2pPNPffya0ZiOB7ypr52IFlZbeM7rZrMaiGScXE9ex2ZcpbSdzx8hKmPrwCR-i2mDqNhvdl7ar5rftn')"></div>
+                <div class="product-info">
+                  <div class="product-title">Leather Sofa</div>
+                  <div class="product-date">Listado hace 3 semanas</div>
+                </div>
+              </div>
+            </td>
+            <td class="price-cell">$500.00</td>
+            <td><span class="status-badge status-sold">Vendido</span></td>
+            <td class="actions-cell">
+              <a class="action-link edit-link" href="#">Editar</a>
+              <a class="action-link delete-link" href="#">Eliminar</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Tab de Mensajes -->
+  <div id="messages-tab" class="tab-pane">
+    <div class="messages-container">
+      <div class="messages-header">
+        <h3 class="messages-title">Mensajes de Intención de Compra</h3>
+        <div class="messages-count">
+          <span id="messagesCount">0</span> mensajes nuevos
+        </div>
+      </div>
+      
+      <div id="messagesList" class="messages-list">
+        <!-- Los mensajes se cargarán dinámicamente aquí -->
+        <div class="no-messages">
+          <svg class="no-messages-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+          </svg>
+          <p>No hay mensajes nuevos</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Modal de edición de producto -->

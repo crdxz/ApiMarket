@@ -17,6 +17,11 @@ def register():
             if not data.get(field):
                 return jsonify({'error': f'Missing required field: {field}'}), 400
         
+        # Validate user_type
+        valid_user_types = ['buyer', 'seller', 'both']
+        if data['user_type'] not in valid_user_types:
+            return jsonify({'error': f'Invalid user_type. Must be one of: {", ".join(valid_user_types)}'}), 400
+        
         # Check if user already exists
         existing_user = User.query.filter_by(email=data['email']).first()
         if existing_user:

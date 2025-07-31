@@ -5,6 +5,7 @@ const API_BASE_URL = 'http://localhost:5000/api';
 const userMenuBtn = document.getElementById('userMenuBtn');
 const userMenu = document.getElementById('userMenu');
 const logoutBtn = document.getElementById('logoutBtn');
+const mainPageBtn = document.getElementById('mainPageBtn');
 const userName = document.getElementById('userName');
 const userEmail = document.getElementById('userEmail');
 const productsTableBody = document.querySelector('tbody');
@@ -42,6 +43,11 @@ logoutBtn.addEventListener('click', function() {
     
     // Redirigir al login
     window.location.href = 'loginPage.html';
+});
+
+// Botón de main page para usuarios "both"
+mainPageBtn.addEventListener('click', function() {
+    window.location.href = 'mainPage.html';
 });
 
 // Funcionalidad del modal de edición
@@ -273,14 +279,19 @@ document.addEventListener('DOMContentLoaded', function() {
     try {
         const user = JSON.parse(userData);
         
-        // Verificar si el usuario es vendedor
-        if (user.user_type !== 'seller') {
+        // Verificar si el usuario es vendedor o both
+        if (user.user_type !== 'seller' && user.user_type !== 'both') {
             window.location.href = 'mainPage.html';
             return;
         }
         
         userName.textContent = user.name || 'Usuario';
         userEmail.textContent = user.email || 'usuario@example.com';
+        
+        // Mostrar botón de main page para usuarios "both"
+        if (user.user_type === 'both') {
+            mainPageBtn.classList.remove('hidden');
+        }
         
         // Actualizar avatar con iniciales del usuario
         const userAvatar = document.getElementById('userAvatar');
@@ -298,4 +309,176 @@ document.addEventListener('DOMContentLoaded', function() {
     // Cargar categorías y productos del vendedor
     loadCategories();
     loadSellerProducts();
-}); 
+    
+    // Configurar pestañas y cargar mensajes
+    setupTabs();
+    loadMessages();
+});
+
+// Funcionalidad de pestañas
+function setupTabs() {
+    const tabLinks = document.querySelectorAll('.tab-link');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+    
+    tabLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Remover clase active de todas las pestañas
+            tabLinks.forEach(l => l.classList.remove('active'));
+            tabPanes.forEach(p => p.classList.remove('active'));
+            
+            // Agregar clase active a la pestaña clickeada
+            this.classList.add('active');
+            
+            // Mostrar el contenido correspondiente
+            const targetTab = this.getAttribute('data-tab');
+            const targetPane = document.getElementById(`${targetTab}-tab`);
+            if (targetPane) {
+                targetPane.classList.add('active');
+            }
+            
+            // Si es la pestaña de mensajes, cargar mensajes
+            if (targetTab === 'messages') {
+                loadMessages();
+            }
+        });
+    });
+}
+
+// Función para cargar mensajes del vendedor
+async function loadMessages() {
+    try {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user || user.user_type !== 'seller') {
+            console.error('Usuario no es vendedor o no está logueado');
+            return;
+        }
+
+        // Obtener solicitudes de compra donde el vendedor es el receptor
+        const response = await fetch(`${API_BASE_URL}/purchase-requests/`);
+        const data = await response.json();
+
+        if (response.ok) {
+            // Filtrar solicitudes que pertenecen a productos del vendedor
+            const sellerRequests = data.purchase_requests.filter(request => {
+                // Aquí necesitarías verificar si el producto pertenece al vendedor
+                // Por ahora, asumimos que todas las solicitudes son para este vendedor
+                return true;
+            });
+
+            // Obtener mensajes para cada solicitud
+            const messagesWithDetails = [];
+            for (const request of sellerRequests) {
+                const messagesResponse = await fetch(`${API_BASE_URL}/messages/${request.id}`);
+                if (messagesResponse.ok) {
+                    const messagesData = await messagesResponse.json();
+                    if (messagesData.messages && messagesData.messages.length > 0) {
+                        // Obtener información del comprador y producto
+                        const buyerResponse = await fetch(`${API_BASE_URL}/users/${request.buyer_id}`);
+                        const productResponse = await fetch(`${API_BASE_URL}/products/${request.product_id}`);
+                        
+                        if (buyerResponse.ok && productResponse.ok) {
+                            const buyerData = await buyerResponse.json();
+                            const productData = await productResponse.json();
+                            
+                            messagesData.messages.forEach(message => {
+                                if (message.receiver_id === user.id) {
+                                    messagesWithDetails.push({
+                                        ...message,
+                                        buyer: buyerData,
+                                        product: productData,
+                                        purchase_request: request
+                                    });
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+
+            displayMessages(messagesWithDetails);
+        } else {
+            console.error('Error al cargar solicitudes de compra:', data.error);
+        }
+    } catch (error) {
+        console.error('Error al cargar mensajes:', error);
+    }
+}
+
+// Función para mostrar mensajes
+function displayMessages(messages) {
+    const messagesList = document.getElementById('messagesList');
+    const messagesCount = document.getElementById('messagesCount');
+    
+    messagesCount.textContent = messages.length;
+    
+    if (!messages || messages.length === 0) {
+        messagesList.innerHTML = `
+            <div class="no-messages">
+                <svg class="no-messages-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                </svg>
+                <p>No hay mensajes nuevos</p>
+            </div>
+        `;
+        return;
+    }
+
+    messagesList.innerHTML = messages.map(message => `
+        <div class="message-item">
+            <div class="message-header">
+                <div class="message-sender">
+                    <div class="sender-avatar">${message.buyer?.name?.charAt(0).toUpperCase() || 'U'}</div>
+                    <div class="sender-info">
+                        <div class="sender-name">${message.buyer?.name || 'Comprador'}</div>
+                        <div class="sender-contact">${message.buyer?.email || 'Sin contacto'}</div>
+                    </div>
+                </div>
+                <div class="message-timestamp">${formatDate(message.timestamp)}</div>
+            </div>
+            
+            <div class="message-content">
+                <div class="message-text">${message.message}</div>
+            </div>
+            
+            <div class="message-product">
+                <a href="productPage.html?id=${message.product?.id}" class="product-link">
+                    <div class="product-thumbnail" style="background-image: url('https://via.placeholder.com/60x60/3b82f6/ffffff?text=${message.product?.title?.charAt(0).toUpperCase()}')"></div>
+                    <div class="product-details">
+                        <div class="product-name">${message.product?.title || 'Producto'}</div>
+                        <div class="product-price">$${message.product?.price?.toFixed(2) || '0.00'}</div>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="message-actions">
+                <button class="message-action-btn reply-btn" onclick="replyToMessage(${message.id}, '${message.buyer?.email}')">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"></path>
+                    </svg>
+                    Responder
+                </button>
+                <button class="message-action-btn contact-btn" onclick="contactBuyer('${message.buyer?.email}')">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    Contactar
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Función para responder a un mensaje
+function replyToMessage(messageId, buyerEmail) {
+    const subject = 'Respuesta a tu consulta de compra';
+    const body = 'Hola, gracias por tu interés en mi producto. Te respondo a continuación:';
+    
+    window.open(`mailto:${buyerEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, '_blank');
+}
+
+// Función para contactar al comprador
+function contactBuyer(buyerEmail) {
+    window.open(`mailto:${buyerEmail}`, '_blank');
+} 

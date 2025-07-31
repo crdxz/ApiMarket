@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test Navigation - Marketplace</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/utilities.css" />
+  <link rel="stylesheet" href="css/login.css" />
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-header">
+      <h1>Test de Navegación</h1>
+      <p>Prueba la navegación entre páginas</p>
+    </div>
+    
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+      <button onclick="testUserType('buyer')" class="login-button">
+        Probar como Comprador
+      </button>
+      
+      <button onclick="testUserType('seller')" class="login-button" style="background: linear-gradient(135deg, #10b981, #34d399);">
+        Probar como Vendedor
+      </button>
+      
+      <button onclick="testUserType('both')" class="login-button" style="background: linear-gradient(135deg, #f59e0b, #fbbf24);">
+        Probar como Ambos
+      </button>
+    </div>
+    
+    <div class="divider">
+      <span>o</span>
+    </div>
+    
+    <a href="loginPage.html" class="btn-secondary" style="display: block; text-align: center; text-decoration: none;">
+      Volver al Login
+    </a>
+  </div>
+
+  <script>
+    function testUserType(userType) {
+      // Crear usuario de prueba
+      const testUser = {
+        id: 1,
+        name: 'Usuario Test',
+        email: 'test@example.com',
+        user_type: userType
+      };
+      
+      // Guardar en localStorage
+      localStorage.setItem('user', JSON.stringify(testUser));
+      localStorage.setItem('isLoggedIn', 'true');
+      
+      // Redirigir según el tipo
+      if (userType === 'seller') {
+        window.location.href = 'dashboardSellerPage.html';
+      } else {
+        window.location.href = 'mainPage.html';
+      }
+    }
+  </script>
+</body>
+</html> 

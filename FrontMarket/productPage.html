@@ -95,10 +95,48 @@
             </div>
             
             <button id="contactSellerBtn" class="contact-button">Contactar Vendedor</button>
+            <button id="sendMessageBtn" class="send-message-button">Enviar Mensaje</button>
           </div>
         </div>
       </div>
     </main>
+  </div>
+  
+  <!-- Modal para enviar mensaje -->
+  <div id="messageModal" class="message-modal">
+    <div class="message-modal-content">
+      <div class="message-modal-header">
+        <h3 class="message-modal-title">Enviar Mensaje de Intención de Compra</h3>
+        <button id="closeMessageModal" class="message-modal-close">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="message-modal-body">
+        <form id="messageForm">
+          <div class="form-group">
+            <label for="messageText" class="form-label">Mensaje</label>
+            <textarea id="messageText" class="form-textarea" rows="6" placeholder="Hola, estoy interesado en comprar este producto. ¿Podrías proporcionarme más información sobre..."></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="buyerContact" class="form-label">Tu información de contacto</label>
+            <input type="text" id="buyerContact" class="form-input" placeholder="Tu nombre y teléfono o email" required />
+          </div>
+          
+          <div class="form-actions">
+            <button type="button" id="cancelMessage" class="btn-secondary">
+              Cancelar
+            </button>
+            <button type="submit" class="btn-primary">
+              Enviar Mensaje
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
   
   <script src="js/productPage.js"></script>

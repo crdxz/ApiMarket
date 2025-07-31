@@ -5,6 +5,7 @@ const API_BASE_URL = 'http://localhost:5000/api';
 const userMenuBtn = document.getElementById('userMenuBtn');
 const userMenu = document.getElementById('userMenu');
 const logoutBtn = document.getElementById('logoutBtn');
+const dashboardBtn = document.getElementById('dashboardBtn');
 const userName = document.getElementById('userName');
 const userEmail = document.getElementById('userEmail');
 const allCategoriesBtn = document.getElementById('allCategoriesBtn');
@@ -20,6 +21,7 @@ let categories = [];
 let currentCategoryId = null;
 let allProducts = [];
 let filteredProducts = [];
+let currentUser = null;
 
 // Verificar si el usuario está logueado al cargar la página
 document.addEventListener('DOMContentLoaded', function() {
@@ -32,20 +34,26 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   try {
-    const user = JSON.parse(userData);
+    currentUser = JSON.parse(userData);
 
-    if (user.user_type === 'seller') {
+    // Solo redirigir si es SOLO vendedor (no "both")
+    if (currentUser.user_type === 'seller') {
       window.location.href = 'dashboardSellerPage.html';
       return;
     }
 
-    userName.textContent = user.name || 'Usuario';
-    userEmail.textContent = user.email || 'usuario@example.com';
+    userName.textContent = currentUser.name || 'Usuario';
+    userEmail.textContent = currentUser.email || 'usuario@example.com';
+    
+    // Mostrar botón de dashboard para usuarios "both"
+    if (currentUser.user_type === 'both') {
+      dashboardBtn.classList.remove('hidden');
+    }
     
     // Actualizar el avatar del usuario con la primera letra del nombre
     const userAvatar = document.getElementById('userAvatar');
-    if (userAvatar && user.name) {
-      userAvatar.textContent = user.name.charAt(0).toUpperCase();
+    if (userAvatar && currentUser.name) {
+      userAvatar.textContent = currentUser.name.charAt(0).toUpperCase();
     }
   } catch (error) {
     console.error('Error al cargar datos del usuario:', error);
@@ -254,6 +262,13 @@ userMenuBtn.addEventListener('click', function (e) {
 document.addEventListener('click', function (e) {
   if (!userMenuBtn.contains(e.target) && !userMenu.contains(e.target)) {
     userMenu.classList.remove('show');
+  }
+});
+
+// Botón de dashboard para usuarios "both"
+dashboardBtn.addEventListener('click', function () {
+  if (currentUser && currentUser.user_type === 'both') {
+    window.location.href = 'dashboardSellerPage.html';
   }
 });
 

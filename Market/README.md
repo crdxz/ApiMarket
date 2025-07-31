@@ -52,6 +52,9 @@ sudo -i -u postgres
 psql
 ```
 
+User: mymarketadmin 
+Password : admin123
+
 ```sql
 CREATE USER market_user WITH PASSWORD 'market123';
 CREATE DATABASE mymarketdb;
