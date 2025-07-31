@@ -1,301 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Marketplace Product Details</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com" rel="preconnect"/>
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-    <style type="text/tailwindcss">
-      :root {
-        --primary-color: #dce8f3;
-        --secondary-color: #f2f5f7;
-        --background-color: #ffffff;
-        --text-primary: #333333;
-        --text-secondary: #666666;
-        --accent-color: #cce0f7;
-      }
-      body {
-        @apply font-sans bg-[var(--background-color)] text-[var(--text-primary)] rounded-lg;
-      }
-      .main_container {
-        @apply container mx-auto px-4 py-8;
-      }
-      .card {
-        @apply bg-white rounded-lg shadow-md p-6;
-      }
-      .button_primary {
-        @apply bg-[var(--primary-color)] hover:bg-[var(--accent-color)] text-[var(--text-primary)] font-bold py-2 px-4 rounded-lg focus:outline-none ;
-      }
-      .button_secondary {
-        @apply bg-[var(--secondary-color)] hover:bg-gray-200 text-[var(--text-primary)] font-bold py-2 px-4 rounded-lg focus:outline-none ;
-      }
-      .input {
-        @apply shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none  focus:border-[var(--primary-color)];
-      }
-      .typography_h1 {
-        @apply text-3xl font-bold text-[var(--text-primary)] mb-4;
-      }
-      .typography_h2 {
-        @apply text-2xl font-semibold text-[var(--text-primary)] mb-2;
-      }
-      .typography_body {
-        @apply text-base text-[var(--text-secondary)];
-      }
-      .link {
-        @apply text-[var(--primary-color)] hover:text-[var(--accent-color)];
-      }
-      .badge {
-        @apply inline-block bg-[var(--secondary-color)] text-[var(--text-secondary)] text-xs font-bold rounded-full px-2 py-1;
-      }
-      .avatar {
-        @apply rounded-full w-12 h-12 object-cover;
-      }
-      .icon {
-        @apply w-6 h-6 text-[var(--text-secondary)];
-      }
-    </style>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Marketplace Product Details</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/utilities.css" />
+  <link rel="stylesheet" href="css/productPage.css" />
 </head>
-<body class="bg-[var(--background-color)]">
-    <div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
-        <div class="layout-container flex h-full grow flex-col">
-            <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[var(--secondary-color)] px-10 py-3">
-                <div class="flex items-center gap-4 text-[var(--text-primary)]">
-                    <div class="size-6 text-[var(--primary-color)]">
-                        <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2L2 7V17L12 22L22 17V7L12 2ZM4 8.236L12 12.511L20 8.236V15.764L12 20.039L4 15.764V8.236Z"></path>
-                        </svg>
-                    </div>
-                    <h2 class="text-xl font-bold leading-tight tracking-tight">Marketplace</h2>
-                </div>
-                <div class="flex items-center gap-4">
-                    <button onclick="window.location.href='mainPage.html'" class="button_secondary">
-                        <svg class="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"></path>
-                        </svg>
-                        Volver
-                    </button>
-                </div>
-            </header>
-            
-            <main class="main_container">
-                <!-- Loading state -->
-                <div id="loadingState" class="text-center py-8">
-                    <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--primary-color)]"></div>
-                    <p class="mt-2 text-[var(--text-secondary)]">Cargando producto...</p>
-                </div>
-
-                <!-- Error state -->
-                <div id="errorState" class="text-center py-8 hidden">
-                    <p class="text-red-600">Error al cargar el producto</p>
-                    <button onclick="loadProduct()" class="button_primary mt-4">Reintentar</button>
-                </div>
-
-                <!-- Product content -->
-                <div id="productContent" class="grid grid-cols-1 lg:grid-cols-3 gap-8 hidden">
-                    <div class="lg:col-span-2">
-                        <div class="grid grid-cols-2 grid-rows-2 gap-4 h-[500px]">
-                            <div id="mainImage" class="col-span-2 row-span-2 bg-cover bg-center rounded-lg" style='background-image: url("https://via.placeholder.com/600x400/CCCCCC/666666?text=Producto")'></div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="flex items-center justify-between mb-4">
-                            <span id="productCategory" class="badge">Categoría</span>
-                            <span id="productPrice" class="text-3xl font-bold text-[var(--text-primary)]">$0</span>
-                        </div>
-                        <h1 id="productTitle" class="typography_h1">Título del Producto</h1>
-                        <p id="productDescription" class="typography_body mb-6">
-                            Descripción del producto...
-                        </p>
-                        <div class="mb-4">
-                            <p class="text-sm text-[var(--text-secondary)]">Stock disponible: <span id="productStock" class="font-semibold">0</span></p>
-                        </div>
-                        <div class="border-t border-[var(--secondary-color)] pt-6">
-                            <h2 class="typography_h2">Información del Vendedor</h2>
-                            <div class="flex items-center gap-4 mt-4">
-                                <div id="sellerAvatar" class="avatar" style='background-image: url("https://via.placeholder.com/48x48/CCCCCC/666666?text=U")'></div>
-                                <div>
-                                    <p id="sellerName" class="font-semibold text-[var(--text-primary)]">Nombre del Vendedor</p>
-                                    <p id="sellerEmail" class="text-sm text-[var(--text-secondary)]">email@example.com</p>
-                                    <p id="sellerJoinDate" class="text-sm text-[var(--text-secondary)]">Miembro desde 2021</p>
-                                </div>
-                            </div>
-                            <div id="sellerContact" class="mt-4 space-y-2">
-                                <p id="sellerPhone" class="text-sm text-[var(--text-secondary)] hidden">
-                                    <svg class="inline w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
-                                    </svg>
-                                    <span id="sellerPhoneText"></span>
-                                </p>
-                                <p id="sellerAddress" class="text-sm text-[var(--text-secondary)] hidden">
-                                    <svg class="inline w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
-                                    </svg>
-                                    <span id="sellerAddressText"></span>
-                                </p>
-                            </div>
-                            <button id="contactSellerBtn" class="button_primary w-full mt-6">
-                                Contactar Vendedor
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </main>
+<body>
+  <div class="layout-container">
+    <!-- Header -->
+    <header>
+      <div class="header-content">
+        <div class="logo-section">
+          <svg class="logo-icon" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2L2 7V17L12 22L22 17V7L12 2ZM4 8.236L12 12.511L20 8.236V15.764L12 20.039L4 15.764V8.236Z"></path>
+          </svg>
+          <h2 class="logo-text">Marketplace</h2>
         </div>
-    </div>
-
-    <script>
-        // Configuración de la API
-        const API_BASE_URL = 'http://localhost:5000/api';
         
-        // Elementos del DOM
-        const loadingState = document.getElementById('loadingState');
-        const errorState = document.getElementById('errorState');
-        const productContent = document.getElementById('productContent');
-        const productTitle = document.getElementById('productTitle');
-        const productDescription = document.getElementById('productDescription');
-        const productPrice = document.getElementById('productPrice');
-        const productStock = document.getElementById('productStock');
-        const productCategory = document.getElementById('productCategory');
-        const sellerName = document.getElementById('sellerName');
-        const sellerEmail = document.getElementById('sellerEmail');
-        const sellerJoinDate = document.getElementById('sellerJoinDate');
-        const sellerPhone = document.getElementById('sellerPhone');
-        const sellerPhoneText = document.getElementById('sellerPhoneText');
-        const sellerAddress = document.getElementById('sellerAddress');
-        const sellerAddressText = document.getElementById('sellerAddressText');
-        const contactSellerBtn = document.getElementById('contactSellerBtn');
+        <a href="mainPage.html" class="back-button">
+          <svg class="back-icon" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"></path>
+          </svg>
+          Volver
+        </a>
+      </div>
+    </header>
 
-        // Variables globales
-        let productData = null;
-        let sellerData = null;
+    <!-- Main -->
+    <main class="main_container">
+      <div id="loadingState" class="loading-state">
+        <div class="loading-spinner"></div>
+        <p>Cargando producto...</p>
+      </div>
 
-        // Cargar producto al iniciar la página
-        document.addEventListener('DOMContentLoaded', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const productId = urlParams.get('id');
+      <div id="errorState" class="error-state hidden">
+        <p class="error-message">Error al cargar el producto</p>
+        <button onclick="loadProduct()" class="retry-button">Reintentar</button>
+      </div>
+
+      <div id="productContent" class="product-content hidden">
+        <div class="product-gallery">
+          <div id="mainImage" class="main-image" style='background-image: url("https://via.placeholder.com/600x400/CCCCCC/666666?text=Producto")'></div>
+        </div>
+        
+        <div class="product-details">
+          <div class="product-header">
+            <span id="productCategory" class="product-category">Categoría</span>
+            <span id="productPrice" class="product-price">$0</span>
+          </div>
+          
+          <h1 id="productTitle" class="product-title">Título del Producto</h1>
+          <p id="productDescription" class="product-description">Descripción del producto...</p>
+          
+          <div class="product-stock">
+            <svg class="stock-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <div>
+              <span class="stock-text">Stock disponible: </span>
+              <span id="productStock" class="stock-number">0</span>
+            </div>
+          </div>
+          
+          <div class="seller-section">
+            <h2 class="seller-title">Información del Vendedor</h2>
+            <div class="seller-info">
+              <div id="sellerAvatar" class="seller-avatar">U</div>
+              <div class="seller-details">
+                <p id="sellerName" class="seller-name">Nombre del Vendedor</p>
+                <p id="sellerEmail" class="seller-email">email@example.com</p>
+                <p id="sellerJoinDate" class="seller-join-date">Miembro desde 2021</p>
+              </div>
+            </div>
             
-            if (!productId) {
-                showError('No se especificó un ID de producto');
-                return;
-            }
+            <div id="sellerContact" class="seller-contact">
+              <div id="sellerPhone" class="contact-item hidden">
+                <svg class="contact-icon" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+                </svg>
+                <span id="sellerPhoneText"></span>
+              </div>
+              <div id="sellerAddress" class="contact-item hidden">
+                <svg class="contact-icon" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                </svg>
+                <span id="sellerAddressText"></span>
+              </div>
+            </div>
             
-            loadProduct(productId);
-        });
-
-        // Función para cargar el producto
-        async function loadProduct(productId) {
-            try {
-                showLoading(true);
-                
-                const response = await fetch(`${API_BASE_URL}/products/${productId}`);
-                const data = await response.json();
-                
-                if (response.ok) {
-                    productData = data;
-                    sellerData = data.seller;
-                    renderProduct();
-                } else {
-                    showError(data.error || 'Error al cargar el producto');
-                }
-            } catch (error) {
-                console.error('Error al conectar con la API:', error);
-                showError('Error de conexión');
-            } finally {
-                showLoading(false);
-            }
-        }
-
-        // Renderizar el producto
-        function renderProduct() {
-            if (!productData) return;
-
-            // Actualizar título de la página
-            document.title = `${productData.title} - Marketplace`;
-
-            // Información del producto
-            productTitle.textContent = productData.title;
-            productDescription.textContent = productData.description || 'Sin descripción disponible';
-            productPrice.textContent = `$${parseFloat(productData.price).toFixed(2)}`;
-            productStock.textContent = productData.stock;
-
-            // Categoría
-            if (productData.category) {
-                productCategory.textContent = productData.category.name;
-            } else {
-                productCategory.textContent = 'Sin categoría';
-            }
-
-            // Información del vendedor
-            if (sellerData) {
-                sellerName.textContent = sellerData.name;
-                sellerEmail.textContent = sellerData.email;
-                
-                // Fecha de registro
-                if (sellerData.created_at) {
-                    const joinDate = new Date(sellerData.created_at);
-                    sellerJoinDate.textContent = `Miembro desde ${joinDate.getFullYear()}`;
-                } else {
-                    sellerJoinDate.textContent = 'Miembro reciente';
-                }
-
-                // Teléfono (si está disponible)
-                if (sellerData.phone && sellerData.phone.trim() !== '') {
-                    sellerPhoneText.textContent = sellerData.phone;
-                    sellerPhone.classList.remove('hidden');
-                } else {
-                    sellerPhone.classList.add('hidden');
-                }
-
-                // Dirección (si está disponible)
-                if (sellerData.address && sellerData.address.trim() !== '') {
-                    sellerAddressText.textContent = sellerData.address;
-                    sellerAddress.classList.remove('hidden');
-                } else {
-                    sellerAddress.classList.add('hidden');
-                }
-            } else {
-                sellerName.textContent = 'Vendedor no disponible';
-                sellerEmail.textContent = 'Información no disponible';
-                sellerJoinDate.textContent = '';
-                sellerPhone.classList.add('hidden');
-                sellerAddress.classList.add('hidden');
-            }
-
-            // Mostrar contenido
-            productContent.classList.remove('hidden');
-        }
-
-        // Mostrar estado de carga
-        function showLoading(show) {
-            if (show) {
-                loadingState.classList.remove('hidden');
-                errorState.classList.add('hidden');
-                productContent.classList.add('hidden');
-            } else {
-                loadingState.classList.add('hidden');
-            }
-        }
-
-        // Mostrar error
-        function showError(message) {
-            errorState.querySelector('p').textContent = message;
-            errorState.classList.remove('hidden');
-            loadingState.classList.add('hidden');
-            productContent.classList.add('hidden');
-        }
-
-        // Event listener para el botón de contactar vendedor
-        contactSellerBtn.addEventListener('click', function() {
-            if (sellerData && sellerData.email) {
-                // Abrir cliente de correo predeterminado
-                window.open(`mailto:${sellerData.email}?subject=Consulta sobre ${productData.title}`, '_blank');
-            } else {
-                alert('No se puede contactar al vendedor en este momento.');
-            }
-        });
-    </script>
+            <button id="contactSellerBtn" class="contact-button">Contactar Vendedor</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <script src="js/productPage.js"></script>
 </body>
 </html>

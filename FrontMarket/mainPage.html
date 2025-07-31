@@ -1,447 +1,106 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<meta charset="utf-8"/>
-<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
-<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter:wght@400;500;700;900" onload="this.rel='stylesheet'" rel="stylesheet"/>
-<title>Stitch Design</title>
-<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<style type="text/tailwindcss">
-      :root {
-        --primary-color: #dce8f3;
-        --secondary-color: #f2f5f7;
-        --background-color: #ffffff;
-        --text-primary: #333333;
-        --text-secondary: #666666;
-        --accent-color: #cce0f7;
-      }
-      body {
-        font-family: 'Inter', sans-serif;
-        background-color: var(--background-color);
-        color: var(--text-primary);
-        border-radius: 0.5rem;
-      }
-      .main_container {
-        @apply container mx-auto px-4 py-8;
-      }
-      .card {
-        @apply bg-white rounded-lg shadow-md p-6;
-      }
-      .button_primary {
-        @apply bg-[var(--primary-color)] hover:bg-[var(--accent-color)] text-[var(--text-primary)] font-bold py-2 px-4 rounded-lg focus:outline-none ;
-      }
-      .button_secondary {
-        @apply bg-[var(--secondary-color)] hover:bg-gray-200 text-[var(--text-primary)] font-bold py-2 px-4 rounded-lg focus:outline-none ;
-      }
-      .input {
-        @apply shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none  focus:border-[var(--primary-color)];
-      }
-      .typography_h1 {
-        @apply text-3xl font-bold text-[var(--text-primary)] mb-4;
-      }
-      .typography_h2 {
-        @apply text-2xl font-semibold text-[var(--text-primary)] mb-2;
-      }
-      .typography_body {
-        @apply text-base text-[var(--text-secondary)];
-      }
-      .link {
-        @apply text-[var(--primary-color)] hover:text-[var(--accent-color)];
-      }
-      .badge {
-        @apply inline-block bg-[var(--secondary-color)] text-[var(--text-secondary)] text-xs font-bold rounded-full px-2 py-1;
-      }
-      .avatar {
-        @apply rounded-full w-12 h-12 object-cover;
-      }
-      .icon {
-        @apply w-6 h-6 text-[var(--text-secondary)];
-      }
-    </style>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?display=swap&family=Inter:wght@400;500;700;900" />
+  <title>Marketplace</title>
+  <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="stylesheet" href="css/utilities.css" />
+  <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
-<div class="relative flex size-full min-h-screen flex-col bg-[var(--background-color)] group/design-root overflow-x-hidden">
-<div class="main_container flex h-full grow flex-col">
-<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[var(--secondary-color)] px-6 py-4">
-<div class="flex items-center gap-4 text-[var(--text-primary)]">
-<div class="size-6 text-[var(--primary-color)]">
-<svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-<path d="M12 2L2 7V17L12 22L22 17V7L12 2ZM4 8.236L12 12.5L20 8.236V15.764L12 20.028L4 15.764V8.236ZM19.236 6L12 9.764L4.764 6L12 2.236L19.236 6Z"></path>
-</svg>
-</div>
-<h1 class="typography_h1 text-2xl !mb-0">Marketplace</h1>
-</div>
-<div class="flex flex-1 justify-end items-center gap-4">
-<div class="relative w-full max-w-sm">
-<input id="searchInput" class="input pl-10" placeholder="Buscar productos..." value=""/>
-<div class="absolute inset-y-0 left-0 flex items-center pl-3">
-<svg class="icon" fill="currentColor" height="20px" viewBox="0 0 256 256" width="20px" xmlns="http://www.w3.org/2000/svg">
-<path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
-</svg>
-</div>
-</div>
-<button class="button_secondary !p-2">
-<svg class="icon !text-text-primary" fill="currentColor" height="24px" viewBox="0 0 256 256" width="24px" xmlns="http://www.w3.org/2000/svg">
-<path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"></path>
-</svg>
-</button>
-<!-- Menú de usuario -->
-<div class="relative">
-<button id="userMenuBtn" class="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-100 transition-colors">
-<div class="avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB8CMfoB5MKMKKi1vI-2xXt-NUd-C-92b9iwrTQAlJnAcTVe6skGei5eiqpUaUMCn4t2npAdesnP_PbvgFWlQCMFHLu_RV2eLz9W0Eyf-ov-QlHIAZQ3-Ey05J1IzdHkq53p3OKO9eHIqqiB4MgSMnRACTT_CtReFJfjji2WQuHKjiojCFkjzdwlj2T1CeVzzL09qqwULJkUmie-xqVR73pzSzVQG14jzflDc3A7gVuepk1e9RO7PaLZmP4OIRLzEp10pqMRq7vqJZJ");'></div>
-<span id="userName" class="text-sm font-medium text-[var(--text-primary)]">Usuario</span>
-<svg class="w-4 h-4 text-[var(--text-secondary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-</svg>
-</button>
-<!-- Menú desplegable -->
-<div id="userMenu" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 hidden z-50">
-<div class="py-1">
-<div class="px-4 py-2 text-sm text-[var(--text-secondary)] border-b border-gray-100">
-<span id="userEmail">usuario@example.com</span>
-</div>
-<button id="logoutBtn" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2">
-<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-</svg>
-Cerrar Sesión
-</button>
-</div>
-</div>
-</div>
-</div>
-</header>
-<main class="flex-1">
-<div class="px-6 py-8">
-<div class="mb-6 flex flex-wrap gap-4">
-<button id="allCategoriesBtn" class="button_primary">Todos</button>
-<div id="categoryButtons"></div>
-</div>
-<h2 class="typography_h2">Productos Disponibles</h2>
-<div id="loadingProducts" class="text-center py-8">
-<div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--primary-color)]"></div>
-<p class="mt-2 text-[var(--text-secondary)]">Cargando productos...</p>
-</div>
-<div id="noProducts" class="text-center py-8 hidden">
-<p class="text-[var(--text-secondary)]">No hay productos disponibles en esta categoría.</p>
-</div>
-<div id="noSearchResults" class="text-center py-8 hidden">
-<p class="text-[var(--text-secondary)]">No se encontraron productos que coincidan con tu búsqueda.</p>
-</div>
-<div id="productsGrid" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-</div>
-</div>
-</main>
-</div>
-</div>
-
-<script>
-// Configuración de la API
-const API_BASE_URL = 'http://localhost:5000/api';
-
-// Elementos del DOM
-const userMenuBtn = document.getElementById('userMenuBtn');
-const userMenu = document.getElementById('userMenu');
-const logoutBtn = document.getElementById('logoutBtn');
-const userName = document.getElementById('userName');
-const userEmail = document.getElementById('userEmail');
-const allCategoriesBtn = document.getElementById('allCategoriesBtn');
-const categoryButtons = document.getElementById('categoryButtons');
-const productsGrid = document.getElementById('productsGrid');
-const loadingProducts = document.getElementById('loadingProducts');
-const noProducts = document.getElementById('noProducts');
-const noSearchResults = document.getElementById('noSearchResults');
-const searchInput = document.getElementById('searchInput');
-
-// Variables globales
-let categories = [];
-let currentCategoryId = null;
-let allProducts = []; // Almacenar todos los productos cargados
-let filteredProducts = []; // Productos filtrados por búsqueda
-
-// Verificar si el usuario está logueado al cargar la página
-document.addEventListener('DOMContentLoaded', function() {
-    const isLoggedIn = localStorage.getItem('isLoggedIn');
-    const userData = localStorage.getItem('user');
-    
-    if (isLoggedIn !== 'true' || !userData) {
-        // Si no está logueado, redirigir al login
-        window.location.href = 'loginPage.html';
-        return;
-    }
-    
-    // Cargar información del usuario
-    try {
-        const user = JSON.parse(userData);
-        
-        // Verificar si el usuario es vendedor y redirigir al dashboard
-        if (user.user_type === 'seller') {
-            window.location.href = 'dashboardSellerPahe.html';
-            return;
-        }
-        
-        userName.textContent = user.name || 'Usuario';
-        userEmail.textContent = user.email || 'usuario@example.com';
-    } catch (error) {
-        console.error('Error al cargar datos del usuario:', error);
-        // Si hay error en los datos, limpiar y redirigir al login
-        localStorage.removeItem('user');
-        localStorage.removeItem('isLoggedIn');
-        window.location.href = 'loginPage.html';
-    }
-    
-    // Cargar categorías y productos
-    loadCategories();
-    loadProducts();
-});
-
-// Cargar categorías desde la API
-async function loadCategories() {
-    try {
-        const response = await fetch(`${API_BASE_URL}/categories/`);
-        const data = await response.json();
-        
-        if (response.ok) {
-            categories = data.categories;
-            renderCategoryButtons();
-        } else {
-            console.error('Error al cargar categorías:', data.error);
-        }
-    } catch (error) {
-        console.error('Error al conectar con la API:', error);
-    }
-}
-
-// Renderizar botones de categorías
-function renderCategoryButtons() {
-    categoryButtons.innerHTML = '';
-    
-    categories.forEach(category => {
-        const button = document.createElement('button');
-        button.className = 'button_secondary';
-        button.textContent = category.name;
-        button.dataset.categoryId = category.id;
-        
-        button.addEventListener('click', function() {
-            filterByCategory(category.id);
-        });
-        
-        categoryButtons.appendChild(button);
-    });
-}
-
-// Cargar productos desde la API
-async function loadProducts(categoryId = null) {
-    try {
-        showLoading(true);
-        
-        let url = `${API_BASE_URL}/products/`;
-        if (categoryId) {
-            url += `?category_id=${categoryId}`;
-        }
-        
-        const response = await fetch(url);
-        const data = await response.json();
-        
-        if (response.ok) {
-            // Almacenar productos según la categoría
-            if (categoryId) {
-                // Si es una categoría específica, solo almacenar esos productos
-                allProducts = data.products;
-            } else {
-                // Si es "Todos", almacenar todos los productos
-                allProducts = data.products;
-            }
-            
-            // Aplicar filtro de búsqueda si existe
-            applySearchFilter();
-        } else {
-            console.error('Error al cargar productos:', data.error);
-            showNoProducts();
-        }
-    } catch (error) {
-        console.error('Error al conectar con la API:', error);
-        showNoProducts();
-    } finally {
-        showLoading(false);
-    }
-}
-
-// Renderizar productos
-function renderProducts(products) {
-    productsGrid.innerHTML = '';
-    
-    if (products.length === 0) {
-        const searchTerm = searchInput.value.toLowerCase().trim();
-        if (searchTerm !== '') {
-            // Si hay término de búsqueda pero no hay resultados
-            showNoSearchResults(searchTerm);
-        } else {
-            // Si no hay término de búsqueda, mostrar mensaje de no productos
-            showNoProducts();
-        }
-        return;
-    }
-    
-    products.forEach(product => {
-        const productCard = createProductCard(product);
-        productsGrid.appendChild(productCard);
-    });
-    
-    noProducts.classList.add('hidden');
-    noSearchResults.classList.add('hidden');
-}
-
-// Crear tarjeta de producto
-function createProductCard(product) {
-    const card = document.createElement('div');
-    card.className = 'card';
-    
-    // Imagen por defecto (puedes cambiar esto por una imagen real del producto)
-    const defaultImage = 'https://via.placeholder.com/300x200/CCCCCC/666666?text=Producto';
-    
-    card.innerHTML = `
-        <div class="mb-4 h-48 w-full rounded-lg bg-cover bg-center bg-no-repeat" style="background-image: url('${defaultImage}')"></div>
-        <div>
-            <h3 class="font-semibold text-[var(--text-primary)]">${product.title}</h3>
-            <p class="typography_body">$${product.price.toFixed(2)}</p>
-            <p class="text-sm text-[var(--text-secondary)] mt-1">Stock: ${product.stock}</p>
+  <div class="main_container">
+    <!-- Header -->
+    <header>
+      <div class="header-content">
+        <div class="logo-section">
+          <svg class="logo-icon" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2L2 7V17L12 22L22 17V7L12 2ZM4 8.236L12 12.5L20 8.236V15.764L12 20.028L4 15.764V8.236ZM19.236 6L12 9.764L4.764 6L12 2.236L19.236 6Z"></path>
+          </svg>
+          <h1 class="logo-text">Marketplace</h1>
         </div>
-    `;
-    
-    // Agregar evento de clic para ver detalles del producto
-    card.addEventListener('click', function() {
-        // Redirigir a la página de detalles del producto con el ID
-        window.location.href = `productPage.html?id=${product.id}`;
-    });
-    
-    return card;
-}
-
-// Filtrar por categoría
-function filterByCategory(categoryId) {
-    currentCategoryId = categoryId;
-    
-    // Actualizar estilos de botones
-    updateCategoryButtonStyles(categoryId);
-    
-    // Cargar productos filtrados
-    loadProducts(categoryId);
-}
-
-// Actualizar estilos de botones de categoría
-function updateCategoryButtonStyles(selectedCategoryId) {
-    // Resetear todos los botones
-    allCategoriesBtn.className = 'button_secondary';
-    
-    const categoryBtns = categoryButtons.querySelectorAll('button');
-    categoryBtns.forEach(btn => {
-        btn.className = 'button_secondary';
-    });
-    
-    // Resaltar botón seleccionado
-    if (selectedCategoryId) {
-        const selectedBtn = categoryButtons.querySelector(`[data-category-id="${selectedCategoryId}"]`);
-        if (selectedBtn) {
-            selectedBtn.className = 'button_primary';
-        }
-    } else {
-        allCategoriesBtn.className = 'button_primary';
-    }
-}
-
-// Mostrar/ocultar loading
-function showLoading(show) {
-    if (show) {
-        loadingProducts.classList.remove('hidden');
-        noProducts.classList.add('hidden');
-        noSearchResults.classList.add('hidden');
-    } else {
-        loadingProducts.classList.add('hidden');
-    }
-}
-
-// Aplicar filtro de búsqueda
-function applySearchFilter() {
-    const searchTerm = searchInput.value.toLowerCase().trim();
-    
-    if (searchTerm === '') {
-        // Si no hay término de búsqueda, mostrar todos los productos de la categoría
-        filteredProducts = allProducts;
-    } else {
-        // Filtrar productos por título
-        filteredProducts = allProducts.filter(product => 
-            product.title.toLowerCase().includes(searchTerm)
-        );
-    }
-    
-    // Renderizar productos filtrados
-    renderProducts(filteredProducts);
-}
-
-// Función de búsqueda con debounce
-let searchTimeout;
-function handleSearch() {
-    clearTimeout(searchTimeout);
-    searchTimeout = setTimeout(() => {
-        applySearchFilter();
-    }, 300); // Esperar 300ms después de que el usuario deje de escribir
-}
-
-// Mostrar mensaje de no productos
-function showNoProducts() {
-    noProducts.classList.remove('hidden');
-    noSearchResults.classList.add('hidden');
-    productsGrid.innerHTML = '';
-}
-
-// Mostrar mensaje de no resultados de búsqueda
-function showNoSearchResults(searchTerm) {
-    noSearchResults.classList.remove('hidden');
-    noProducts.classList.add('hidden');
-    productsGrid.innerHTML = '';
-}
-
-// Event listeners para categorías
-allCategoriesBtn.addEventListener('click', function() {
-    currentCategoryId = null;
-    updateCategoryButtonStyles(null);
-    loadProducts();
-});
-
-// Event listener para búsqueda
-searchInput.addEventListener('input', handleSearch);
-
-// Toggle del menú de usuario
-userMenuBtn.addEventListener('click', function(e) {
-    e.stopPropagation();
-    userMenu.classList.toggle('hidden');
-});
-
-// Cerrar menú al hacer clic fuera
-document.addEventListener('click', function(e) {
-    if (!userMenuBtn.contains(e.target) && !userMenu.contains(e.target)) {
-        userMenu.classList.add('hidden');
-    }
-});
-
-// Función de logout
-logoutBtn.addEventListener('click', function() {
-    // Mostrar confirmación
-    if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
-        // Limpiar datos de sesión
-        localStorage.removeItem('user');
-        localStorage.removeItem('isLoggedIn');
         
-        // Redirigir al login
-        window.location.href = 'loginPage.html';
-    }
-});
+        <div class="header-actions">
+          <div class="search-container">
+            <input id="searchInput" class="search-input" placeholder="Buscar productos..." />
+            <svg class="search-icon" fill="currentColor" viewBox="0 0 256 256">
+              <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
+            </svg>
+          </div>
+          
+          <button class="notification-btn">
+            <svg class="notification-icon" fill="currentColor" viewBox="0 0 256 256">
+              <path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216ZM48,184c7.7-13.24,16-43.92,16-80a64,64,0,1,1,128,0c0,36.05,8.28,66.73,16,80Z"></path>
+            </svg>
+          </button>
+          
+          <!-- Menú de usuario -->
+          <div class="user-menu">
+            <button id="userMenuBtn" class="user-menu-btn">
+              <div class="user-avatar" id="userAvatar">U</div>
+              <span id="userName">Usuario</span>
+              <svg class="w-4 h-4 text-[var(--text-secondary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            <!-- Dropdown -->
+            <div id="userMenu" class="user-dropdown">
+              <div class="user-info">
+                <div class="user-email" id="userEmail">usuario@example.com</div>
+              </div>
+              <button id="logoutBtn" class="logout-btn">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                </svg>
+                Cerrar Sesión
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
 
-// Prevenir que el menú se cierre al hacer clic dentro
-userMenu.addEventListener('click', function(e) {
-    e.stopPropagation();
-});
-</script>
-
-</body></html>
+    <!-- Main -->
+    <main>
+      <div class="content-header">
+        <div class="categories-section">
+          <h2 class="categories-title">Categorías</h2>
+          <div class="categories-grid">
+            <button id="allCategoriesBtn" class="category-btn active">Todos</button>
+            <div id="categoryButtons"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="products-section">
+        <h2 class="products-title">Productos Disponibles</h2>
+        
+        <div id="loadingProducts" class="loading-container">
+          <div class="loading-spinner"></div>
+          <p>Cargando productos...</p>
+        </div>
+        
+        <div id="noProducts" class="empty-state hidden">
+          <svg class="empty-state-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+          </svg>
+          <p>No hay productos disponibles en esta categoría.</p>
+        </div>
+        
+        <div id="noSearchResults" class="empty-state hidden">
+          <svg class="empty-state-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          <p>No se encontraron productos que coincidan con tu búsqueda.</p>
+        </div>
+        
+        <div id="productsGrid" class="products-grid"></div>
+      </div>
+    </main>
+  </div>
+  
+  <script src="js/main.js"></script>
+</body>
+</html>
