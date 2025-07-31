@@ -24,13 +24,13 @@ const editIsActive = document.getElementById('editIsActive');
 
 // Funcionalidad del menú de usuario
 userMenuBtn.addEventListener('click', function() {
-    userMenu.classList.toggle('hidden');
+    userMenu.classList.toggle('show');
 });
 
 // Cerrar menú al hacer clic fuera
 document.addEventListener('click', function(event) {
     if (!userMenuBtn.contains(event.target) && !userMenu.contains(event.target)) {
-        userMenu.classList.add('hidden');
+        userMenu.classList.remove('show');
     }
 });
 
@@ -56,7 +56,7 @@ editModal.addEventListener('click', function(event) {
 });
 
 function closeModal() {
-    editModal.classList.add('hidden');
+    editModal.classList.remove('show');
     editProductForm.reset();
 }
 
@@ -106,11 +106,20 @@ function displayProducts(products) {
     if (!products || products.length === 0) {
         productsTableBody.innerHTML = `
             <tr>
-                <td colspan="4" class="px-6 py-4 text-center text-gray-500">
-                    No tienes productos publicados aún. 
-                    <button class="text-blue-600 hover:text-blue-800 font-medium ml-2">
-                        Crear tu primer producto
-                    </button>
+                <td colspan="4">
+                    <div class="empty-state">
+                        <svg class="empty-state-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                        </svg>
+                        <div class="empty-state-title">No tienes productos publicados</div>
+                        <div class="empty-state-message">Comienza creando tu primer producto para vender en el marketplace.</div>
+                        <button class="empty-state-button">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path clip-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" fill-rule="evenodd"></path>
+                            </svg>
+                            Crear mi primer producto
+                        </button>
+                    </div>
                 </td>
             </tr>
         `;
@@ -119,32 +128,24 @@ function displayProducts(products) {
 
     productsTableBody.innerHTML = products.map(product => `
         <tr>
-            <td class="px-6 py-4 whitespace-nowrap">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0 h-10 w-10">
-                        <img alt="${product.title}" class="h-10 w-10 rounded-md object-cover" 
-                             src="https://via.placeholder.com/40x40/3b82f6/ffffff?text=${product.title.charAt(0).toUpperCase()}">
-                    </div>
-                    <div class="ml-4">
-                        <div class="text-sm font-medium text-[var(--text-primary)]">${product.title}</div>
-                        <div class="text-sm text-[var(--text-secondary)]">
-                            Listado ${formatDate(product.created_at)}
-                        </div>
+            <td>
+                <div class="product-cell">
+                    <div class="product-image" style="background-image: url('https://via.placeholder.com/60x60/3b82f6/ffffff?text=${product.title.charAt(0).toUpperCase()}')"></div>
+                    <div class="product-info">
+                        <div class="product-title">${product.title}</div>
+                        <div class="product-date">Listado ${formatDate(product.created_at)}</div>
                     </div>
                 </div>
             </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm text-[var(--text-primary)]">$${product.price.toFixed(2)}</div>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                    ${product.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+            <td class="price-cell">$${product.price.toFixed(2)}</td>
+            <td>
+                <span class="status-badge ${product.is_active ? 'status-active' : 'status-inactive'}">
                     ${product.is_active ? 'Activo' : 'Inactivo'}
                 </span>
             </td>
-            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-4">
-                <a class="link" href="#" onclick="editProduct(${product.id})">Editar</a>
-                <a class="text-red-600 hover:text-red-900" href="#" onclick="deleteProduct(${product.id})">Eliminar</a>
+            <td class="actions-cell">
+                <a class="action-link edit-link" href="#" onclick="editProduct(${product.id})">Editar</a>
+                <a class="action-link delete-link" href="#" onclick="deleteProduct(${product.id})">Eliminar</a>
             </td>
         </tr>
     `).join('');
@@ -184,7 +185,7 @@ async function editProduct(productId) {
             editIsActive.checked = data.is_active;
             
             // Mostrar el modal
-            editModal.classList.remove('hidden');
+            editModal.classList.add('show');
         } else {
             alert('Error al cargar datos del producto: ' + data.error);
         }
@@ -280,6 +281,12 @@ document.addEventListener('DOMContentLoaded', function() {
         
         userName.textContent = user.name || 'Usuario';
         userEmail.textContent = user.email || 'usuario@example.com';
+        
+        // Actualizar avatar con iniciales del usuario
+        const userAvatar = document.getElementById('userAvatar');
+        if (userAvatar && user.name) {
+            userAvatar.textContent = user.name.charAt(0).toUpperCase();
+        }
     } catch (error) {
         console.error('Error al cargar datos del usuario:', error);
         // Si hay error en los datos, limpiar y redirigir al login
