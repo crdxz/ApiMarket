@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Visualización de Imágenes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .product-card {
+            display: inline-block;
+            width: 300px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-bottom: 1px solid #eee;
+        }
+        .product-info {
+            padding: 15px;
+        }
+        .product-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .product-price {
+            color: #2c5aa0;
+            font-weight: bold;
+        }
+        .error {
+            color: red;
+            background-color: #ffe6e6;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .success {
+            color: green;
+            background-color: #e6ffe6;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        button {
+            background-color: #2c5aa0;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #1e3f6b;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test - Visualización de Imágenes de Productos</h1>
+    
+    <div class="test-section">
+        <h2>1. Crear Producto con Imagen</h2>
+        <form id="createProductForm">
+            <input type="text" id="productTitle" placeholder="Título del producto" required>
+            <textarea id="productDescription" placeholder="Descripción del producto" required></textarea>
+            <input type="number" id="productPrice" placeholder="Precio" step="0.01" required>
+            <input type="number" id="productStock" placeholder="Stock" required>
+            <input type="number" id="productCategory" placeholder="ID de categoría" value="1" required>
+            <input type="file" id="productImage" accept="image/*" required>
+            <button type="submit">Crear Producto con Imagen</button>
+        </form>
+        <div id="createResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>2. Cargar y Mostrar Productos con Imágenes</h2>
+        <button onclick="loadProductsWithImages()">Cargar Productos</button>
+        <div id="productsContainer"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>3. Test de URLs de Imágenes</h2>
+        <button onclick="testImageUrls()">Probar URLs de Imágenes</button>
+        <div id="urlTestResult"></div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:5000/api';
+
+        // Crear producto con imagen
+        document.getElementById('createProductForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData();
+            formData.append('title', document.getElementById('productTitle').value);
+            formData.append('description', document.getElementById('productDescription').value);
+            formData.append('price', document.getElementById('productPrice').value);
+            formData.append('stock', document.getElementById('productStock').value);
+            formData.append('category_id', document.getElementById('productCategory').value);
+            formData.append('is_active', 'true');
+            
+            const imageFile = document.getElementById('productImage').files[0];
+            if (imageFile) {
+                formData.append('image', imageFile);
+            }
+
+            try {
+                // Crear producto
+                const productResponse = await fetch(`${API_BASE_URL}/products/`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const productData = await productResponse.json();
+                
+                if (productResponse.ok) {
+                    const productId = productData.id;
+                    
+                    // Subir imagen si existe
+                    if (imageFile) {
+                        const imageFormData = new FormData();
+                        imageFormData.append('image', imageFile);
+                        imageFormData.append('product_id', productId);
+
+                        const imageResponse = await fetch(`${API_BASE_URL}/product-images/upload`, {
+                            method: 'POST',
+                            body: imageFormData
+                        });
+
+                        const imageData = await imageResponse.json();
+                        
+                        if (imageResponse.ok) {
+                            document.getElementById('createResult').innerHTML = `
+                                <div class="success">
+                                    Producto creado exitosamente con imagen!<br>
+                                    Producto ID: ${productId}<br>
+                                    Imagen URL: ${imageData.image.full_image_url || imageData.image.image_url}<br>
+                                    <img src="${imageData.image.full_image_url || imageData.image.image_url}" style="max-width: 200px; max-height: 200px; border: 1px solid #ccc;">
+                                </div>
+                            `;
+                        } else {
+                            document.getElementById('createResult').innerHTML = `
+                                <div class="error">
+                                    Producto creado pero error al subir imagen: ${imageData.error}
+                                </div>
+                            `;
+                        }
+                    } else {
+                        document.getElementById('createResult').innerHTML = `
+                            <div class="success">
+                                Producto creado exitosamente sin imagen!<br>
+                                Producto ID: ${productId}
+                            </div>
+                        `;
+                    }
+                } else {
+                    document.getElementById('createResult').innerHTML = `
+                        <div class="error">
+                            Error al crear producto: ${productData.error}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                document.getElementById('createResult').innerHTML = `
+                    <div class="error">
+                        Error de conexión: ${error.message}
+                    </div>
+                `;
+            }
+        });
+
+        // Cargar productos con imágenes
+        async function loadProductsWithImages() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/products/`);
+                const data = await response.json();
+
+                if (response.ok) {
+                    const productsWithImages = await Promise.all(data.products.map(async (product) => {
+                        try {
+                            const imagesResponse = await fetch(`${API_BASE_URL}/product-images/product/${product.id}`);
+                            if (imagesResponse.ok) {
+                                const imagesData = await imagesResponse.json();
+                                if (imagesData.images && imagesData.images.length > 0) {
+                                    product.image_url = imagesData.images[0].full_image_url || imagesData.images[0].image_url;
+                                }
+                            }
+                        } catch (error) {
+                            console.error('Error al cargar imágenes del producto:', error);
+                        }
+                        return product;
+                    }));
+
+                    displayProducts(productsWithImages);
+                } else {
+                    document.getElementById('productsContainer').innerHTML = `
+                        <div class="error">Error al cargar productos: ${data.error}</div>
+                    `;
+                }
+            } catch (error) {
+                document.getElementById('productsContainer').innerHTML = `
+                    <div class="error">Error de conexión: ${error.message}</div>
+                `;
+            }
+        }
+
+        function displayProducts(products) {
+            const container = document.getElementById('productsContainer');
+            
+            if (products.length === 0) {
+                container.innerHTML = '<p>No hay productos disponibles.</p>';
+                return;
+            }
+
+            const productsHTML = products.map(product => `
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('${product.image_url || `https://via.placeholder.com/300x200/CCCCCC/666666?text=${product.title.charAt(0).toUpperCase()}`}')"></div>
+                    <div class="product-info">
+                        <div class="product-title">${product.title}</div>
+                        <div class="product-price">$${product.price.toFixed(2)}</div>
+                        <div>Stock: ${product.stock}</div>
+                        <div>Categoría: ${product.category_name || 'Sin categoría'}</div>
+                        <div>ID: ${product.id}</div>
+                        ${product.image_url ? `<div>Imagen: ${product.image_url}</div>` : '<div>Sin imagen</div>'}
+                    </div>
+                </div>
+            `).join('');
+
+            container.innerHTML = productsHTML;
+        }
+
+        // Test de URLs de imágenes
+        async function testImageUrls() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/product-images/product/1`);
+                const data = await response.json();
+
+                let resultHTML = '<h3>Test de URLs de Imágenes:</h3>';
+                
+                if (response.ok && data.images && data.images.length > 0) {
+                    data.images.forEach((image, index) => {
+                        resultHTML += `
+                            <div style="margin: 10px 0; padding: 10px; border: 1px solid #ddd;">
+                                <strong>Imagen ${index + 1}:</strong><br>
+                                URL Relativa: ${image.image_url}<br>
+                                URL Completa: ${image.full_image_url || 'No disponible'}<br>
+                                <img src="${image.full_image_url || image.image_url}" style="max-width: 200px; max-height: 200px; border: 1px solid #ccc;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+                                <div style="display: none; color: red;">Error al cargar imagen</div>
+                            </div>
+                        `;
+                    });
+                } else {
+                    resultHTML += '<p>No hay imágenes disponibles para el producto ID 1</p>';
+                }
+
+                document.getElementById('urlTestResult').innerHTML = resultHTML;
+            } catch (error) {
+                document.getElementById('urlTestResult').innerHTML = `
+                    <div class="error">Error al testear URLs: ${error.message}</div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html> 

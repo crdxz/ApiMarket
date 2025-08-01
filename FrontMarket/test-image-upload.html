@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba de Subida de Imágenes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .upload-container {
+            border: 2px dashed #ccc;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .preview {
+            max-width: 300px;
+            max-height: 300px;
+            margin: 10px 0;
+        }
+        .form-group {
+            margin: 10px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Prueba de Subida de Imágenes</h1>
+    
+    <form id="productForm">
+        <div class="form-group">
+            <label for="title">Título del Producto:</label>
+            <input type="text" id="title" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="description">Descripción:</label>
+            <textarea id="description" rows="4" required></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="price">Precio:</label>
+            <input type="number" id="price" step="0.01" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="stock">Stock:</label>
+            <input type="number" id="stock" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="category">Categoría ID:</label>
+            <input type="number" id="category" value="1" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="image">Imagen del Producto:</label>
+            <input type="file" id="image" accept="image/*">
+            <div id="preview"></div>
+        </div>
+        
+        <button type="submit">Crear Producto</button>
+    </form>
+    
+    <div id="result"></div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:5000/api';
+        
+        // Preview de imagen
+        document.getElementById('image').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('preview').innerHTML = `
+                        <img src="${e.target.result}" class="preview" alt="Preview">
+                    `;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Envío del formulario
+        document.getElementById('productForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData();
+            formData.append('title', document.getElementById('title').value);
+            formData.append('description', document.getElementById('description').value);
+            formData.append('price', document.getElementById('price').value);
+            formData.append('stock', document.getElementById('stock').value);
+            formData.append('category_id', document.getElementById('category').value);
+            formData.append('seller_id', '1'); // ID de prueba
+            
+            const imageFile = document.getElementById('image').files[0];
+            if (imageFile) {
+                formData.append('image', imageFile);
+            }
+            
+            try {
+                // Crear producto
+                const productResponse = await fetch(`${API_BASE_URL}/products/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        title: document.getElementById('title').value,
+                        description: document.getElementById('description').value,
+                        price: parseFloat(document.getElementById('price').value),
+                        stock: parseInt(document.getElementById('stock').value),
+                        category_id: parseInt(document.getElementById('category').value),
+                        seller_id: 1
+                    })
+                });
+                
+                const productResult = await productResponse.json();
+                
+                if (productResponse.ok) {
+                    document.getElementById('result').innerHTML = `
+                        <h3>Producto creado exitosamente</h3>
+                        <p>ID: ${productResult.product.id}</p>
+                        <p>Título: ${productResult.product.title}</p>
+                    `;
+                    
+                    // Si hay imagen, subirla
+                    if (imageFile) {
+                        const imageFormData = new FormData();
+                        imageFormData.append('image', imageFile);
+                        imageFormData.append('product_id', productResult.product.id);
+                        
+                        const imageResponse = await fetch(`${API_BASE_URL}/product-images/upload`, {
+                            method: 'POST',
+                            body: imageFormData
+                        });
+                        
+                        if (imageResponse.ok) {
+                            const imageResult = await imageResponse.json();
+                            document.getElementById('result').innerHTML += `
+                                <h3>Imagen subida exitosamente</h3>
+                                <p>URL: ${imageResult.image.image_url}</p>
+                            `;
+                        } else {
+                            const imageError = await imageResponse.json();
+                            document.getElementById('result').innerHTML += `
+                                <h3>Error al subir imagen</h3>
+                                <p>${imageError.error}</p>
+                            `;
+                        }
+                    }
+                } else {
+                    document.getElementById('result').innerHTML = `
+                        <h3>Error al crear producto</h3>
+                        <p>${productResult.error}</p>
+                    `;
+                }
+            } catch (error) {
+                document.getElementById('result').innerHTML = `
+                    <h3>Error de conexión</h3>
+                    <p>${error.message}</p>
+                `;
+            }
+        });
+    </script>
+</body>
+</html> 

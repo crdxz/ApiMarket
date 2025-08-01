@@ -45,6 +45,10 @@ const newCategoryName = document.getElementById('newCategoryName');
 const newCategoryDescription = document.getElementById('newCategoryDescription');
 const createNewCategoryBtn = document.getElementById('createNewCategoryBtn');
 
+// Elementos para subida de imágenes
+const createImage = document.getElementById('createImage');
+const imagePreview = document.getElementById('imagePreview');
+
 // Funcionalidad del menú de usuario
 userMenuBtn.addEventListener('click', function() {
     userMenu.classList.toggle('show');
@@ -107,6 +111,7 @@ createModal.addEventListener('click', function(event) {
 function closeCreateModalFunc() {
     createModal.classList.remove('show');
     createProductForm.reset();
+    removeImage(); // Limpiar también la imagen
 }
 
 // Funcionalidad del modal de crear categoría
@@ -129,6 +134,61 @@ function closeCreateCategoryModalFunc() {
 function openCreateCategoryModal() {
     createCategoryModal.classList.add('show');
     newCategoryName.focus();
+}
+
+// Funcionalidad para subida de imágenes
+function setupImageUpload() {
+    // Hacer clic en el preview para seleccionar archivo
+    imagePreview.addEventListener('click', function() {
+        createImage.click();
+    });
+    
+    // Manejar selección de archivo
+    createImage.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            // Validar tipo de archivo
+            const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+            if (!allowedTypes.includes(file.type)) {
+                alert('Por favor selecciona una imagen válida (JPG, PNG, GIF, WEBP)');
+                return;
+            }
+            
+            // Validar tamaño (5MB máximo)
+            const maxSize = 5 * 1024 * 1024; // 5MB
+            if (file.size > maxSize) {
+                alert('La imagen es demasiado grande. Máximo 5MB permitido.');
+                return;
+            }
+            
+            // Mostrar preview
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.innerHTML = `
+                    <img src="${e.target.result}" alt="Preview" />
+                    <button type="button" class="remove-image" onclick="removeImage()">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                `;
+                imagePreview.classList.add('has-image');
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+}
+
+// Función para remover imagen
+function removeImage() {
+    createImage.value = '';
+    imagePreview.innerHTML = `
+        <svg class="image-placeholder" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+        </svg>
+        <p class="image-placeholder-text">Haz clic para seleccionar una imagen</p>
+    `;
+    imagePreview.classList.remove('has-image');
 }
 
 // Cargar categorías para los formularios
@@ -182,7 +242,23 @@ async function loadSellerProducts() {
         const data = await response.json();
 
         if (response.ok) {
-            displayProducts(data.products);
+            // Cargar imágenes para cada producto
+            const productsWithImages = await Promise.all(data.products.map(async (product) => {
+                try {
+                    const imagesResponse = await fetch(`${API_BASE_URL}/product-images/product/${product.id}`);
+                    if (imagesResponse.ok) {
+                        const imagesData = await imagesResponse.json();
+                        if (imagesData.images && imagesData.images.length > 0) {
+                            product.image_url = imagesData.images[0].full_image_url || imagesData.images[0].image_url;
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error al cargar imágenes del producto:', error);
+                }
+                return product;
+            }));
+            
+            displayProducts(productsWithImages);
         } else {
             console.error('Error al cargar productos:', data.error);
             // Mostrar error en la tabla
@@ -248,7 +324,7 @@ function displayProducts(products) {
         <tr>
             <td>
                 <div class="product-cell">
-                    <div class="product-image" style="background-image: url('https://via.placeholder.com/60x60/3b82f6/ffffff?text=${product.title.charAt(0).toUpperCase()}')"></div>
+                    <div class="product-image" style="background-image: url('${product.image_url || `https://via.placeholder.com/60x60/3b82f6/ffffff?text=${product.title.charAt(0).toUpperCase()}`}')"></div>
                     <div class="product-info">
                         <div class="product-title">${product.title}</div>
                         <div class="product-date">Listado ${formatDate(product.created_at)}</div>
@@ -387,32 +463,54 @@ createProductForm.addEventListener('submit', async function(e) {
         return;
     }
     
-    const formData = {
-        title: createTitle.value,
-        description: createDescription.value,
-        price: parseFloat(createPrice.value),
-        stock: parseInt(createStock.value),
-        category_id: parseInt(createCategory.value),
-        seller_id: user.id
-    };
+    // Verificar si hay imagen seleccionada
+    const imageFile = createImage.files[0];
     
     try {
-        const response = await fetch(`${API_BASE_URL}/products/`, {
+        // Primero crear el producto
+        const productData = {
+            title: createTitle.value,
+            description: createDescription.value,
+            price: parseFloat(createPrice.value),
+            stock: parseInt(createStock.value),
+            category_id: parseInt(createCategory.value),
+            seller_id: user.id
+        };
+        
+        const productResponse = await fetch(`${API_BASE_URL}/products/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(formData)
+            body: JSON.stringify(productData)
         });
         
-        const data = await response.json();
+        const productResult = await productResponse.json();
         
-        if (response.ok) {
+        if (productResponse.ok) {
+            // Si hay imagen, subirla
+            if (imageFile) {
+                const imageFormData = new FormData();
+                imageFormData.append('image', imageFile);
+                imageFormData.append('product_id', productResult.product.id);
+                
+                const imageResponse = await fetch(`${API_BASE_URL}/product-images/upload`, {
+                    method: 'POST',
+                    body: imageFormData
+                });
+                
+                if (!imageResponse.ok) {
+                    const imageError = await imageResponse.json();
+                    console.warn('Error al subir imagen:', imageError);
+                    // No fallar la creación del producto si la imagen falla
+                }
+            }
+            
             closeCreateModalFunc();
             loadSellerProducts();
             alert('Producto creado exitosamente');
         } else {
-            alert('Error al crear producto: ' + data.error);
+            alert('Error al crear producto: ' + productResult.error);
         }
     } catch (error) {
         console.error('Error al crear producto:', error);
@@ -515,6 +613,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Configurar pestañas y cargar mensajes
     setupTabs();
     loadMessages();
+    
+    // Configurar funcionalidad de subida de imágenes
+    setupImageUpload();
 });
 
 // Funcionalidad de pestañas

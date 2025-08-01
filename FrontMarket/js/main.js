@@ -113,7 +113,23 @@ async function loadProducts(categoryId = null) {
     const data = await response.json();
 
     if (response.ok) {
-      allProducts = data.products;
+      // Cargar imágenes para cada producto
+      const productsWithImages = await Promise.all(data.products.map(async (product) => {
+        try {
+          const imagesResponse = await fetch(`${API_BASE_URL}/product-images/product/${product.id}`);
+          if (imagesResponse.ok) {
+            const imagesData = await imagesResponse.json();
+            if (imagesData.images && imagesData.images.length > 0) {
+              product.image_url = imagesData.images[0].full_image_url || imagesData.images[0].image_url;
+            }
+          }
+        } catch (error) {
+          console.error('Error al cargar imágenes del producto:', error);
+        }
+        return product;
+      }));
+      
+      allProducts = productsWithImages;
       applySearchFilter();
     } else {
       console.error('Error al cargar productos:', data.error);
@@ -154,9 +170,10 @@ function createProductCard(product) {
   card.className = 'product-card';
 
   const defaultImage = 'https://via.placeholder.com/300x200/CCCCCC/666666?text=Producto';
+  const productImage = product.image_url || defaultImage;
 
   card.innerHTML = `
-    <div class="product-image" style="background-image: url('${defaultImage}')"></div>
+    <div class="product-image" style="background-image: url('${productImage}')"></div>
     <div class="product-info">
       <span class="product-category">${product.category_name || 'Sin categoría'}</span>
       <h3 class="product-title">${product.title}</h3>

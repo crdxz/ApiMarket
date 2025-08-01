@@ -68,6 +68,20 @@ async function loadProduct(productId) {
     if (response.ok) {
       productData = data;
       sellerData = data.seller;
+      
+      // Cargar imagen del producto
+      try {
+        const imagesResponse = await fetch(`${API_BASE_URL}/product-images/product/${productId}`);
+        if (imagesResponse.ok) {
+          const imagesData = await imagesResponse.json();
+          if (imagesData.images && imagesData.images.length > 0) {
+            productData.image_url = imagesData.images[0].full_image_url || imagesData.images[0].image_url;
+          }
+        }
+      } catch (error) {
+        console.error('Error al cargar imagen del producto:', error);
+      }
+      
       renderProduct();
     } else {
       showError(data.error || 'Error al cargar el producto');
@@ -89,6 +103,14 @@ function renderProduct() {
   productPrice.textContent = `$${parseFloat(productData.price).toFixed(2)}`;
   productStock.textContent = productData.stock;
   productCategory.textContent = productData.category?.name || 'Sin categoría';
+
+  // Mostrar imagen del producto
+  const mainImage = document.getElementById('mainImage');
+  if (productData.image_url) {
+    mainImage.style.backgroundImage = `url('${productData.image_url}')`;
+  } else {
+    mainImage.style.backgroundImage = `url('https://via.placeholder.com/600x400/CCCCCC/666666?text=${productData.title.charAt(0).toUpperCase()}')`;
+  }
 
   if (sellerData) {
     sellerName.textContent = sellerData.name;
