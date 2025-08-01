@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Test Main Products</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="stylesheet" href="css/utilities.css" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+  <div class="main_container">
+    <header>
+      <div class="header-content">
+        <div class="logo-section">
+          <h1 class="logo-text">Test Main Products</h1>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="content-header">
+        <h2>Prueba de Productos con Categoría y Vendedor</h2>
+      </div>
+      
+      <div class="products-section">
+        <div id="loadingProducts" class="loading-container">
+          <div class="loading-spinner"></div>
+          <p>Cargando productos...</p>
+        </div>
+        
+        <div id="noProducts" class="empty-state hidden">
+          <p>No hay productos disponibles.</p>
+        </div>
+        
+        <div id="productsGrid" class="products-grid"></div>
+      </div>
+    </main>
+  </div>
+  
+  <script>
+    // Configuración de la API
+    const API_BASE_URL = 'http://localhost:5000/api';
+
+    // Elementos del DOM
+    const productsGrid = document.getElementById('productsGrid');
+    const loadingProducts = document.getElementById('loadingProducts');
+    const noProducts = document.getElementById('noProducts');
+
+    // Simular login de usuario
+    const testUser = {
+      id: 1,
+      name: 'Usuario Test',
+      email: 'test@example.com',
+      user_type: 'both'
+    };
+    localStorage.setItem('user', JSON.stringify(testUser));
+    localStorage.setItem('isLoggedIn', 'true');
+
+    // Cargar productos
+    async function loadProducts() {
+      try {
+        showLoading(true);
+        const response = await fetch(`${API_BASE_URL}/products/`);
+        const data = await response.json();
+
+        console.log('Respuesta de la API:', data);
+
+        if (response.ok) {
+          renderProducts(data.products);
+        } else {
+          console.error('Error al cargar productos:', data.error);
+          showNoProducts();
+        }
+      } catch (error) {
+        console.error('Error al conectar con la API:', error);
+        showNoProducts();
+      } finally {
+        showLoading(false);
+      }
+    }
+
+    function renderProducts(products) {
+      productsGrid.innerHTML = '';
+
+      if (products.length === 0) {
+        showNoProducts();
+        return;
+      }
+
+      products.forEach(product => {
+        const productCard = createProductCard(product);
+        productsGrid.appendChild(productCard);
+      });
+
+      noProducts.classList.add('hidden');
+    }
+
+    function createProductCard(product) {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+
+      const defaultImage = 'https://via.placeholder.com/300x200/CCCCCC/666666?text=Producto';
+
+      card.innerHTML = `
+        <div class="product-image" style="background-image: url('${defaultImage}')"></div>
+        <div class="product-info">
+          <span class="product-category">${product.category_name || 'Sin categoría'}</span>
+          <h3 class="product-title">${product.title}</h3>
+          <p class="product-price">$${product.price.toFixed(2)}</p>
+          <p class="product-seller">Vendedor: ${product.seller_name || 'Anónimo'}</p>
+          <p class="product-stock">Stock: ${product.stock}</p>
+        </div>
+      `;
+
+      card.addEventListener('click', function () {
+        console.log('Producto clickeado:', product);
+        alert(`Producto: ${product.title}\nCategoría: ${product.category_name}\nVendedor: ${product.seller_name}`);
+      });
+
+      return card;
+    }
+
+    function showLoading(show) {
+      if (show) {
+        loadingProducts.classList.remove('hidden');
+        noProducts.classList.add('hidden');
+      } else {
+        loadingProducts.classList.add('hidden');
+      }
+    }
+
+    function showNoProducts() {
+      noProducts.classList.remove('hidden');
+      productsGrid.innerHTML = '';
+    }
+
+    // Cargar productos al iniciar
+    document.addEventListener('DOMContentLoaded', function() {
+      loadProducts();
+    });
+  </script>
+</body>
+</html> 

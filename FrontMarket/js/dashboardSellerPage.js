@@ -9,6 +9,7 @@ const mainPageBtn = document.getElementById('mainPageBtn');
 const userName = document.getElementById('userName');
 const userEmail = document.getElementById('userEmail');
 const productsTableBody = document.querySelector('tbody');
+const createButton = document.querySelector('.create-button');
 
 // Elementos del modal de edición
 const editModal = document.getElementById('editModal');
@@ -22,6 +23,18 @@ const editPrice = document.getElementById('editPrice');
 const editStock = document.getElementById('editStock');
 const editCategory = document.getElementById('editCategory');
 const editIsActive = document.getElementById('editIsActive');
+
+// Elementos del modal de creación
+const createModal = document.getElementById('createModal');
+const closeCreateModal = document.getElementById('closeCreateModal');
+const cancelCreate = document.getElementById('cancelCreate');
+const createProductForm = document.getElementById('createProductForm');
+const createTitle = document.getElementById('createTitle');
+const createDescription = document.getElementById('createDescription');
+const createPrice = document.getElementById('createPrice');
+const createStock = document.getElementById('createStock');
+const createCategory = document.getElementById('createCategory');
+const createIsActive = document.getElementById('createIsActive');
 
 // Funcionalidad del menú de usuario
 userMenuBtn.addEventListener('click', function() {
@@ -50,32 +63,60 @@ mainPageBtn.addEventListener('click', function() {
     window.location.href = 'mainPage.html';
 });
 
+// Botón de crear nuevo producto
+createButton.addEventListener('click', function() {
+    createNewProduct();
+});
+
 // Funcionalidad del modal de edición
-closeEditModal.addEventListener('click', closeModal);
-cancelEdit.addEventListener('click', closeModal);
+closeEditModal.addEventListener('click', closeEditModalFunc);
+cancelEdit.addEventListener('click', closeEditModalFunc);
 
 // Cerrar modal al hacer clic fuera
 editModal.addEventListener('click', function(event) {
     if (event.target === editModal) {
-        closeModal();
+        closeEditModalFunc();
     }
 });
 
-function closeModal() {
+function closeEditModalFunc() {
     editModal.classList.remove('show');
     editProductForm.reset();
 }
 
-// Cargar categorías para el formulario de edición
+// Funcionalidad del modal de creación
+closeCreateModal.addEventListener('click', closeCreateModalFunc);
+cancelCreate.addEventListener('click', closeCreateModalFunc);
+
+// Cerrar modal al hacer clic fuera
+createModal.addEventListener('click', function(event) {
+    if (event.target === createModal) {
+        closeCreateModalFunc();
+    }
+});
+
+function closeCreateModalFunc() {
+    createModal.classList.remove('show');
+    createProductForm.reset();
+}
+
+// Cargar categorías para los formularios
 async function loadCategories() {
     try {
         const response = await fetch(`${API_BASE_URL}/categories/`);
         const data = await response.json();
         
         if (response.ok) {
+            // Cargar categorías en el formulario de edición
             editCategory.innerHTML = '<option value="">Seleccionar categoría</option>';
             data.categories.forEach(category => {
                 editCategory.innerHTML += `<option value="${category.id}">${category.name}</option>`;
+            });
+            
+            // Cargar categorías en el formulario de creación
+            createCategory.innerHTML = '<option value="">Seleccionar categoría</option>';
+            data.categories.forEach(category => {
+                createCategory.innerHTML += `<option value="${category.id}">${category.name}</option>`;
             });
         }
     } catch (error) {
@@ -88,10 +129,22 @@ async function loadSellerProducts() {
     try {
         // Obtener información del usuario logueado
         const user = JSON.parse(localStorage.getItem('user'));
-        if (!user || user.user_type !== 'seller') {
+        if (!user || (user.user_type !== 'seller' && user.user_type !== 'both')) {
             console.error('Usuario no es vendedor o no está logueado');
             return;
         }
+
+        // Mostrar estado de carga
+        productsTableBody.innerHTML = `
+            <tr>
+                <td colspan="4">
+                    <div class="loading-container">
+                        <div class="loading-spinner"></div>
+                        <p>Cargando productos...</p>
+                    </div>
+                </td>
+            </tr>
+        `;
 
         // Obtener productos del vendedor
         const response = await fetch(`${API_BASE_URL}/products/seller/${user.id}`);
@@ -101,9 +154,37 @@ async function loadSellerProducts() {
             displayProducts(data.products);
         } else {
             console.error('Error al cargar productos:', data.error);
+            // Mostrar error en la tabla
+            productsTableBody.innerHTML = `
+                <tr>
+                    <td colspan="4">
+                        <div class="empty-state">
+                            <svg class="empty-state-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                            </svg>
+                            <div class="empty-state-title">Error al cargar productos</div>
+                            <div class="empty-state-message">No se pudieron cargar los productos. Intenta recargar la página.</div>
+                        </div>
+                    </td>
+                </tr>
+            `;
         }
     } catch (error) {
         console.error('Error al cargar productos:', error);
+        // Mostrar error en la tabla
+        productsTableBody.innerHTML = `
+            <tr>
+                <td colspan="4">
+                    <div class="empty-state">
+                        <svg class="empty-state-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                        </svg>
+                        <div class="empty-state-title">Error de conexión</div>
+                        <div class="empty-state-message">No se pudo conectar con el servidor. Verifica tu conexión a internet.</div>
+                    </div>
+                </td>
+            </tr>
+        `;
     }
 }
 
@@ -117,9 +198,9 @@ function displayProducts(products) {
                         <svg class="empty-state-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
                         </svg>
-                        <div class="empty-state-title">No tienes productos publicados</div>
-                        <div class="empty-state-message">Comienza creando tu primer producto para vender en el marketplace.</div>
-                        <button class="empty-state-button">
+                        <div class="empty-state-title">No has publicado ningún producto</div>
+                        <div class="empty-state-message">Comienza creando tu primer producto para vender en el marketplace. Los productos que publiques aparecerán aquí.</div>
+                        <button class="empty-state-button" onclick="createNewProduct()">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path clip-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" fill-rule="evenodd"></path>
                             </svg>
@@ -252,7 +333,7 @@ editProductForm.addEventListener('submit', async function(e) {
         const data = await response.json();
         
         if (response.ok) {
-            closeModal();
+            closeEditModalFunc();
             loadSellerProducts();
             alert('Producto actualizado exitosamente');
         } else {
@@ -261,6 +342,50 @@ editProductForm.addEventListener('submit', async function(e) {
     } catch (error) {
         console.error('Error al actualizar producto:', error);
         alert('Error al actualizar producto');
+    }
+});
+
+// Manejar envío del formulario de creación
+createProductForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    // Obtener el usuario logueado
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user) {
+        alert('Debes iniciar sesión para crear productos');
+        return;
+    }
+    
+    const formData = {
+        title: createTitle.value,
+        description: createDescription.value,
+        price: parseFloat(createPrice.value),
+        stock: parseInt(createStock.value),
+        category_id: parseInt(createCategory.value),
+        seller_id: user.id
+    };
+    
+    try {
+        const response = await fetch(`${API_BASE_URL}/products/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+            closeCreateModalFunc();
+            loadSellerProducts();
+            alert('Producto creado exitosamente');
+        } else {
+            alert('Error al crear producto: ' + data.error);
+        }
+    } catch (error) {
+        console.error('Error al crear producto:', error);
+        alert('Error al crear producto');
     }
 });
 
@@ -350,10 +475,12 @@ function setupTabs() {
 async function loadMessages() {
     try {
         const user = JSON.parse(localStorage.getItem('user'));
-        if (!user || user.user_type !== 'seller') {
+        if (!user || (user.user_type !== 'seller' && user.user_type !== 'both')) {
             console.error('Usuario no es vendedor o no está logueado');
             return;
         }
+
+        console.log('Cargando mensajes para usuario:', user);
 
         // Obtener solicitudes de compra donde el vendedor es el receptor
         const response = await fetch(`${API_BASE_URL}/purchase-requests/`);
@@ -361,28 +488,79 @@ async function loadMessages() {
 
         if (response.ok) {
             // Filtrar solicitudes que pertenecen a productos del vendedor
-            const sellerRequests = data.purchase_requests.filter(request => {
-                // Aquí necesitarías verificar si el producto pertenece al vendedor
-                // Por ahora, asumimos que todas las solicitudes son para este vendedor
-                return true;
-            });
+            const sellerRequests = [];
+            const productCache = new Map(); // Cache para evitar llamadas repetidas
+            
+            for (const request of data.purchase_requests) {
+                try {
+                    // Verificar si el producto pertenece al vendedor actual
+                    let productData;
+                    
+                    if (productCache.has(request.product_id)) {
+                        productData = productCache.get(request.product_id);
+                    } else {
+                        const productResponse = await fetch(`${API_BASE_URL}/products/${request.product_id}`);
+                        if (productResponse.ok) {
+                            productData = await productResponse.json();
+                            productCache.set(request.product_id, productData);
+                        }
+                    }
+                    
+                    if (productData && productData.seller_id === user.id) {
+                        sellerRequests.push(request);
+                    }
+                } catch (error) {
+                    console.error('Error al verificar producto:', error);
+                }
+            }
+
+            console.log('Solicitudes encontradas:', sellerRequests.length);
 
             // Obtener mensajes para cada solicitud
             const messagesWithDetails = [];
+            const buyerCache = new Map(); // Cache para compradores
+            const productCacheForMessages = new Map(); // Cache para productos en mensajes
+            
             for (const request of sellerRequests) {
+                console.log('Procesando solicitud ID:', request.id, 'Comprador ID:', request.buyer_id);
+                
                 const messagesResponse = await fetch(`${API_BASE_URL}/messages/${request.id}`);
                 if (messagesResponse.ok) {
                     const messagesData = await messagesResponse.json();
                     if (messagesData.messages && messagesData.messages.length > 0) {
-                        // Obtener información del comprador y producto
-                        const buyerResponse = await fetch(`${API_BASE_URL}/users/${request.buyer_id}`);
-                        const productResponse = await fetch(`${API_BASE_URL}/products/${request.product_id}`);
+                        console.log('Mensajes encontrados para solicitud', request.id, ':', messagesData.messages.length);
                         
-                        if (buyerResponse.ok && productResponse.ok) {
-                            const buyerData = await buyerResponse.json();
-                            const productData = await productResponse.json();
+                        // Obtener información del comprador y producto (usando cache)
+                        let buyerData, productData;
+                        
+                        // Obtener datos del comprador
+                        if (buyerCache.has(request.buyer_id)) {
+                            buyerData = buyerCache.get(request.buyer_id);
+                        } else {
+                            const buyerResponse = await fetch(`${API_BASE_URL}/users/${request.buyer_id}`);
+                            if (buyerResponse.ok) {
+                                buyerData = await buyerResponse.json();
+                                buyerCache.set(request.buyer_id, buyerData);
+                            }
+                        }
+                        
+                        // Obtener datos del producto
+                        if (productCacheForMessages.has(request.product_id)) {
+                            productData = productCacheForMessages.get(request.product_id);
+                        } else {
+                            const productResponse = await fetch(`${API_BASE_URL}/products/${request.product_id}`);
+                            if (productResponse.ok) {
+                                productData = await productResponse.json();
+                                productCacheForMessages.set(request.product_id, productData);
+                            }
+                        }
+                        
+                        if (buyerData && productData) {
+                            console.log('Datos del comprador:', buyerData);
+                            console.log('Datos del producto:', productData);
                             
                             messagesData.messages.forEach(message => {
+                                console.log('Verificando mensaje:', message.id, 'Receiver ID:', message.receiver_id, 'User ID:', user.id);
                                 if (message.receiver_id === user.id) {
                                     messagesWithDetails.push({
                                         ...message,
@@ -392,11 +570,16 @@ async function loadMessages() {
                                     });
                                 }
                             });
+                        } else {
+                            console.error('Error al obtener datos del comprador o producto para solicitud', request.id);
                         }
                     }
+                } else {
+                    console.error('Error al cargar mensajes para solicitud', request.id);
                 }
             }
 
+            console.log('Mensajes finales para el vendedor:', messagesWithDetails);
             displayMessages(messagesWithDetails);
         } else {
             console.error('Error al cargar solicitudes de compra:', data.error);
@@ -481,4 +664,15 @@ function replyToMessage(messageId, buyerEmail) {
 // Función para contactar al comprador
 function contactBuyer(buyerEmail) {
     window.open(`mailto:${buyerEmail}`, '_blank');
+}
+
+// Función para crear nuevo producto (llamada desde el estado vacío y botón)
+function createNewProduct() {
+    // Limpiar formulario
+    createProductForm.reset();
+    createIsActive.checked = true;
+    
+    // Mostrar modal
+    createModal.classList.add('show');
+    document.body.style.overflow = 'hidden';
 } 

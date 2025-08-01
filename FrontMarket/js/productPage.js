@@ -41,8 +41,18 @@ document.addEventListener('DOMContentLoaded', function () {
     return;
   }
 
-  // Simular un buyer_id (en un sistema real esto vendría del sistema de autenticación)
-  currentBuyerId = 1; // ID temporal del comprador
+  // Obtener el ID del usuario logueado
+  const userData = localStorage.getItem('user');
+  if (userData) {
+    const user = JSON.parse(userData);
+    currentBuyerId = user.id;
+    console.log('Usuario logueado:', user.name, 'ID:', user.id);
+  } else {
+    // Si no hay usuario logueado, redirigir al login
+    alert('Debes iniciar sesión para enviar mensajes');
+    window.location.href = 'loginPage.html';
+    return;
+  }
 
   loadProduct(productId);
   setupModalEvents();
@@ -187,6 +197,13 @@ function closeMessageModalFunc() {
 
 async function sendMessage() {
   try {
+    // Verificar que el usuario esté logueado
+    if (!currentBuyerId) {
+      alert('Debes iniciar sesión para enviar mensajes');
+      window.location.href = 'loginPage.html';
+      return;
+    }
+
     const message = messageText.value.trim();
     const contact = buyerContact.value.trim();
 
@@ -195,6 +212,8 @@ async function sendMessage() {
       return;
     }
 
+    console.log('Enviando mensaje con buyer_id:', currentBuyerId);
+    
     // Crear solicitud de compra primero
     const purchaseRequestData = {
       product_id: productData.id,
@@ -219,6 +238,8 @@ async function sendMessage() {
     const purchaseData = await purchaseResponse.json();
     const purchaseRequestId = purchaseData.purchase_request.id;
 
+    console.log('Enviando mensaje con sender_id:', currentBuyerId, 'receiver_id:', productData.seller.id);
+    
     // Enviar mensaje
     const messageData = {
       purchase_request_id: purchaseRequestId,

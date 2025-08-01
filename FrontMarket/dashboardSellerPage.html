@@ -106,55 +106,13 @@ Crear Nuevo Producto
           </tr>
         </thead>
         <tbody class="table-body">
+          <!-- Los productos se cargarán dinámicamente aquí -->
           <tr>
-            <td>
-              <div class="product-cell">
-                <div class="product-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAUSD8v4Mz_YjV5J8kvXEeYu5E6-aWXuP8izZ0iOk1cR3JtWjfWxcV7eZFGuwDXyF_w6rURKprTbvY7oTpANsIKCfS1DcZ6rxi459zWdNKkycZ5E1oa8nJVEMX66JFy0--sFA6odLBxiiRcnSV9bzpTNud-9tAb56ujdzuMghvIqxkmkYk56efeWpISwZ0YzG6p99i_RHNtAyeTQYUsuNNg7Sl4G8Qo5g70dLmt9dozRrZD-nwKTQlXJz3tGBON3sjcTHer6ZH8rZ18')"></div>
-                <div class="product-info">
-                  <div class="product-title">Vintage Camera</div>
-                  <div class="product-date">Listado hace 2 días</div>
-                </div>
+            <td colspan="4">
+              <div class="loading-container">
+                <div class="loading-spinner"></div>
+                <p>Cargando productos...</p>
               </div>
-            </td>
-            <td class="price-cell">$75.00</td>
-            <td><span class="status-badge status-active">Activo</span></td>
-            <td class="actions-cell">
-              <a class="action-link edit-link" href="#">Editar</a>
-              <a class="action-link delete-link" href="#">Eliminar</a>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="product-cell">
-                <div class="product-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDXUucJ-UMepdqvUjZBkw_5p31nRkH-oNa6EqzfSjez7KCbuZTO9unhNhbnrBJodL3cZ6fUYwZASiIO6jGRAofa7BuzJ2ZoCBt1GmREdDZctRJ3deqr93YVa07gLsJ2QPXrfKaE3VP5Mmlxwi9ksCBn1Ya34Q_MhzrxI-Hcs1z48J9GtAvSrbTqni8W_bp9loQBEYS32gM9vm5gceFZrHX00oI06tlGhsTsLRlfSHUHYZdpaf58vJ46dS1Goz72Seqlna1bznsCmdj1')"></div>
-                <div class="product-info">
-                  <div class="product-title">Mountain Bike</div>
-                  <div class="product-date">Listado hace 1 semana</div>
-                </div>
-              </div>
-            </td>
-            <td class="price-cell">$350.00</td>
-            <td><span class="status-badge status-active">Activo</span></td>
-            <td class="actions-cell">
-              <a class="action-link edit-link" href="#">Editar</a>
-              <a class="action-link delete-link" href="#">Eliminar</a>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <div class="product-cell">
-                <div class="product-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCOZ2MXd-YYiwx3227YaySfVfVuEozlWYMD88BrdEhpNKFrj-RLeqpax6bdkcUJ5e9P21N9eqEOkfxaV5IK4u9XiYrBn65SUsubRe8f4_xYabChWxZsRx8qqVVR7BKiT4Nyqw6_eidPjmcUGuVBaFGw_ZmrMxYrnmYKZBYOpGHfc5bCakJP5UHIl1J9fWpHi2pPNPffya0ZiOB7ypr52IFlZbeM7rZrMaiGScXE9ex2ZcpbSdzx8hKmPrwCR-i2mDqNhvdl7ar5rftn')"></div>
-                <div class="product-info">
-                  <div class="product-title">Leather Sofa</div>
-                  <div class="product-date">Listado hace 3 semanas</div>
-                </div>
-              </div>
-            </td>
-            <td class="price-cell">$500.00</td>
-            <td><span class="status-badge status-sold">Vendido</span></td>
-            <td class="actions-cell">
-              <a class="action-link edit-link" href="#">Editar</a>
-              <a class="action-link delete-link" href="#">Eliminar</a>
             </td>
           </tr>
         </tbody>
@@ -241,6 +199,67 @@ Crear Nuevo Producto
                     </button>
                     <button type="submit" class="btn-primary">
                         Guardar Cambios
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de creación de producto -->
+<div id="createModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">Crear Nuevo Producto</h3>
+            <button id="closeCreateModal" class="modal-close">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        
+        <div class="modal-body">
+            <form id="createProductForm">
+                <div class="form-group">
+                    <label for="createTitle" class="form-label">Título *</label>
+                    <input type="text" id="createTitle" class="form-input" required placeholder="Ej: iPhone 13 Pro" />
+                </div>
+                
+                <div class="form-group">
+                    <label for="createDescription" class="form-label">Descripción *</label>
+                    <textarea id="createDescription" class="form-textarea" rows="4" required placeholder="Describe tu producto..."></textarea>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="createPrice" class="form-label">Precio ($) *</label>
+                        <input type="number" id="createPrice" class="form-input" step="0.01" min="0" required placeholder="0.00" />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="createStock" class="form-label">Stock *</label>
+                        <input type="number" id="createStock" class="form-input" min="0" required placeholder="0" />
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="createCategory" class="form-label">Categoría *</label>
+                    <select id="createCategory" class="form-select" required>
+                        <option value="">Seleccionar categoría</option>
+                    </select>
+                </div>
+                
+                <div class="form-checkbox">
+                    <input type="checkbox" id="createIsActive" checked />
+                    <label for="createIsActive">Producto activo (visible para compradores)</label>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" id="cancelCreate" class="btn-secondary">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn-primary">
+                        Crear Producto
                     </button>
                 </div>
             </form>

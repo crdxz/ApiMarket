@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Mensajes - Verificación de Datos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .info { background-color: #d1ecf1; border-color: #bee5eb; }
+        .warning { background-color: #fff3cd; border-color: #ffeaa7; }
+        button {
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .btn-primary { background-color: #007bff; color: white; }
+        .btn-success { background-color: #28a745; color: white; }
+        .btn-warning { background-color: #ffc107; color: black; }
+        pre {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 3px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .data-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .data-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Mensajes - Verificación de Datos</h1>
+    
+    <div class="test-section info">
+        <h3>Información</h3>
+        <p>Esta página de prueba verifica el proceso de carga de mensajes y datos de usuarios para identificar por qué siempre se muestra el correo del usuario ID 1.</p>
+        <p><strong>API Base URL:</strong> <span id="apiUrl">http://localhost:5000/api</span></p>
+    </div>
+
+    <div class="test-section">
+        <h3>1. Simular Login de Vendedor</h3>
+        <p>Primero necesitamos simular que un vendedor está logueado:</p>
+        <button class="btn-primary" onclick="simulateSellerLogin()">Simular Login Vendedor</button>
+        <button class="btn-success" onclick="clearLogin()">Limpiar Login</button>
+        <div id="loginStatus"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>2. Verificar Usuarios en la Base de Datos</h3>
+        <p>Verificar qué usuarios existen y sus datos:</p>
+        <button class="btn-primary" onclick="loadAllUsers()">Cargar Todos los Usuarios</button>
+        <div id="usersResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>3. Verificar Solicitudes de Compra</h3>
+        <p>Verificar las solicitudes de compra existentes:</p>
+        <button class="btn-primary" onclick="loadPurchaseRequests()">Cargar Solicitudes de Compra</button>
+        <div id="requestsResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>4. Verificar Mensajes</h3>
+        <p>Verificar los mensajes existentes:</p>
+        <button class="btn-primary" onclick="loadAllMessages()">Cargar Todos los Mensajes</button>
+        <div id="messagesResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>5. Probar Carga de Mensajes del Dashboard</h3>
+        <p>Probar el mismo proceso que usa el dashboard:</p>
+        <button class="btn-warning" onclick="testDashboardMessageLoad()">Probar Carga de Mensajes del Dashboard</button>
+        <div id="dashboardTestResult"></div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:5000/api';
+
+        function simulateSellerLogin() {
+            const sellerUser = {
+                id: 1,
+                name: 'Juan Vendedor',
+                email: 'vendedor@test.com',
+                user_type: 'seller'
+            };
+            
+            localStorage.setItem('user', JSON.stringify(sellerUser));
+            localStorage.setItem('isLoggedIn', 'true');
+            
+            document.getElementById('loginStatus').innerHTML = `
+                <div class="success">
+                    <strong>✅ Login simulado exitoso</strong><br>
+                    Usuario: ${sellerUser.name}<br>
+                    Email: ${sellerUser.email}<br>
+                    Tipo: ${sellerUser.user_type}<br>
+                    ID: ${sellerUser.id}
+                </div>
+            `;
+        }
+
+        function clearLogin() {
+            localStorage.removeItem('user');
+            localStorage.removeItem('isLoggedIn');
+            document.getElementById('loginStatus').innerHTML = `
+                <div class="info">
+                    <strong>ℹ️ Login limpiado</strong>
+                </div>
+            `;
+        }
+
+        async function loadAllUsers() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/users/`);
+                const data = await response.json();
+
+                if (response.ok) {
+                    const usersHtml = data.users.map(user => `
+                        <div class="data-card">
+                            <strong>ID: ${user.id}</strong><br>
+                            <strong>Nombre:</strong> ${user.name}<br>
+                            <strong>Email:</strong> ${user.email}<br>
+                            <strong>Tipo:</strong> ${user.user_type}<br>
+                        </div>
+                    `).join('');
+
+                    document.getElementById('usersResult').innerHTML = `
+                        <div class="success">
+                            <strong>✅ Usuarios encontrados: ${data.users.length}</strong>
+                            <div class="data-grid">
+                                ${usersHtml}
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    document.getElementById('usersResult').innerHTML = `
+                        <div class="error">
+                            <strong>❌ Error al cargar usuarios:</strong><br>
+                            ${data.error}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                document.getElementById('usersResult').innerHTML = `
+                    <div class="error">
+                        <strong>❌ Error de conexión:</strong><br>
+                        ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        async function loadPurchaseRequests() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/purchase-requests/`);
+                const data = await response.json();
+
+                if (response.ok) {
+                    const requestsHtml = data.purchase_requests.map(request => `
+                        <div class="data-card">
+                            <strong>ID: ${request.id}</strong><br>
+                            <strong>Producto ID:</strong> ${request.product_id}<br>
+                            <strong>Comprador ID:</strong> ${request.buyer_id}<br>
+                            <strong>Cantidad:</strong> ${request.quantity}<br>
+                            <strong>Estado:</strong> ${request.status}<br>
+                            <strong>Creado:</strong> ${request.created_at || 'N/A'}<br>
+                        </div>
+                    `).join('');
+
+                    document.getElementById('requestsResult').innerHTML = `
+                        <div class="success">
+                            <strong>✅ Solicitudes encontradas: ${data.purchase_requests.length}</strong>
+                            <div class="data-grid">
+                                ${requestsHtml}
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    document.getElementById('requestsResult').innerHTML = `
+                        <div class="error">
+                            <strong>❌ Error al cargar solicitudes:</strong><br>
+                            ${data.error}
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                document.getElementById('requestsResult').innerHTML = `
+                    <div class="error">
+                        <strong>❌ Error de conexión:</strong><br>
+                        ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        async function loadAllMessages() {
+            try {
+                // Primero obtener todas las solicitudes de compra
+                const requestsResponse = await fetch(`${API_BASE_URL}/purchase-requests/`);
+                const requestsData = await requestsResponse.json();
+
+                if (!requestsResponse.ok) {
+                    document.getElementById('messagesResult').innerHTML = `
+                        <div class="error">
+                            <strong>❌ Error al cargar solicitudes:</strong><br>
+                            ${requestsData.error}
+                        </div>
+                    `;
+                    return;
+                }
+
+                let allMessages = [];
+                
+                // Para cada solicitud, obtener sus mensajes
+                for (const request of requestsData.purchase_requests) {
+                    const messagesResponse = await fetch(`${API_BASE_URL}/messages/${request.id}`);
+                    if (messagesResponse.ok) {
+                        const messagesData = await messagesResponse.json();
+                        if (messagesData.messages && messagesData.messages.length > 0) {
+                            allMessages = allMessages.concat(messagesData.messages.map(msg => ({
+                                ...msg,
+                                purchase_request_id: request.id
+                            })));
+                        }
+                    }
+                }
+
+                if (allMessages.length === 0) {
+                    document.getElementById('messagesResult').innerHTML = `
+                        <div class="info">
+                            <strong>ℹ️ No hay mensajes</strong>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const messagesHtml = allMessages.map(message => `
+                    <div class="data-card">
+                        <strong>ID: ${message.id}</strong><br>
+                        <strong>Solicitud ID:</strong> ${message.purchase_request_id}<br>
+                        <strong>Remitente ID:</strong> ${message.sender_id}<br>
+                        <strong>Destinatario ID:</strong> ${message.receiver_id}<br>
+                        <strong>Mensaje:</strong> ${message.message}<br>
+                        <strong>Timestamp:</strong> ${message.timestamp || 'N/A'}<br>
+                    </div>
+                `).join('');
+
+                document.getElementById('messagesResult').innerHTML = `
+                    <div class="success">
+                        <strong>✅ Mensajes encontrados: ${allMessages.length}</strong>
+                        <div class="data-grid">
+                            ${messagesHtml}
+                        </div>
+                    </div>
+                `;
+            } catch (error) {
+                document.getElementById('messagesResult').innerHTML = `
+                    <div class="error">
+                        <strong>❌ Error de conexión:</strong><br>
+                        ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        async function testDashboardMessageLoad() {
+            try {
+                const user = JSON.parse(localStorage.getItem('user'));
+                if (!user) {
+                    document.getElementById('dashboardTestResult').innerHTML = `
+                        <div class="error">
+                            <strong>❌ Error:</strong> No hay usuario logueado. Simula un login primero.
+                        </div>
+                    `;
+                    return;
+                }
+
+                document.getElementById('dashboardTestResult').innerHTML = `
+                    <div class="info">
+                        <strong>🔄 Probando carga de mensajes para usuario ID: ${user.id}</strong>
+                    </div>
+                `;
+
+                // Obtener solicitudes de compra
+                const response = await fetch(`${API_BASE_URL}/purchase-requests/`);
+                const data = await response.json();
+
+                if (!response.ok) {
+                    document.getElementById('dashboardTestResult').innerHTML = `
+                        <div class="error">
+                            <strong>❌ Error al cargar solicitudes:</strong><br>
+                            ${data.error}
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Filtrar solicitudes (como hace el dashboard)
+                const sellerRequests = data.purchase_requests.filter(request => {
+                    return true; // Por ahora, todas las solicitudes
+                });
+
+                let resultHtml = `<div class="success"><strong>✅ Proceso completado</strong><br><br>`;
+
+                // Obtener mensajes para cada solicitud
+                const messagesWithDetails = [];
+                for (const request of sellerRequests) {
+                    resultHtml += `<strong>Solicitud ID ${request.id}:</strong><br>`;
+                    
+                    const messagesResponse = await fetch(`${API_BASE_URL}/messages/${request.id}`);
+                    if (messagesResponse.ok) {
+                        const messagesData = await messagesResponse.json();
+                        if (messagesData.messages && messagesData.messages.length > 0) {
+                            resultHtml += `- Mensajes encontrados: ${messagesData.messages.length}<br>`;
+                            
+                            // Obtener información del comprador y producto
+                            const buyerResponse = await fetch(`${API_BASE_URL}/users/${request.buyer_id}`);
+                            const productResponse = await fetch(`${API_BASE_URL}/products/${request.product_id}`);
+                            
+                            if (buyerResponse.ok && productResponse.ok) {
+                                const buyerData = await buyerResponse.json();
+                                const productData = await productResponse.json();
+                                
+                                resultHtml += `- Comprador: ${buyerData.name} (${buyerData.email})<br>`;
+                                resultHtml += `- Producto: ${productData.title}<br>`;
+                                
+                                messagesData.messages.forEach(message => {
+                                    if (message.receiver_id === user.id) {
+                                        messagesWithDetails.push({
+                                            ...message,
+                                            buyer: buyerData,
+                                            product: productData,
+                                            purchase_request: request
+                                        });
+                                    }
+                                });
+                            } else {
+                                resultHtml += `- ❌ Error al obtener datos del comprador o producto<br>`;
+                            }
+                        } else {
+                            resultHtml += `- No hay mensajes<br>`;
+                        }
+                    } else {
+                        resultHtml += `- ❌ Error al cargar mensajes<br>`;
+                    }
+                    resultHtml += `<br>`;
+                }
+
+                resultHtml += `<strong>Mensajes filtrados para el vendedor: ${messagesWithDetails.length}</strong><br>`;
+                
+                if (messagesWithDetails.length > 0) {
+                    resultHtml += `<div class="data-grid">`;
+                    messagesWithDetails.forEach(message => {
+                        resultHtml += `
+                            <div class="data-card">
+                                <strong>Mensaje ID: ${message.id}</strong><br>
+                                <strong>Comprador:</strong> ${message.buyer?.name} (${message.buyer?.email})<br>
+                                <strong>Producto:</strong> ${message.product?.title}<br>
+                                <strong>Mensaje:</strong> ${message.message}<br>
+                            </div>
+                        `;
+                    });
+                    resultHtml += `</div>`;
+                }
+
+                resultHtml += `</div>`;
+                document.getElementById('dashboardTestResult').innerHTML = resultHtml;
+
+            } catch (error) {
+                document.getElementById('dashboardTestResult').innerHTML = `
+                    <div class="error">
+                        <strong>❌ Error de conexión:</strong><br>
+                        ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        // Mostrar estado inicial
+        window.onload = function() {
+            const user = localStorage.getItem('user');
+            if (user) {
+                const userData = JSON.parse(user);
+                document.getElementById('loginStatus').innerHTML = `
+                    <div class="info">
+                        <strong>ℹ️ Usuario ya logueado:</strong><br>
+                        ${userData.name} (${userData.user_type})
+                    </div>
+                `;
+            } else {
+                document.getElementById('loginStatus').innerHTML = `
+                    <div class="info">
+                        <strong>ℹ️ No hay usuario logueado</strong>
+                    </div>
+                `;
+            }
+        };
+    </script>
+</body>
+</html> 

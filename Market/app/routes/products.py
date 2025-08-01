@@ -19,8 +19,18 @@ def get_products():
         
         products = query.all()
         
+        # Get seller and category information
+        from ..models import User
         product_list = []
         for product in products:
+            # Get seller information
+            seller = User.query.get(product.seller_id)
+            seller_name = seller.name if seller else 'Anónimo'
+            
+            # Get category information
+            category = Category.query.get(product.category_id)
+            category_name = category.name if category else 'Sin categoría'
+            
             product_list.append({
                 'id': product.id,
                 'title': product.title,
@@ -28,7 +38,9 @@ def get_products():
                 'price': float(product.price),
                 'stock': product.stock,
                 'category_id': product.category_id,
-                'seller_id': product.seller_id
+                'category_name': category_name,
+                'seller_id': product.seller_id,
+                'seller_name': seller_name
             })
         
         return jsonify({'products': product_list}), 200
@@ -42,8 +54,18 @@ def get_products_by_seller(seller_id):
     try:
         products = Product.query.filter_by(seller_id=seller_id).all()
         
+        # Get seller and category information
+        from ..models import User
         product_list = []
         for product in products:
+            # Get seller information
+            seller = User.query.get(product.seller_id)
+            seller_name = seller.name if seller else 'Anónimo'
+            
+            # Get category information
+            category = Category.query.get(product.category_id)
+            category_name = category.name if category else 'Sin categoría'
+            
             product_list.append({
                 'id': product.id,
                 'title': product.title,
@@ -51,7 +73,9 @@ def get_products_by_seller(seller_id):
                 'price': float(product.price),
                 'stock': product.stock,
                 'category_id': product.category_id,
+                'category_name': category_name,
                 'seller_id': product.seller_id,
+                'seller_name': seller_name,
                 'is_active': product.is_active,
                 'created_at': product.created_at.isoformat() if product.created_at else None
             })
