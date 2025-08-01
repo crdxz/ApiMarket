@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Test Create Category</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="stylesheet" href="css/utilities.css" />
+  <link rel="stylesheet" href="css/dashboardSellerPage.css" />
+</head>
+<body>
+  <div class="main_container">
+    <header>
+      <div class="header-content">
+        <div class="logo-section">
+          <h1 class="logo-text">Test Create Category</h1>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="content-header">
+        <h2>Prueba de Crear Categoría</h2>
+      </div>
+      
+      <div class="dashboard-actions">
+        <button id="testCreateProductBtn" class="create-button">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+          </svg>
+          Crear Producto
+        </button>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal de creación de producto -->
+  <div id="createModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Crear Nuevo Producto</h3>
+        <button id="closeCreateModal" class="modal-close">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        <form id="createProductForm">
+          <div class="form-group">
+            <label for="createTitle" class="form-label">Título *</label>
+            <input type="text" id="createTitle" class="form-input" required placeholder="Ej: iPhone 13 Pro" />
+          </div>
+          
+          <div class="form-group">
+            <label for="createDescription" class="form-label">Descripción *</label>
+            <textarea id="createDescription" class="form-textarea" rows="4" required placeholder="Describe tu producto..."></textarea>
+          </div>
+          
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="createPrice" class="form-label">Precio ($) *</label>
+              <input type="number" id="createPrice" class="form-input" step="0.01" min="0" required placeholder="0.00" />
+            </div>
+            
+            <div class="form-group">
+              <label for="createStock" class="form-label">Stock *</label>
+              <input type="number" id="createStock" class="form-input" min="0" required placeholder="0" />
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="createCategory" class="form-label">Categoría *</label>
+            <div class="category-select-container">
+              <select id="createCategory" class="form-select" required>
+                <option value="">Seleccionar categoría</option>
+              </select>
+              <button type="button" id="createNewCategoryBtn" class="btn-secondary btn-small">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+                Nueva Categoría
+              </button>
+            </div>
+          </div>
+          
+          <div class="form-checkbox">
+            <input type="checkbox" id="createIsActive" checked />
+            <label for="createIsActive">Producto activo (visible para compradores)</label>
+          </div>
+          
+          <div class="form-actions">
+            <button type="button" id="cancelCreate" class="btn-secondary">
+              Cancelar
+            </button>
+            <button type="submit" class="btn-primary">
+              Crear Producto
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de crear nueva categoría -->
+  <div id="createCategoryModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Crear Nueva Categoría</h3>
+        <button id="closeCreateCategoryModal" class="modal-close">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        <form id="createCategoryForm">
+          <div class="form-group">
+            <label for="newCategoryName" class="form-label">Nombre de la Categoría *</label>
+            <input type="text" id="newCategoryName" class="form-input" required placeholder="Ej: Electrónicos, Ropa, Hogar..." />
+          </div>
+          
+          <div class="form-group">
+            <label for="newCategoryDescription" class="form-label">Descripción (opcional)</label>
+            <textarea id="newCategoryDescription" class="form-textarea" rows="3" placeholder="Describe brevemente esta categoría..."></textarea>
+          </div>
+          
+          <div class="form-actions">
+            <button type="button" id="cancelCreateCategory" class="btn-secondary">
+              Cancelar
+            </button>
+            <button type="submit" class="btn-primary">
+              Crear Categoría
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Configuración de la API
+    const API_BASE_URL = 'http://localhost:5000/api';
+
+    // Elementos del DOM
+    const testCreateProductBtn = document.getElementById('testCreateProductBtn');
+    const createModal = document.getElementById('createModal');
+    const closeCreateModal = document.getElementById('closeCreateModal');
+    const cancelCreate = document.getElementById('cancelCreate');
+    const createProductForm = document.getElementById('createProductForm');
+    const createCategory = document.getElementById('createCategory');
+    const createNewCategoryBtn = document.getElementById('createNewCategoryBtn');
+    
+    const createCategoryModal = document.getElementById('createCategoryModal');
+    const closeCreateCategoryModal = document.getElementById('closeCreateCategoryModal');
+    const cancelCreateCategory = document.getElementById('cancelCreateCategory');
+    const createCategoryForm = document.getElementById('createCategoryForm');
+    const newCategoryName = document.getElementById('newCategoryName');
+    const newCategoryDescription = document.getElementById('newCategoryDescription');
+
+    // Simular login de usuario
+    const testUser = {
+      id: 1,
+      name: 'Usuario Test',
+      email: 'test@example.com',
+      user_type: 'seller'
+    };
+    localStorage.setItem('user', JSON.stringify(testUser));
+    localStorage.setItem('isLoggedIn', 'true');
+
+    // Cargar categorías
+    async function loadCategories() {
+      try {
+        const response = await fetch(`${API_BASE_URL}/categories/`);
+        const data = await response.json();
+
+        if (response.ok) {
+          createCategory.innerHTML = '<option value="">Seleccionar categoría</option>';
+          data.categories.forEach(category => {
+            const option = document.createElement('option');
+            option.value = category.id;
+            option.textContent = category.name;
+            createCategory.appendChild(option);
+          });
+        } else {
+          console.error('Error al cargar categorías:', data.error);
+        }
+      } catch (error) {
+        console.error('Error al conectar con la API:', error);
+      }
+    }
+
+    // Funcionalidad del modal de creación
+    function closeCreateModalFunc() {
+      createModal.classList.remove('show');
+      createProductForm.reset();
+    }
+
+    function openCreateModal() {
+      createModal.classList.add('show');
+      loadCategories();
+    }
+
+    // Funcionalidad del modal de crear categoría
+    function closeCreateCategoryModalFunc() {
+      createCategoryModal.classList.remove('show');
+      createCategoryForm.reset();
+    }
+
+    function openCreateCategoryModal() {
+      createCategoryModal.classList.add('show');
+      newCategoryName.focus();
+    }
+
+    // Event listeners
+    testCreateProductBtn.addEventListener('click', openCreateModal);
+    closeCreateModal.addEventListener('click', closeCreateModalFunc);
+    cancelCreate.addEventListener('click', closeCreateModalFunc);
+    createNewCategoryBtn.addEventListener('click', openCreateCategoryModal);
+    closeCreateCategoryModal.addEventListener('click', closeCreateCategoryModalFunc);
+    cancelCreateCategory.addEventListener('click', closeCreateCategoryModalFunc);
+
+    // Cerrar modales al hacer clic fuera
+    createModal.addEventListener('click', function(event) {
+      if (event.target === createModal) {
+        closeCreateModalFunc();
+      }
+    });
+
+    createCategoryModal.addEventListener('click', function(event) {
+      if (event.target === createCategoryModal) {
+        closeCreateCategoryModalFunc();
+      }
+    });
+
+    // Manejar envío del formulario de crear categoría
+    createCategoryForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const formData = {
+        name: newCategoryName.value.trim(),
+        description: newCategoryDescription.value.trim()
+      };
+      
+      try {
+        const response = await fetch(`${API_BASE_URL}/categories/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+          closeCreateCategoryModalFunc();
+          // Recargar categorías y actualizar el select
+          await loadCategories();
+          // Seleccionar la nueva categoría creada
+          createCategory.value = data.category.id;
+          alert('Categoría creada exitosamente');
+        } else {
+          alert('Error al crear categoría: ' + data.error);
+        }
+      } catch (error) {
+        console.error('Error al crear categoría:', error);
+        alert('Error al crear categoría');
+      }
+    });
+
+    // Manejar envío del formulario de creación de producto
+    createProductForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const formData = {
+        title: document.getElementById('createTitle').value,
+        description: document.getElementById('createDescription').value,
+        price: parseFloat(document.getElementById('createPrice').value),
+        stock: parseInt(document.getElementById('createStock').value),
+        category_id: parseInt(createCategory.value),
+        seller_id: testUser.id
+      };
+      
+      try {
+        const response = await fetch(`${API_BASE_URL}/products/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+          closeCreateModalFunc();
+          alert('Producto creado exitosamente');
+        } else {
+          alert('Error al crear producto: ' + data.error);
+        }
+      } catch (error) {
+        console.error('Error al crear producto:', error);
+        alert('Error al crear producto');
+      }
+    });
+
+    // Cargar categorías al iniciar
+    document.addEventListener('DOMContentLoaded', function() {
+      loadCategories();
+    });
+  </script>
+</body>
+</html> 

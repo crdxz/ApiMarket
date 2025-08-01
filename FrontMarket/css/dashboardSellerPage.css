@@ -1110,4 +1110,29 @@ main {
     width: 100%;
     justify-content: center;
   }
+}
+
+/* Estilos para el contenedor de selección de categoría */
+.category-select-container {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-end;
+}
+
+.category-select-container .form-select {
+  flex: 1;
+}
+
+.btn-small {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.btn-small svg {
+  width: 1rem;
+  height: 1rem;
 } 

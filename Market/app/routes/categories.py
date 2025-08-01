@@ -30,13 +30,25 @@ def create_category():
         data = request.get_json()
         
         # Validate required fields
-        if not data.get('name'):
+        if not data or not data.get('name'):
             return jsonify({'error': 'Category name is required'}), 400
+        
+        name = data['name'].strip()
+        if not name:
+            return jsonify({'error': 'Category name cannot be empty'}), 400
+        
+        # Check if category already exists
+        existing_category = Category.query.filter_by(name=name).first()
+        if existing_category:
+            return jsonify({
+                'error': 'Category already exists',
+                'details': f'A category with the name "{name}" already exists'
+            }), 409
         
         # Create new category
         new_category = Category(
-            name=data['name'],
-            description=data.get('description', '')
+            name=name,
+            description=data.get('description', '').strip()
         )
         
         db.session.add(new_category)
@@ -53,4 +65,5 @@ def create_category():
         
     except Exception as e:
         db.session.rollback()
+        print(f"Error creating category: {str(e)}")  # Add logging for debugging
         return jsonify({'error': 'Failed to create category', 'details': str(e)}), 500 

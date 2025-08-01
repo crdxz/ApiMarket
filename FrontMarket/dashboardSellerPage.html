@@ -244,9 +244,17 @@ Crear Nuevo Producto
                 
                 <div class="form-group">
                     <label for="createCategory" class="form-label">Categoría *</label>
-                    <select id="createCategory" class="form-select" required>
-                        <option value="">Seleccionar categoría</option>
-                    </select>
+                    <div class="category-select-container">
+                        <select id="createCategory" class="form-select" required>
+                            <option value="">Seleccionar categoría</option>
+                        </select>
+                        <button type="button" id="createNewCategoryBtn" class="btn-secondary btn-small">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                            Nueva Categoría
+                        </button>
+                    </div>
                 </div>
                 
                 <div class="form-checkbox">
@@ -260,6 +268,43 @@ Crear Nuevo Producto
                     </button>
                     <button type="submit" class="btn-primary">
                         Crear Producto
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de crear nueva categoría -->
+<div id="createCategoryModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="modal-title">Crear Nueva Categoría</h3>
+            <button id="closeCreateCategoryModal" class="modal-close">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        
+        <div class="modal-body">
+            <form id="createCategoryForm">
+                <div class="form-group">
+                    <label for="newCategoryName" class="form-label">Nombre de la Categoría *</label>
+                    <input type="text" id="newCategoryName" class="form-input" required placeholder="Ej: Electrónicos, Ropa, Hogar..." />
+                </div>
+                
+                <div class="form-group">
+                    <label for="newCategoryDescription" class="form-label">Descripción (opcional)</label>
+                    <textarea id="newCategoryDescription" class="form-textarea" rows="3" placeholder="Describe brevemente esta categoría..."></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" id="cancelCreateCategory" class="btn-secondary">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn-primary">
+                        Crear Categoría
                     </button>
                 </div>
             </form>

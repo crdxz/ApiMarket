@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Category Creation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .form-group {
+            margin: 10px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Category Creation</h1>
+    
+    <div class="test-section">
+        <h2>1. Test Existing Categories</h2>
+        <button onclick="loadExistingCategories()">Load Existing Categories</button>
+        <div id="existingCategories" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>2. Test Category Creation</h2>
+        <div class="form-group">
+            <label for="categoryName">Category Name:</label>
+            <input type="text" id="categoryName" placeholder="Enter category name">
+        </div>
+        <div class="form-group">
+            <label for="categoryDescription">Description (optional):</label>
+            <textarea id="categoryDescription" rows="3" placeholder="Enter description"></textarea>
+        </div>
+        <button onclick="createCategory()">Create Category</button>
+        <div id="createResult" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>3. Test Duplicate Category</h2>
+        <p>Try creating a category with the same name as an existing one to test the 409 error.</p>
+        <button onclick="testDuplicateCategory()">Test Duplicate (Electrónicos)</button>
+        <div id="duplicateResult" class="result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>4. Test Empty Name</h2>
+        <button onclick="testEmptyName()">Test Empty Name</button>
+        <div id="emptyResult" class="result"></div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:5000/api';
+        
+        async function loadExistingCategories() {
+            const resultDiv = document.getElementById('existingCategories');
+            resultDiv.innerHTML = '<div class="info">Loading categories...</div>';
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/categories/`);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    const categories = data.categories || [];
+                    if (categories.length === 0) {
+                        resultDiv.innerHTML = '<div class="info">No categories found</div>';
+                    } else {
+                        const categoryList = categories.map(cat => 
+                            `<li><strong>${cat.name}</strong> (ID: ${cat.id}) - ${cat.description || 'No description'}</li>`
+                        ).join('');
+                        resultDiv.innerHTML = `
+                            <div class="success">
+                                <strong>Found ${categories.length} categories:</strong>
+                                <ul>${categoryList}</ul>
+                            </div>
+                        `;
+                    }
+                } else {
+                    resultDiv.innerHTML = `<div class="error">Error: ${data.error}</div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">Connection error: ${error.message}</div>`;
+            }
+        }
+        
+        async function createCategory() {
+            const name = document.getElementById('categoryName').value.trim();
+            const description = document.getElementById('categoryDescription').value.trim();
+            const resultDiv = document.getElementById('createResult');
+            
+            if (!name) {
+                resultDiv.innerHTML = '<div class="error">Category name is required</div>';
+                return;
+            }
+            
+            resultDiv.innerHTML = '<div class="info">Creating category...</div>';
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/categories/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        description: description
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <strong>Category created successfully!</strong><br>
+                            ID: ${data.category.id}<br>
+                            Name: ${data.category.name}<br>
+                            Description: ${data.category.description || 'No description'}
+                        </div>
+                    `;
+                    // Clear form
+                    document.getElementById('categoryName').value = '';
+                    document.getElementById('categoryDescription').value = '';
+                } else if (response.status === 409) {
+                    resultDiv.innerHTML = `
+                        <div class="error">
+                            <strong>Category already exists:</strong><br>
+                            ${data.error}<br>
+                            ${data.details || ''}
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<div class="error">Error: ${data.error || 'Unknown error'}</div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">Connection error: ${error.message}</div>`;
+            }
+        }
+        
+        async function testDuplicateCategory() {
+            const resultDiv = document.getElementById('duplicateResult');
+            resultDiv.innerHTML = '<div class="info">Testing duplicate category...</div>';
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/categories/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: 'Electrónicos',
+                        description: 'Test duplicate'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.status === 409) {
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <strong>Test passed!</strong> Correctly handled duplicate category.<br>
+                            Error: ${data.error}<br>
+                            Details: ${data.details || ''}
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<div class="error">Unexpected response: ${response.status} - ${JSON.stringify(data)}</div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">Connection error: ${error.message}</div>`;
+            }
+        }
+        
+        async function testEmptyName() {
+            const resultDiv = document.getElementById('emptyResult');
+            resultDiv.innerHTML = '<div class="info">Testing empty name...</div>';
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/categories/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: '',
+                        description: 'Test empty name'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.status === 400) {
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <strong>Test passed!</strong> Correctly handled empty name.<br>
+                            Error: ${data.error}
+                        </div>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `<div class="error">Unexpected response: ${response.status} - ${JSON.stringify(data)}</div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">Connection error: ${error.message}</div>`;
+            }
+        }
+        
+        // Load existing categories on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadExistingCategories();
+        });
+    </script>
+</body>
+</html> 

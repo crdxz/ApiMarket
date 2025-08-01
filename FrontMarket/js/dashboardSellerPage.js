@@ -36,6 +36,15 @@ const createStock = document.getElementById('createStock');
 const createCategory = document.getElementById('createCategory');
 const createIsActive = document.getElementById('createIsActive');
 
+// Elementos del modal de crear categoría
+const createCategoryModal = document.getElementById('createCategoryModal');
+const closeCreateCategoryModal = document.getElementById('closeCreateCategoryModal');
+const cancelCreateCategory = document.getElementById('cancelCreateCategory');
+const createCategoryForm = document.getElementById('createCategoryForm');
+const newCategoryName = document.getElementById('newCategoryName');
+const newCategoryDescription = document.getElementById('newCategoryDescription');
+const createNewCategoryBtn = document.getElementById('createNewCategoryBtn');
+
 // Funcionalidad del menú de usuario
 userMenuBtn.addEventListener('click', function() {
     userMenu.classList.toggle('show');
@@ -98,6 +107,28 @@ createModal.addEventListener('click', function(event) {
 function closeCreateModalFunc() {
     createModal.classList.remove('show');
     createProductForm.reset();
+}
+
+// Funcionalidad del modal de crear categoría
+closeCreateCategoryModal.addEventListener('click', closeCreateCategoryModalFunc);
+cancelCreateCategory.addEventListener('click', closeCreateCategoryModalFunc);
+createNewCategoryBtn.addEventListener('click', openCreateCategoryModal);
+
+// Cerrar modal al hacer clic fuera
+createCategoryModal.addEventListener('click', function(event) {
+    if (event.target === createCategoryModal) {
+        closeCreateCategoryModalFunc();
+    }
+});
+
+function closeCreateCategoryModalFunc() {
+    createCategoryModal.classList.remove('show');
+    createCategoryForm.reset();
+}
+
+function openCreateCategoryModal() {
+    createCategoryModal.classList.add('show');
+    newCategoryName.focus();
 }
 
 // Cargar categorías para los formularios
@@ -386,6 +417,52 @@ createProductForm.addEventListener('submit', async function(e) {
     } catch (error) {
         console.error('Error al crear producto:', error);
         alert('Error al crear producto');
+    }
+});
+
+// Manejar envío del formulario de crear categoría
+createCategoryForm.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const formData = {
+        name: newCategoryName.value.trim(),
+        description: newCategoryDescription.value.trim()
+    };
+    
+    // Validar que el nombre no esté vacío
+    if (!formData.name) {
+        alert('El nombre de la categoría es obligatorio');
+        newCategoryName.focus();
+        return;
+    }
+    
+    try {
+        const response = await fetch(`${API_BASE_URL}/categories/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+            closeCreateCategoryModalFunc();
+            // Recargar categorías y actualizar el select
+            await loadCategories();
+            // Seleccionar la nueva categoría creada
+            createCategory.value = data.category.id;
+            alert('Categoría creada exitosamente');
+        } else if (response.status === 409) {
+            // Categoría ya existe
+            alert(`Error: ${data.error}\n\n${data.details || ''}`);
+        } else {
+            alert(`Error al crear categoría: ${data.error || 'Error desconocido'}`);
+        }
+    } catch (error) {
+        console.error('Error al crear categoría:', error);
+        alert('Error de conexión al crear categoría');
     }
 });
 
