@@ -383,6 +383,18 @@ main {
   margin-bottom: 0.5rem;
 }
 
+.seller-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.seller-link:hover {
+  color: var(--accent-color);
+  text-decoration: underline;
+}
+
 .product-stock {
   font-size: 0.875rem;
   color: var(--text-muted);

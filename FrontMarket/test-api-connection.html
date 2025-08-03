@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test API Connection</title>
+</head>
+<body>
+    <h1>Test de Conexión a la API</h1>
+    <button onclick="testAPI()">Probar Conexión</button>
+    <div id="result"></div>
+
+    <script>
+        async function testAPI() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Probando conexión...';
+            
+            try {
+                const response = await fetch('http://localhost:5000/api/users/1');
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <h3>✅ Conexión exitosa</h3>
+                        <p>Status: ${response.status}</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <h3>❌ Error en la API</h3>
+                        <p>Status: ${response.status}</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <h3>❌ Error de conexión</h3>
+                    <p>Error: ${error.message}</p>
+                    <p>Asegúrate de que el servidor esté corriendo en http://localhost:5000</p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html> 

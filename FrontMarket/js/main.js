@@ -178,7 +178,12 @@ function createProductCard(product) {
       <span class="product-category">${product.category_name || 'Sin categoría'}</span>
       <h3 class="product-title">${product.title}</h3>
       <p class="product-price">$${product.price.toFixed(2)}</p>
-      <p class="product-seller">Vendedor: ${product.seller_name || 'Anónimo'}</p>
+      <p class="product-seller">
+        Vendedor: 
+        <a href="profileSellerPage.html?id=${product.seller_id}" class="seller-link" onclick="event.stopPropagation()">
+          ${product.seller_name || 'Anónimo'}
+        </a>
+      </p>
       <p class="product-stock">Stock: ${product.stock}</p>
     </div>
   `;

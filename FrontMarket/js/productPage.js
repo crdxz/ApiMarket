@@ -113,7 +113,8 @@ function renderProduct() {
   }
 
   if (sellerData) {
-    sellerName.textContent = sellerData.name;
+    // Crear enlace al perfil del vendedor
+    sellerName.innerHTML = `<a href="profileSellerPage.html?id=${sellerData.id}" class="seller-profile-link">${sellerData.name}</a>`;
     sellerEmail.textContent = sellerData.email;
 
     if (sellerData.created_at) {
