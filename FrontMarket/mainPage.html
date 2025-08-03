@@ -15,7 +15,7 @@
     <!-- Header -->
     <header>
       <div class="header-content">
-        <div class="logo-section">
+        <div class="logo-section" id="logoSection" style="cursor:pointer;">
           <svg class="logo-icon" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12 2L2 7V17L12 22L22 17V7L12 2ZM4 8.236L12 12.5L20 8.236V15.764L12 20.028L4 15.764V8.236ZM19.236 6L12 9.764L4.764 6L12 2.236L19.236 6Z"></path>
           </svg>
@@ -108,5 +108,11 @@
   </div>
   
   <script src="js/main.js"></script>
+  <script>
+    // Redirigir al main al hacer clic en el logo
+    document.getElementById('logoSection').onclick = function() {
+      window.location.href = 'mainPage.html';
+    };
+  </script>
 </body>
 </html>

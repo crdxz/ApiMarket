@@ -10,13 +10,23 @@
   <link rel="stylesheet" href="css/utilities.css" />
   <link rel="stylesheet" href="css/main.css" />
   <link rel="stylesheet" href="css/profileSellerPage.css" />
+  <style>
+    .product-image {
+      width: 100%;
+      height: 200px;
+      background: var(--secondary-color);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  </style>
 </head>
 <body>
   <div class="main_container">
     <!-- Header -->
     <header>
       <div class="header-content">
-        <div class="logo-section">
+        <div class="logo-section" id="logoSection" style="cursor:pointer;">
           <svg class="logo-icon" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12 2L2 7V17L12 22L22 17V7L12 2ZM4 8.236L12 12.5L20 8.236V15.764L12 20.028L4 15.764V8.236ZM19.236 6L12 9.764L4.764 6L12 2.236L19.236 6Z"></path>
           </svg>
@@ -56,6 +66,12 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                 </svg>
                 Mi Dashboard
+              </button>
+              <button id="goMainBtn" class="dashboard-btn">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12h18M3 12l6-6m-6 6l6 6" />
+                </svg>
+                Ir al Marketplace
               </button>
               <button id="logoutBtn" class="logout-btn">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -155,5 +171,15 @@
   </div>
   
   <script src="js/profileSellerPage.js"></script>
+  <script>
+    // Redirigir al main al hacer clic en el logo
+    document.getElementById('logoSection').onclick = function() {
+      window.location.href = 'mainPage.html';
+    };
+    // Redirigir al main desde el menú desplegable
+    document.getElementById('goMainBtn').onclick = function() {
+      window.location.href = 'mainPage.html';
+    };
+  </script>
 </body>
 </html>
