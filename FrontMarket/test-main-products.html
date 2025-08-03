@@ -46,15 +46,7 @@
     const loadingProducts = document.getElementById('loadingProducts');
     const noProducts = document.getElementById('noProducts');
 
-    // Simular login de usuario
-    const testUser = {
-      id: 1,
-      name: 'Usuario Test',
-      email: 'test@example.com',
-      user_type: 'both'
-    };
-    localStorage.setItem('user', JSON.stringify(testUser));
-    localStorage.setItem('isLoggedIn', 'true');
+
 
     // Cargar productos
     async function loadProducts() {
