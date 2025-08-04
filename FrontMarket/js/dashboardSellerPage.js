@@ -48,6 +48,8 @@ const createNewCategoryBtn = document.getElementById('createNewCategoryBtn');
 // Elementos para subida de imágenes
 const createImage = document.getElementById('createImage');
 const imagePreview = document.getElementById('imagePreview');
+const editImage = document.getElementById('editImage');
+const editImagePreview = document.getElementById('editImagePreview');
 
 // Funcionalidad del menú de usuario
 userMenuBtn.addEventListener('click', function() {
@@ -137,50 +139,115 @@ function openCreateCategoryModal() {
 }
 
 // Funcionalidad para subida de imágenes
+// Lógica compartida para previsualización (debe estar antes de setupImageUpload)
+function handleImagePreview(e, previewElem, inputElem, removeFn) {
+    const file = e.target.files[0];
+    if (file) {
+        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+        if (!allowedTypes.includes(file.type)) {
+            alert('Por favor selecciona una imagen válida (JPG, PNG, GIF, WEBP)');
+            return;
+        }
+        const maxSize = 5 * 1024 * 1024; // 5MB
+        if (file.size > maxSize) {
+            alert('La imagen es demasiado grande. Máximo 5MB permitido.');
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            previewElem.innerHTML = `
+                <img src="${e.target.result}" alt="Preview" />
+                <button type="button" class="remove-image" onclick="(${removeFn.name})()">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            `;
+            previewElem.classList.add('has-image');
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+// Remover imagen en edición (debe estar antes de su uso)
+function removeEditImage() {
+    if (editImage) editImage.value = '';
+    if (editImagePreview) {
+        editImagePreview.innerHTML = `
+            <svg class="image-placeholder" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            <p class="image-placeholder-text">Haz clic para seleccionar una imagen</p>
+        `;
+        editImagePreview.classList.remove('has-image');
+    }
+}
+
 function setupImageUpload() {
-    // Hacer clic en el preview para seleccionar archivo
+    // Crear producto: previsualización
     imagePreview.addEventListener('click', function() {
         createImage.click();
     });
-    
-    // Manejar selección de archivo
     createImage.addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (file) {
-            // Validar tipo de archivo
-            const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
-            if (!allowedTypes.includes(file.type)) {
-                alert('Por favor selecciona una imagen válida (JPG, PNG, GIF, WEBP)');
-                return;
-            }
-            
-            // Validar tamaño (5MB máximo)
-            const maxSize = 5 * 1024 * 1024; // 5MB
-            if (file.size > maxSize) {
-                alert('La imagen es demasiado grande. Máximo 5MB permitido.');
-                return;
-            }
-            
-            // Mostrar preview
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                imagePreview.innerHTML = `
-                    <img src="${e.target.result}" alt="Preview" />
-                    <button type="button" class="remove-image" onclick="removeImage()">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                `;
-                imagePreview.classList.add('has-image');
-            };
-            reader.readAsDataURL(file);
-        }
+        handleImagePreview(e, imagePreview, createImage, removeImage);
     });
+
+    // Editar producto: previsualización
+    if (editImagePreview && editImage) {
+        editImagePreview.addEventListener('click', function() {
+            editImage.click();
+        });
+        editImage.addEventListener('change', function(e) {
+            handleImagePreview(e, editImagePreview, editImage, removeEditImage);
+        });
+    }
 }
 
 // Función para remover imagen
 function removeImage() {
+// Remover imagen en edición
+function removeEditImage() {
+    if (editImage) editImage.value = '';
+    if (editImagePreview) {
+        editImagePreview.innerHTML = `
+            <svg class="image-placeholder" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            </svg>
+            <p class="image-placeholder-text">Haz clic para seleccionar una imagen</p>
+        `;
+        editImagePreview.classList.remove('has-image');
+    }
+}
+
+// Lógica compartida para previsualización
+function handleImagePreview(e, previewElem, inputElem, removeFn) {
+    const file = e.target.files[0];
+    if (file) {
+        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+        if (!allowedTypes.includes(file.type)) {
+            alert('Por favor selecciona una imagen válida (JPG, PNG, GIF, WEBP)');
+            return;
+        }
+        const maxSize = 5 * 1024 * 1024; // 5MB
+        if (file.size > maxSize) {
+            alert('La imagen es demasiado grande. Máximo 5MB permitido.');
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            previewElem.innerHTML = `
+                <img src="${e.target.result}" alt="Preview" />
+                <button type="button" class="remove-image" onclick="(${removeFn.name})()">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            `;
+            previewElem.classList.add('has-image');
+        };
+        reader.readAsDataURL(file);
+    }
+}
     createImage.value = '';
     imagePreview.innerHTML = `
         <svg class="image-placeholder" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -377,7 +444,17 @@ async function editProduct(productId) {
             editStock.value = data.stock;
             editCategory.value = data.category_id;
             editIsActive.checked = data.is_active;
-            
+
+            // Imagen actual (si existe)
+            if (editImagePreview) {
+                if (data.image_url) {
+                    editImagePreview.innerHTML = `<img src="${data.image_url}" alt="Imagen actual" />`;
+                    editImagePreview.classList.add('has-image');
+                } else {
+                    removeEditImage();
+                }
+            }
+
             // Mostrar el modal
             editModal.classList.add('show');
         } else {
@@ -427,8 +504,9 @@ editProductForm.addEventListener('submit', async function(e) {
         category_id: parseInt(editCategory.value),
         is_active: editIsActive.checked
     };
-    
+
     try {
+        // Actualizar datos del producto
         const response = await fetch(`${API_BASE_URL}/products/${productId}`, {
             method: 'PUT',
             headers: {
@@ -436,10 +514,25 @@ editProductForm.addEventListener('submit', async function(e) {
             },
             body: JSON.stringify(formData)
         });
-        
         const data = await response.json();
-        
+
         if (response.ok) {
+            // Si hay imagen nueva, subirla
+            if (editImage && editImage.files && editImage.files[0]) {
+                const imageFile = editImage.files[0];
+                const imageFormData = new FormData();
+                imageFormData.append('image', imageFile);
+                imageFormData.append('product_id', productId);
+                // Puedes agregar lógica para eliminar la imagen anterior si tu API lo soporta
+                const imageResponse = await fetch(`${API_BASE_URL}/product-images/upload`, {
+                    method: 'POST',
+                    body: imageFormData
+                });
+                if (!imageResponse.ok) {
+                    const imageError = await imageResponse.json();
+                    console.warn('Error al subir imagen:', imageError);
+                }
+            }
             closeEditModalFunc();
             loadSellerProducts();
             alert('Producto actualizado exitosamente');
@@ -676,7 +769,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setupTabs();
     loadMessages();
     
-    // Configurar funcionalidad de subida de imágenes
+    // Configurar funcionalidad de subida de imágenes (creación y edición)
     setupImageUpload();
 });
 
