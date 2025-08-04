@@ -9,9 +9,11 @@
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link rel="stylesheet" href="css/utilities.css" />
   <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/modal.css" />
 </head>
 <body>
   <div class="main_container">
+    <script src="js/modal.js"></script>
     <!-- Header -->
     <header>
       <div class="header-content">
@@ -123,7 +125,7 @@
       if (logoutBtn) {
         logoutBtn.addEventListener('click', function() {
           console.log('Test Header: Click en logout');
-          alert('Logout clickeado');
+          showModalMessage('Logout clickeado');
         });
       }
       
@@ -131,7 +133,7 @@
       if (dashboardBtn) {
         dashboardBtn.addEventListener('click', function() {
           console.log('Test Header: Click en dashboard');
-          alert('Dashboard clickeado');
+          showModalMessage('Dashboard clickeado');
         });
       }
       
@@ -142,7 +144,7 @@
             const searchTerm = searchInput.value.trim();
             if (searchTerm) {
               console.log('Test Header: Búsqueda:', searchTerm);
-              alert('Búsqueda: ' + searchTerm);
+              showModalMessage('Búsqueda: ' + searchTerm);
             }
           }
         });

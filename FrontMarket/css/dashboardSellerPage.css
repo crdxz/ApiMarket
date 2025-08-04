@@ -1,3 +1,62 @@
+/* Notificación punto y menú */
+.notification-dot {
+  position: absolute;
+  top: 0.2rem;
+  right: 0.2rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  background: var(--error-color);
+  border-radius: 50%;
+  border: 2px solid var(--background-color);
+  z-index: 2;
+  box-shadow: 0 0 0 2px var(--background-color);
+}
+
+.notification-dropdown {
+  position: absolute;
+  top: 2.5rem;
+  right: 0;
+  min-width: 220px;
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-lg);
+  z-index: 200;
+  padding: 0.5rem 0;
+}
+
+.notification-dropdown-content {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.notification-item {
+  padding: 0.75rem 1.25rem;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.notification-item:last-child {
+  border-bottom: none;
+}
+.notification-item .notification-avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+}
+.notification-item .notification-text {
+  flex: 1;
+}
 :root {
   --primary-color: #6366f1;
   --primary-dark: #4f46e5;

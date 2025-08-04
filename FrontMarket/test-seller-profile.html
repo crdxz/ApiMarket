@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <link rel="stylesheet" href="css/modal.css" />
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>Prueba - Perfil del Vendedor</title>
@@ -10,6 +11,7 @@
   <link rel="stylesheet" href="css/profileSellerPage.css" />
 </head>
 <body>
+  <script src="js/modal.js"></script>
   <div class="layout-container">
     <!-- Header -->
     <header>
@@ -202,11 +204,11 @@
       
       // Configurar botones de acción
       document.getElementById('addProductBtn').addEventListener('click', function() {
-        alert('Funcionalidad de agregar producto en desarrollo');
+        showModalMessage('Funcionalidad de agregar producto en desarrollo');
       });
       
       document.getElementById('editProfileBtn').addEventListener('click', function() {
-        alert('Funcionalidad de editar perfil en desarrollo');
+        showModalMessage('Funcionalidad de editar perfil en desarrollo');
       });
     });
   </script>

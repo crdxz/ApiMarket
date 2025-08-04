@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="css/modal.css" />
   <meta charset="utf-8" />
   <title>Test Create Category</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -8,6 +9,7 @@
   <link rel="stylesheet" href="css/dashboardSellerPage.css" />
 </head>
 <body>
+  <script src="js/modal.js"></script>
   <div class="main_container">
     <header>
       <div class="header-content">
@@ -260,13 +262,13 @@
           await loadCategories();
           // Seleccionar la nueva categoría creada
           createCategory.value = data.category.id;
-          alert('Categoría creada exitosamente');
+          showModalMessage('Categoría creada exitosamente');
         } else {
-          alert('Error al crear categoría: ' + data.error);
+          showModalMessage('Error al crear categoría: ' + data.error);
         }
       } catch (error) {
         console.error('Error al crear categoría:', error);
-        alert('Error al crear categoría');
+        showModalMessage('Error al crear categoría');
       }
     });
 
@@ -296,13 +298,13 @@
         
         if (response.ok) {
           closeCreateModalFunc();
-          alert('Producto creado exitosamente');
+          showModalMessage('Producto creado exitosamente');
         } else {
-          alert('Error al crear producto: ' + data.error);
+          showModalMessage('Error al crear producto: ' + data.error);
         }
       } catch (error) {
         console.error('Error al crear producto:', error);
-        alert('Error al crear producto');
+        showModalMessage('Error al crear producto');
       }
     });
 

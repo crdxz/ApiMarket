@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="css/modal.css" />
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Test Menu - Marketplace</title>
@@ -22,6 +23,7 @@
   </style>
 </head>
 <body>
+  <script src="js/modal.js"></script>
   <div class="test-container">
     <h1 class="text-2xl font-bold mb-8">Test del Menú de Usuario</h1>
     
@@ -94,7 +96,7 @@
 
     logoutBtn.addEventListener('click', function () {
       console.log('Botón de logout clickeado');
-      alert('Botón de logout funcionando correctamente!');
+      showModalMessage('Botón de logout funcionando correctamente!');
     });
 
     // Prevenir que el clic en el menú lo cierre

@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/utilities.css" />
   <link rel="stylesheet" href="css/login.css" />
+  <link rel="stylesheet" href="css/modal.css" />
 </head>
 <body>
   <!-- Modal de Error -->
@@ -138,7 +139,7 @@
       </div>
       
       <div class="forgot-password">
-        <a href="#">¿Olvidaste tu contraseña?</a>
+        <a href="#" id="forgotPasswordLink">¿Olvidaste tu contraseña?</a>
       </div>
       
       <button type="submit" id="loginButton" class="login-button">
@@ -164,5 +165,15 @@
   </div>
 
   <script src="js/login.js"></script>
+</script>
+<script src="js/modal.js"></script>
+</script>
+<script>
+  // Mensaje para funcionalidad en desarrollo de recuperación de contraseña
+  document.getElementById('forgotPasswordLink').addEventListener('click', function(e) {
+    e.preventDefault();
+    showModalMessage('Funcionalidad en desarrollo. Estará disponible en una futura versión.');
+  });
+</script>
 </body>
 </html>

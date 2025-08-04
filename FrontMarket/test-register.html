@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="css/modal.css" />
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Test Register - Marketplace</title>
@@ -12,6 +13,7 @@
   <link rel="stylesheet" href="css/login.css" />
 </head>
 <body>
+  <script src="js/modal.js"></script>
   <div class="login-container">
     <div class="login-header">
       <h1>Test de Registro</h1>
@@ -52,12 +54,12 @@
         const data = await response.json();
         
         if (response.ok) {
-          alert('Registro exitoso: ' + JSON.stringify(data, null, 2));
+          showModalMessage('Registro exitoso: ' + JSON.stringify(data, null, 2));
         } else {
-          alert('Error en registro: ' + data.error);
+          showModalMessage('Error en registro: ' + data.error);
         }
       } catch (error) {
-        alert('Error de conexión: ' + error.message);
+        showModalMessage('Error de conexión: ' + error.message);
       }
     }
   </script>

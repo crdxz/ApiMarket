@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <link rel="stylesheet" href="css/modal.css" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Dashboard - Carga de Productos</title>
@@ -38,6 +39,7 @@
     </style>
 </head>
 <body>
+    <script src="js/modal.js"></script>
     <h1>Test Dashboard - Carga de Productos</h1>
     
     <div class="test-section info">
@@ -201,7 +203,7 @@
         function openDashboard() {
             const user = JSON.parse(localStorage.getItem('user'));
             if (!user) {
-                alert('Primero simula un login de usuario');
+            showModalMessage('Primero simula un login de usuario');
                 return;
             }
             window.open('dashboardSellerPage.html', '_blank');

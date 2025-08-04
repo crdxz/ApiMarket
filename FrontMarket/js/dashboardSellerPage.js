@@ -566,6 +566,68 @@ createCategoryForm.addEventListener('submit', async function(e) {
 
 // Verificar si el usuario está logueado al cargar la página
 document.addEventListener('DOMContentLoaded', function() {
+  // --- Notificaciones de mensajes nuevos del día ---
+  let todayNotifications = [];
+  const notificationBtn = document.getElementById('notificationBtn');
+  const notificationDot = document.getElementById('notificationDot');
+  const notificationMenu = document.getElementById('notificationMenu');
+  const notificationDropdownContent = document.getElementById('notificationDropdownContent');
+
+  // Hook para mostrar notificaciones después de cargar mensajes
+  const originalDisplayMessages = window.displayMessages;
+  window.displayMessages = function(messages) {
+    // Lógica original
+    if (typeof originalDisplayMessages === 'function') {
+      originalDisplayMessages(messages);
+    }
+    // Filtrar mensajes de hoy
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    todayNotifications = messages.filter(msg => {
+      const msgDate = new Date(msg.timestamp);
+      return msgDate >= today;
+    });
+    // Mostrar punto si hay mensajes nuevos hoy
+    if (todayNotifications.length > 0) {
+      notificationDot.style.display = 'block';
+    } else {
+      notificationDot.style.display = 'none';
+    }
+    // Renderizar menú
+    if (todayNotifications.length > 0) {
+      notificationDropdownContent.innerHTML = todayNotifications.map(msg => `
+        <div class="notification-item">
+          <div class="notification-avatar">${msg.buyer?.name?.charAt(0).toUpperCase() || 'U'}</div>
+          <div class="notification-text"><b>${msg.buyer?.name || 'Comprador'}</b> te envió un mensaje nuevo</div>
+        </div>
+      `).join('');
+    } else {
+      notificationDropdownContent.innerHTML = '<div class="notification-item">No tienes mensajes nuevos hoy.</div>';
+    }
+  };
+
+  // Función para mostrar/ocultar el menú de notificaciones
+  function toggleNotificationMenu() {
+    if (notificationMenu.style.display === 'none' || notificationMenu.style.display === '') {
+      notificationMenu.style.display = 'block';
+    } else {
+      notificationMenu.style.display = 'none';
+    }
+  }
+  if (notificationBtn) {
+    notificationBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      toggleNotificationMenu();
+    });
+    document.addEventListener('click', function(e) {
+      if (!notificationMenu.contains(e.target) && !notificationBtn.contains(e.target)) {
+        notificationMenu.style.display = 'none';
+      }
+    });
+  }
+
+  // Cargar mensajes inmediatamente para la campana
+  loadMessages();
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     const userData = localStorage.getItem('user');
     
@@ -786,7 +848,9 @@ function displayMessages(messages) {
         return;
     }
 
-    messagesList.innerHTML = messages.map(message => `
+    // Ordenar mensajes por timestamp descendente (más nuevo primero)
+    const sortedMessages = messages.slice().sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+    messagesList.innerHTML = sortedMessages.map(message => `
         <div class="message-item">
             <div class="message-header">
                 <div class="message-sender">

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="css/modal.css" />
   <meta charset="utf-8" />
   <title>Test Main Products</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -8,6 +9,7 @@
   <link rel="stylesheet" href="css/main.css" />
 </head>
 <body>
+  <script src="js/modal.js"></script>
   <div class="main_container">
     <header>
       <div class="header-content">
@@ -106,7 +108,7 @@
 
       card.addEventListener('click', function () {
         console.log('Producto clickeado:', product);
-        alert(`Producto: ${product.title}\nCategoría: ${product.category_name}\nVendedor: ${product.seller_name}`);
+        showModalMessage(`Producto: ${product.title}\nCategoría: ${product.category_name}\nVendedor: ${product.seller_name}`);
       });
 
       return card;
