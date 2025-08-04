@@ -92,7 +92,13 @@
 
       <div id="productContent" class="product-content hidden">
         <div class="product-gallery">
-          <div id="mainImage" class="main-image" style='background-image: url("https://via.placeholder.com/600x400/CCCCCC/666666?text=Producto")'></div>
+          <div id="mainImage" class="main-image zoomable-image" style='background-image: url("https://via.placeholder.com/600x400/CCCCCC/666666?text=Producto")' title="Haz clic para ampliar"></div>
+          <div id="zoomModal" class="zoom-modal">
+            <span id="closeZoomModal" class="zoom-modal-close">&times;</span>
+            <div class="zoomed-img-container">
+              <img id="zoomedImg" class="zoomed-img" src="" alt="Imagen ampliada del producto" draggable="false" />
+            </div>
+          </div>
         </div>
         
         <div class="product-details">

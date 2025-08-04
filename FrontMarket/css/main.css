@@ -1,3 +1,22 @@
+/* Ordenamiento */
+.sort-section {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.sort-select {
+  padding: 0.4rem 1rem;
+  border: 1.5px solid var(--border-color);
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  background: var(--background-color);
+  transition: border-color 0.2s;
+}
+.sort-select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
 :root {
   --primary-color: #6366f1;
   --primary-dark: #4f46e5;

@@ -88,7 +88,17 @@
       </div>
       
       <div class="products-section">
-        <h2 class="products-title">Productos Disponibles</h2>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;">
+          <h2 class="products-title">Productos Disponibles</h2>
+          <div class="sort-section">
+            <label for="sortSelect" style="font-size: 0.95rem; color: var(--text-secondary); margin-right: 0.5rem;">Ordenar por:</label>
+            <select id="sortSelect" class="sort-select">
+              <option value="fecha_desc">Fecha (más reciente)</option>
+              <option value="precio_desc">Precio (mayor a menor)</option>
+              <option value="precio_asc">Precio (menor a mayor)</option>
+            </select>
+          </div>
+        </div>
         
         <div id="loadingProducts" class="loading-container">
           <div class="loading-spinner"></div>

@@ -22,6 +22,7 @@ let currentCategoryId = null;
 let allProducts = [];
 let filteredProducts = [];
 let currentUser = null;
+let currentSort = 'fecha_desc';
 
 // Verificar si el usuario está logueado al cargar la página
 document.addEventListener('DOMContentLoaded', function() {
@@ -128,7 +129,6 @@ async function loadProducts(categoryId = null) {
         }
         return product;
       }));
-      
       allProducts = productsWithImages;
       applySearchFilter();
     } else {
@@ -141,6 +141,23 @@ async function loadProducts(categoryId = null) {
   } finally {
     showLoading(false);
   }
+}
+
+function sortProducts(products, sortType) {
+  const sorted = [...products];
+  if (sortType === 'precio_desc') {
+    sorted.sort((a, b) => b.price - a.price);
+  } else if (sortType === 'precio_asc') {
+    sorted.sort((a, b) => a.price - b.price);
+  } else if (sortType === 'fecha_desc') {
+    sorted.sort((a, b) => {
+      // Si no hay fecha, lo manda al final
+      const dateA = a.created_at ? new Date(a.created_at) : new Date(0);
+      const dateB = b.created_at ? new Date(b.created_at) : new Date(0);
+      return dateB - dateA;
+    });
+  }
+  return sorted;
 }
 
 function renderProducts(products) {
@@ -233,15 +250,15 @@ function showLoading(show) {
 
 function applySearchFilter() {
   const searchTerm = searchInput.value.toLowerCase().trim();
-
+  let filtered = [];
   if (searchTerm === '') {
-    filteredProducts = allProducts;
+    filtered = allProducts;
   } else {
-    filteredProducts = allProducts.filter(product =>
+    filtered = allProducts.filter(product =>
       product.title.toLowerCase().includes(searchTerm)
     );
   }
-
+  filteredProducts = sortProducts(filtered, currentSort);
   renderProducts(filteredProducts);
 }
 
@@ -273,6 +290,14 @@ allCategoriesBtn.addEventListener('click', function () {
 });
 
 searchInput.addEventListener('input', handleSearch);
+
+const sortSelect = document.getElementById('sortSelect');
+if (sortSelect) {
+  sortSelect.addEventListener('change', function () {
+    currentSort = sortSelect.value;
+    applySearchFilter();
+  });
+}
 
 // Funcionalidad del menú de usuario
 userMenuBtn.addEventListener('click', function (e) {

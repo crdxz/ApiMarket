@@ -56,7 +56,102 @@ document.addEventListener('DOMContentLoaded', function () {
 
   loadProduct(productId);
   setupModalEvents();
+  setupZoomImage();
 });
+
+function setupZoomImage() {
+  const mainImage = document.getElementById('mainImage');
+  const zoomModal = document.getElementById('zoomModal');
+  const zoomedImg = document.getElementById('zoomedImg');
+  const closeZoomModal = document.getElementById('closeZoomModal');
+  const zoomedImgContainer = document.querySelector('.zoomed-img-container');
+
+  if (!mainImage || !zoomModal || !zoomedImg || !closeZoomModal || !zoomedImgContainer) return;
+
+  let scale = 1;
+  let origin = { x: 0, y: 0 };
+  let lastPos = { x: 0, y: 0 };
+  let isDragging = false;
+
+  function resetZoom() {
+    scale = 1;
+    origin = { x: 0, y: 0 };
+    lastPos = { x: 0, y: 0 };
+    zoomedImg.style.transform = '';
+    zoomedImg.style.cursor = 'zoom-in';
+  }
+
+  mainImage.addEventListener('click', function () {
+    const bg = mainImage.style.backgroundImage;
+    const urlMatch = bg.match(/url\(["']?(.*?)["']?\)/);
+    if (urlMatch && urlMatch[1]) {
+      zoomedImg.src = urlMatch[1];
+      zoomModal.classList.add('show');
+      resetZoom();
+    }
+  });
+
+  closeZoomModal.addEventListener('click', function () {
+    zoomModal.classList.remove('show');
+    zoomedImg.src = '';
+  });
+
+  zoomModal.addEventListener('click', function (e) {
+    if (e.target === zoomModal) {
+      zoomModal.classList.remove('show');
+      zoomedImg.src = '';
+    }
+  });
+
+  // Zoom con clic: alterna entre 1x y 2x
+  zoomedImg.addEventListener('click', function (e) {
+    e.stopPropagation();
+    if (scale === 1) {
+      scale = 2;
+      // Centrar el zoom en el punto clickeado
+      const rect = zoomedImg.getBoundingClientRect();
+      const offsetX = e.clientX - rect.left;
+      const offsetY = e.clientY - rect.top;
+      origin.x = rect.width/2 - offsetX;
+      origin.y = rect.height/2 - offsetY;
+      zoomedImg.style.cursor = 'grab';
+    } else {
+      resetZoom();
+      return;
+    }
+    updateTransform();
+  });
+
+  // Arrastrar imagen cuando está ampliada
+  zoomedImg.addEventListener('mousedown', function (e) {
+    if (scale === 1) return;
+    isDragging = true;
+    lastPos = { x: e.clientX, y: e.clientY };
+    zoomedImg.style.cursor = 'grabbing';
+  });
+  document.addEventListener('mousemove', function (e) {
+    if (!isDragging) return;
+    origin.x += e.clientX - lastPos.x;
+    origin.y += e.clientY - lastPos.y;
+    lastPos = { x: e.clientX, y: e.clientY };
+    updateTransform();
+  });
+  document.addEventListener('mouseup', function () {
+    if (isDragging) {
+      isDragging = false;
+      zoomedImg.style.cursor = scale > 1 ? 'grab' : 'zoom-in';
+    }
+  });
+
+  // Doble clic para resetear zoom
+  zoomedImg.addEventListener('dblclick', function () {
+    resetZoom();
+  });
+
+  function updateTransform() {
+    zoomedImg.style.transform = `translate(${origin.x}px, ${origin.y}px) scale(${scale})`;
+  }
+}
 
 async function loadProduct(productId) {
   try {
