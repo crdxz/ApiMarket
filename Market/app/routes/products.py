@@ -214,6 +214,18 @@ def delete_product(product_id):
     """Delete a product permanently"""
     try:
         product = Product.query.get_or_404(product_id)
+        
+        # Import ProductImage model
+        from ..models import ProductImage
+        
+        # Delete associated product images first using raw SQL to ensure it works
+        from sqlalchemy import text
+        db.session.execute(
+            text('DELETE FROM product_images WHERE product_id = :product_id'),
+            {'product_id': product_id}
+        )
+        
+        # Delete the product
         db.session.delete(product)
         db.session.commit()
         
