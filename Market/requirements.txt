@@ -8,3 +8,4 @@ Flask-CORS
 pytest
 pytest-flask
 pytest-cov 
+psutil
